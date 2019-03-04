@@ -10,6 +10,7 @@ var logger = require('morgan');
 var loginRouter = require('./routes/login');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var studentRouter = require('./routes/student');
 
 var app = express();
 
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/login', loginRouter);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/student', studentRouter);
 
 // 使用 session 中间件
 app.use(session({

@@ -4,6 +4,21 @@ html
     include ./common/header_inner.jade
     link(rel='stylesheet', href='/stylesheets/index.css')
   body
-    p bbb
+    div#app
+        div#header
+            .logoWrap
+                img.logo(src="/images/sjbw_logo.png", alt="")
+        div#menuBar
+            p.title 菜单栏
+            ul.menu
+                li(data-url="student/enter")
+                    span 录入学籍信息
+                li(data-url="user/list")
+                    span 用户管理
+                li(data-url="role/list")
+                    span 角色管理
+                li(data-url="system/resetpsw")
+                    span 修改密码
+        div#contentWrap
     include ./common/body_inner.jade
     script(src="/javascripts/index.js" type="text/javascript")
