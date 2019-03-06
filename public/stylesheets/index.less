@@ -16,7 +16,6 @@
     .logoWrap{
         width: 220px;
         height: 100%;
-        // background-color: lighten(@blue, 15%);
         .logo{
             height: 36px;
             margin: 12px;
@@ -29,42 +28,173 @@
     left: 0px;
     bottom: 0px;
     width: 220px;
+    background-color: #fff;
     padding-top: 30px;
-    padding-left: 20px;
+    border-right: 1px solid #ddd;
     p.title{
-        color: #999;
-        font-size: 16px;
+        color: #666;
+        font-size: 18px;
         margin-bottom: 20px;
         display: block;
-        padding-left: 10px;
+        padding-left: 20px;
     }
     .menu{
         li{
             display: block;
-            border: 1px solid #d7d9dd;
-            padding: 12px 20px; 
-            margin-bottom: 10px;
-            background-color: #f7f7f7;
-            .radius(100px);
+            padding: 15px 20px; 
+            border-bottom: 1px solid #e7e7e7;
             .animation();
             span{
                 color: #345;
                 .animation();
             }
+            &.active{
+                background-color: #f0f5f9;
+            }
+            &:first-child{
+                border-top: 1px solid #e7e7e7;
+            }
             &:hover{
                 cursor: pointer;
                 background-color: #f0f5f9;
-                border-color: @blue;
                 span{
                     color: @blue;
                 }
+                &:after{
+                    right: 10px;
+                    border-left-color: @blue;
+                }
+            }
+            &:after{
+                content: '';
+                width:0;
+                height:0;
+                border-top:5px solid transparent;
+                border-bottom: 5px solid transparent;
+                border-left: 5px solid @borderColor;
+                position: absolute;
+                top: 0px;
+                bottom: 0px;
+                right: 12px;
+                margin: auto;
+                .animation();
             }
         }
     }
-    // background-color: #345;
 }
 #contentWrap{
     width: 100%;
     height: 100%;
     overflow: auto;
+    padding: 20px;
+    .formGroup{
+        margin: 0px 20px 15px 20px;
+        min-height: 38px;
+        line-height: 38px;
+        float: left;
+        &:after{
+            content: "."; 
+            display: block; 
+            height: 0; 
+            clear: both; 
+            visibility: hidden;  
+        }  
+        >label{
+            color: #345;
+            display: inline-block;
+            width: 90px;
+            text-align: left;
+            vertical-align: middle;
+            text-align: right;
+            white-space: nowrap;
+            padding-right: 8px;
+        }
+        .inputWrap{
+            display: inline-block;
+            text-align: left;
+            width: 265px;
+            input[type='text'],
+            input[type='password'],
+            input[type='number'],
+            input[type*='date'],
+            input[type='file'],
+            select{
+                height: 36px;
+                width: 100%;
+                border: 1px solid @borderColor;
+                padding: 0px 10px;
+                font-size: 14px;
+                color: #567;
+                letter-spacing: 1px;
+                background-color: #fff;
+                .radius(3px);
+                .animation(.4s);
+                &:hover{
+                    border-color: darken(@borderColor, 12%);
+                }
+                &:focus{
+                    border-color: @blue;
+                }
+            }
+            input[type="file"]{
+                -moz-opacity: 0;
+                -ms-opacity: 0;
+                -webkit-opacity: 0;
+                opacity: 0;  /*css属性——opcity不透明度，取值0-1*/
+                filter: alpha(opacity=0); /*兼容IE8及以下--filter属性是IE特有的，它还有很多其它滤镜效果，而filter: alpha(opacity=0); 兼容IE8及以下的IE浏览器(如果你的电脑IE是8以下的版本，使用某些效果是可能会有一个允许ActiveX的提示,注意点一下就ok啦)*/
+                cursor: pointer;
+            }
+            .radioLabel{
+                display: inline-block;
+                padding: 0px 10px;
+                margin-right: 15px;
+                cursor: pointer;
+            }
+            input[type='checkbox'],
+            input[type='radio']{
+                margin-right: 8px;
+            }
+        }
+        .portraitWrap{
+            width: 144px;
+            height: 195px;
+            border: 5px solid #f7f9fb;
+            .portrait{
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .fileButton{
+
+        }
+    }
+    .buttonList{
+        float: left;
+        width: 100%;
+        margin-top: 20px;
+        button{
+            border: none;
+            .radius(3px);
+            padding: 10px 30px;
+            margin: 0px 15px;
+            color: #fff;
+            font-size: 15px;
+            cursor: pointer;
+            .animation();
+            &[type="submit"]{
+                background-color: @blue;
+                &:hover{
+                    background-color: darken(@blue, 15%);
+                }
+            }
+            &[type="reset"]{
+                background-color: #d7dde7;
+                color: #666;
+                &:hover{
+                    background-color: darken(#d7dde7, 15%);
+                    color: #333;
+                }
+            }
+        }
+    }
 }

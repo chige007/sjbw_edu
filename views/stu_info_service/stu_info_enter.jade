@@ -1,1 +1,96 @@
-p bbb
+div#page_stuInfoEnter(style="text-align: center")
+    form#stuInfoEnterWrap.clear(action="", style="display: inline-block; max-width: 800px; padding-top: 40px;")
+        div.formGroup(style="width: 100%")
+            div.portraitWrap
+                img.portrait(src="", alt="")
+            input(type="file", name="portrait", placeholder="请选择文件")
+            button.fileButton 上传头像
+        div.formGroup
+            label 姓名：
+            div.inputWrap
+                input(type="text", name="name", placeholder="请填写", autofocus="autofocus")
+        div.formGroup
+            label 性别：
+            div.inputWrap
+                label.radioLabel
+                    input(type="radio", name="sex", value="1", checked="checked") 
+                    span 男
+                label.radioLabel
+                    input(type="radio", name="sex", value="0") 
+                    span 女
+        div.formGroup
+            label 民族：
+            div.inputWrap
+                input(type="text", name="nation", placeholder="请填写")
+        div.formGroup
+            label 出身日期：
+            div.inputWrap
+                input(type="date", name="birthday", placeholder="请选择")
+        div.formGroup
+            label 身份证号：
+            div.inputWrap
+                input(type="text", name="id_card", placeholder="请填写")
+        div.formGroup
+            label 毕业院校：
+            div.inputWrap
+                input(type="text", name="graduate_institutions", placeholder="请填写")
+        div.formGroup
+            label 学历类型：
+            div.inputWrap
+                select(name="education_type", placeholder="请选择")
+                    option(value="0") 普通中等教育
+                    option(value="1") 普通高等教育
+        div.formGroup
+            label 专业名称：
+            div.inputWrap
+                input(type="text", name="major", placeholder="请填写")
+        div.formGroup
+            label 学历层次：
+            div.inputWrap
+                select(name="edu_level", placeholder="请选择")
+                    option(value="0") 中专
+                    option(value="1") 大专
+                    option(value="2") 本科
+                    option(value="3") 硕士
+                    option(value="4") 博士
+        div.formGroup
+            label 学习形式：
+            div.inputWrap
+                select(name="edu_level", placeholder="请选择")
+                    option(value="0") 全日制
+                    option(value="1") 普通全日制
+                    option(value="2") 在职
+        div.formGroup
+            label 入学时间：
+            div.inputWrap
+                input(type="date", name="admission_date", placeholder="请选择")
+        div.formGroup
+            label 毕业时间：
+            div.inputWrap
+                input(type="date", name="graduation_date", placeholder="请选择")
+        div.formGroup
+            label 学制：
+            div.inputWrap
+                select(name="edu_year", placeholder="请选择")
+                    option(value="2") 两年
+                    option(value="3") 三年
+                    option(value="4") 四年
+                    option(value="5") 五年
+        div.formGroup
+            label 证书编号：
+            div.inputWrap
+                input(type="text", name="certificate_num", placeholder="请填写")
+        div.formGroup
+            label 毕结业结论：
+            div.inputWrap
+                select(name="name", placeholder="请选择")
+                    option(value="0") 毕业
+                    option(value="1") 结业
+        div.formGroup
+            label 查询网址：
+            div.inputWrap
+                input(type="text", name="check_website", placeholder="请填写")
+        div.buttonList(style="text-align: center")
+            button(type="reset") 重置
+            button(type="submit") 确认提交
+        

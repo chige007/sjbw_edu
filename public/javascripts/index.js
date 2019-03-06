@@ -4,5 +4,7 @@ $(function(){
         $("#contentWrap").load(url, function(d){
             console.log(d);
         });
+        $(this).siblings('li').removeClass('active');
+        $(this).addClass('active');
     });
 });
