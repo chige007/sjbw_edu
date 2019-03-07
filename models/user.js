@@ -1,9 +1,10 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var userSchema = new Schema({
-    username: String,
-    password: String,
-    role_id: String
+var mongoose = require('./../db');
+
+var Schema = new mongoose.Schema({
+    username: {type: String},
+    password: {type: String},
+    role_id: {type: String}
 });
-var User = mongoose.model('user', userSchema, 'user');
-module.exports = User;
+
+var Model = mongoose.model('user', Schema, 'user');
+module.exports = Model;
