@@ -16,7 +16,19 @@ var Schema = new mongoose.Schema({
     edu_year: {type: String},
     certificate_num: {type: String},
     edu_conclusion: {type: String},
-    check_website: {type: String}
+    check_website: {type: String},
+    portrait_url: {type: String},
+    createTime: {
+        type: Date,
+        default: Date.now
+    },
+    updateTime: {
+        type: Date,
+        default: Date.now
+    }
+},{
+    versionKey: false,
+    timestamps: { createdAt: 'createTime', updatedAt: 'updateTime' }
 });
 
 var Model = mongoose.model('student', Schema, 'student');

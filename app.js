@@ -1,7 +1,7 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-// var cookieParser = require('cookie-parser');
+var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var lessMiddleware = require('less-middleware');
@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(cookieParser());
+app.use(cookieParser());
 app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -34,9 +34,10 @@ app.use('/student', studentRouter);
 
 // 使用 session 中间件
 app.use(session({
-    secret :  'secret', // 对session id 相关的cookie 进行签名
-    resave : true,
-    saveUninitialized: false, // 是否保存未初始化的会话
+    secret :  'sjbw_123', // 对session id 相关的cookie 进行签名
+    name: 'sjbw_session',
+    resave : false,
+    saveUninitialized: true, // 是否保存未初始化的会话
     cookie : {
         maxAge : 1000 * 60 * 3, // 设置 session 的有效时间，单位毫秒
     },
