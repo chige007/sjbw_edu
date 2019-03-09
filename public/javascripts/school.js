@@ -17,12 +17,18 @@ $(function(){
                         success: function(d){
                             if(d.code == 0){
                                 $("#schoolList").bootstrapTable('refresh');
+                                $("#modal_school").modal('hide');
                             }
                         }
                     })
+                }else{
+                    $.tipsShow(d);
                 }
             }
         })
+    });
+    $("#modal_school").on('hidden.bs.modal', function(){
+        $("#form_addSchool")[0].reset();
     });
     $("#schoolList").initTable({
         search: true,//是否有关键字查询

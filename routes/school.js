@@ -3,23 +3,31 @@ var router = express.Router();
 const Sender = require('./../modules/sender');
 const School = require('./../models/school');
 
-router.get('/list', function(req, res, next) {
+router.get('/list', (req, res, next) => {
     res.render('school/school_list');
 });
 
-router.post('/list/get', function(req, res, next) {
+router.post('/list/get', (req, res, next) => {
     console.log(req.body);
-    res.send({
-        total: 10,
-        rows: [{
-            id: 1,
-            code: '123',
-            name: 'asdf'
-        }]
+    var offset = parseInt(req.body.offset);
+    var pageSize = parseInt(req.body.limit);
+    var sort = req.body.sort;
+    var query = School.find({});
+    query.skip(offset).limit(pageSize).sort(sort).exec((err, rs) => {
+        if(err){
+            res.send(err);
+        }else{
+            School.find((err,result) => {
+                res.send({
+                    total: result.length,
+                    rows: rs
+                });
+            });
+        }
     });
 });
 
-router.post('/checkCode', function(req, res, next) {
+router.post('/checkCode', (req, res, next) => {
     var code = req.body.code
     School.countDocuments({
         code: code
@@ -27,7 +35,6 @@ router.post('/checkCode', function(req, res, next) {
         if(err){
             console.log(err)
         }else{
-            console.log(count);
             if(!count){
                 var sender = new Sender().getData();
                 res.send(sender);
@@ -42,7 +49,7 @@ router.post('/checkCode', function(req, res, next) {
     });
 });
 
-router.post('/add', function(req, res, next) {
+router.post('/add', (req, res, next) => {
     var formData = req.body;
     console.log(formData);
     var schoolData = new School({
@@ -65,11 +72,11 @@ router.post('/add', function(req, res, next) {
     });
 });
 
-router.post('/get', function(req, res, next) {
+router.post('/get', (req, res, next) => {
 
 });
 
-router.post('/update', function(req, res, next) {
+router.post('/update', (req, res, next) => {
 
 });
 

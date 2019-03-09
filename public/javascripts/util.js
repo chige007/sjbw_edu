@@ -80,6 +80,7 @@ $(function(){
                 checkboxHeader: true,
                 sortable: true,
                 sidePagination: "server",
+                // dataField: "data['rows']",
                 sortName: options.sort || "updateTime",
                 sortOrder: options.order || "desc",
                 uniqueId: "id",

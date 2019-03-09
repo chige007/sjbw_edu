@@ -6,7 +6,7 @@
         button.btn.btn-default(type='button') 
             span.glyphicon.glyphicon-remove
             | 批量删除
-        button.btn.btn-default(type='button')
+        button.btn.btn-default(type='button', onclick="$('#schoolList').bootstrapTable('refresh')")
             span.glyphicon.glyphicon-repeat
             | 刷新
 table#schoolList
