@@ -8,17 +8,42 @@ html
         div#header
             .logoWrap
                 img.logo(src="/images/sjbw_logo.png", alt="")
+            .userInfo
+                span 您好！#{username}
+                a.logout(href="/login/logout") [安全退出]
         div#menuBar
-            p.title 菜单栏
-            ul.menu
-                li(data-url="student/enter")
-                    span 录入学籍信息
-                li(data-url="user/list")
-                    span 用户管理
-                li(data-url="role/list")
-                    span 角色管理
-                li(data-url="system/resetpsw")
-                    span 修改密码
+            p.title 菜单
+            .list-group
+                a.list-group-item(data-url='/student' href="javascript:void(0)")
+                    span.glyphicon.glyphicon-pencil
+                    | 学籍信息录入
+                    span.glyphicon.glyphicon-chevron-right
+                a.list-group-item(data-url='/student/list' href="javascript:void(0)")
+                    span.glyphicon.glyphicon-th-list
+                    | 学籍信息管理
+                    span.glyphicon.glyphicon-chevron-right
+                a.list-group-item(data-url='/school/list' href="javascript:void(0)")
+                    span.glyphicon.glyphicon-home
+                    | 学校管理
+                    span.glyphicon.glyphicon-chevron-right
+                //- a.list-group-item(href='#')
+                //-     span.glyphicon.glyphicon-pencil
+                //-     |       学籍信息录入
+                //- a.list-group-item(href='#')
+                //-     span.glyphicon.glyphicon-pencil
+                //-     |       学籍信息录入
+        //-     p.title 菜单栏
+        //-     ul.menu
+        //-         li(data-url="/student")
+        //-             span 录入学籍信息
+        //-         li(data-url="/student/list")
+        //-             span 学籍管理
+        //-         li(data-url="")
+        //-             span 用户管理
+        //-         li(data-url="/student/add/success")
+        //-             span 角色管理
+        //-         li(data-url="/system/resetpsw")
+        //-             span 修改密码
         div#contentWrap
     include ./common/body_inner.jade
     script(src="/javascripts/index.js" type="text/javascript")

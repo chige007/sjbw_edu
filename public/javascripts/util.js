@@ -31,26 +31,24 @@ $(function(){
         },
         tipsShow: function(msgObj){
             msgObj = msgObj || {};
-            var tipsBox = $('#global_simpleTips');
-            var box = $(tipsBox).find('.box');
-            $(box).text(msgObj.msg);
-            var boxClass = '';
+            var tipsBox = $('#topTips');
+            $(tipsBox).find('span').text(msgObj.msg);
+            var boxClass = 'alert-info';
             if(msgObj.code == 0 || msgObj.code == 'success'){
-                boxClass = 'success';
+                boxClass = 'alert-success';
             }else if(msgObj.code == 1 || msgObj.code == 'error'){
-                boxClass = 'error';
+                boxClass = 'alert-danger';
             }else if(msgObj.code == 'warn'){
-                boxClass = 'warn';
+                boxClass = 'alert-warning';
             }
-            $(box).addClass(boxClass);
-            $(tipsBox).addClass('show');
+            $(tipsBox).addClass(boxClass + ' show');
             T_TIPS = setTimeout(function(){
                 $.tipsHide();
             }, 3000);
         },
         tipsHide: function(){
             clearTimeout(T_TIPS);
-            var tipsBox = $('#global_simpleTips');
+            var tipsBox = $('#topTips');
             $(tipsBox).removeClass('show');
         }
     });
@@ -63,14 +61,56 @@ $(function(){
             console.log('loadingShow');
         },
         setError: function(){
-            $(this).addClass('error');
+            $(this).closest('.form-group').addClass('has-error');
+        },
+        removeError: function(){
+            $(this).closest('.form-group').removeClass('has-error');
+        },
+        initTable: function(options){
+            options = options || {};
+            var defaultOpts = {
+                url: "",
+                sendData: options.sendData || {},
+                method:'POST',
+                dataType:'json',
+                contentType: "application/x-www-form-urlencoded",
+                cache: false,
+                striped: true,
+                searchOnEnterKey: true,
+                checkboxHeader: true,
+                sortable: true,
+                sidePagination: "server",
+                sortName: options.sort || "updateTime",
+                sortOrder: options.order || "desc",
+                uniqueId: "id",
+                pagination: true,
+                pageNumber: 1,
+                pageSize: 10,
+                clickToSelect: true
+            }
+            $.extend(true,defaultOpts,options);
+            $(this).on("load-success.bs.table",function(){
+                // $(this).find("[data-toggle='tooltip']").initToolTips();
+            });
+            $(this).bootstrapTable(defaultOpts);
+        },
+        formValid: function(){
+            var flag = true;
+            $(this).find('input,select,textarea').each(function(e){
+                if(!this.value){
+                    $(this).setError();
+                    $.tipsShow({
+                        code: 1,
+                        msg: '请完善表单'
+                    })
+                    flag = false;
+                }
+            });
+            return flag;
         }
     });
 
-    $('#global_simpleTips').on('click', function(){
-        $.tipsHide();
-    });
     $('input,select,textarea').on('input change', function(){
-        $(this).removeClass('error');
+        $(this).removeError();
     });
 });

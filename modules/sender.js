@@ -1,4 +1,5 @@
 function Sender(options){
+    options = options || {};
     var code = options.code || 0;
     var msg = options.msg || "操作成功";
     var data = options.data || {};

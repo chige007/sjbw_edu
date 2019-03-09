@@ -11,6 +11,7 @@ var loginRouter = require('./routes/login');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var studentRouter = require('./routes/student');
+var schoolRouter = require('./routes/school');
 
 var app = express();
 
@@ -27,11 +28,6 @@ app.use(cookieParser());
 app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/login', loginRouter);
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/student', studentRouter);
-
 // 使用 session 中间件
 app.use(session({
     secret :  'sjbw_123', // 对session id 相关的cookie 进行签名
@@ -39,9 +35,14 @@ app.use(session({
     resave : false,
     saveUninitialized: true, // 是否保存未初始化的会话
     cookie : {
-        maxAge : 1000 * 60 * 3, // 设置 session 的有效时间，单位毫秒
+        maxAge : 1000 * 60 * 60, // 设置 session 的有效时间，单位毫秒
     },
 }));
+app.use('/login', loginRouter);
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/student', studentRouter);
+app.use('/school', schoolRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

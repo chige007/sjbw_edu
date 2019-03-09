@@ -14,11 +14,24 @@
     background-color: #fff;
     border-bottom: 2px solid @blue;
     .logoWrap{
+        display: inline-block;
         width: 220px;
         height: 100%;
         .logo{
             height: 36px;
             margin: 12px;
+        }
+    }
+    .userInfo{
+        float: right;
+        padding: 0px 20px;
+        line-height: 60px;
+        .logout{
+            margin-left: 10px;
+            color: #999;
+            &:hover{
+                color: @blue;
+            }
         }
     }
 }
@@ -28,15 +41,36 @@
     left: 0px;
     bottom: 0px;
     width: 220px;
-    background-color: #fff;
-    padding-top: 30px;
-    border-right: 1px solid #ddd;
+    padding-top: 20px;
+    padding-left: 15px;
     p.title{
         color: #666;
         font-size: 18px;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
         display: block;
-        padding-left: 20px;
+    }
+    .list-group{
+        .list-group-item{
+            padding-right: 12px;
+            padding-top: 12px;
+            padding-bottom: 12px;
+            white-space: nowrap;
+            .glyphicon{
+                margin-right: 8px;
+                top: 2px;
+            }
+            .glyphicon-chevron-right{
+                color: #999;
+                float: right;
+                margin-right: 0px;
+            }
+            &.active{
+                color: #fff;
+                .glyphicon{
+                    color: #fff;
+                }
+            }
+        }
     }
     .menu{
         li{
@@ -186,6 +220,10 @@
         float: left;
         width: 100%;
         margin-top: 20px;
+        a{
+            display: inline-block;
+        }
+        a,
         button{
             border: none;
             .radius(3px);
@@ -210,5 +248,39 @@
                 }
             }
         }
+    }
+}
+
+#operationTips{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    margin: auto;
+    height: 300px;
+    width: 600px;
+    text-align: center;
+    .bigTips{
+        img{
+            display: inline-block;
+            vertical-align: middle;
+            width: 48px;
+            height: 48px;
+            margin-right: 10px;
+        }
+        span{
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 30px;
+            &.success{
+                color: @green;
+            }
+        }
+    }
+    .smallTips{
+        font-size: 16px;
+        color: #888;
+        margin-top: 20px;
     }
 }

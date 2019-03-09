@@ -1,5 +1,5 @@
 div#page_stuInfoEnter(style="text-align: center")
-    form#stuInfoEnterWrap.clear(action="/student/save", method="post", style="display: inline-block; max-width: 800px; padding-top: 40px;")
+    form#stuInfoEnterWrap.clear(action="/student/add", method="post", enctype="multipart/form-data", style="display: inline-block; max-width: 800px; padding-top: 40px;")
         div.formGroup(style="width: 355px; height: 201px")
             div.portraitWrap
                 img.portrait(src="/images/portrait.png", alt="头像")
@@ -8,7 +8,7 @@ div#page_stuInfoEnter(style="text-align: center")
         div.formGroup
             label 姓名：
             div.inputWrap
-                input(type="text", name="name", placeholder="请填写", autofocus="autofocus")
+                input(type="text", name="name", placeholder="请填写", autofocus="autofocus", value="test")
         div.formGroup
             label 性别：
             div.inputWrap
@@ -25,15 +25,15 @@ div#page_stuInfoEnter(style="text-align: center")
         div.formGroup
             label 出身日期：
             div.inputWrap
-                input(type="date", name="birthday", placeholder="请选择")
+                input(type="date", name="birthday", placeholder="请选择", value="1991-02-12")
         div.formGroup
             label 身份证号：
             div.inputWrap
-                input(type="text", name="id_card", placeholder="请填写")
+                input(type="text", name="id_card", placeholder="请填写", value="23435345")
         div.formGroup
             label 毕业院校：
             div.inputWrap
-                input(type="text", name="graduate_institutions", placeholder="请填写")
+                input(type="text", name="graduate_institutions", placeholder="请填写", value="test")
         div.formGroup
             label 学历类型：
             div.inputWrap
@@ -43,7 +43,7 @@ div#page_stuInfoEnter(style="text-align: center")
         div.formGroup
             label 专业名称：
             div.inputWrap
-                input(type="text", name="major", placeholder="请填写")
+                input(type="text", name="major", placeholder="请填写", value="test")
         div.formGroup
             label 学历层次：
             div.inputWrap
@@ -63,11 +63,11 @@ div#page_stuInfoEnter(style="text-align: center")
         div.formGroup
             label 入学时间：
             div.inputWrap
-                input(type="date", name="admission_date", placeholder="请选择")
+                input(type="date", name="admission_date", placeholder="请选择", value="2019-01-23")
         div.formGroup
             label 毕业时间：
             div.inputWrap
-                input(type="date", name="graduation_date", placeholder="请选择")
+                input(type="date", name="graduation_date", placeholder="请选择", value="2019-01-23")
         div.formGroup
             label 学制：
             div.inputWrap
@@ -79,7 +79,7 @@ div#page_stuInfoEnter(style="text-align: center")
         div.formGroup
             label 证书编号：
             div.inputWrap
-                input(type="text", name="certificate_num", placeholder="请填写")
+                input(type="text", name="certificate_num", placeholder="请填写", value="23345345345345")
         div.formGroup
             label 毕结业结论：
             div.inputWrap

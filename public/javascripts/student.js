@@ -12,12 +12,12 @@ $(function(){
         }
     });
     $("#stuInfoEnterWrap").find('input,select,textarea').on('input change', function(){
-        $(this).removeClass('error');
+        $(this).removeError();
     });
     $("#page_stuInfoEnter .submit").on('click', function(){
         $("#stuInfoEnterWrap").find('input,select,textarea').each(function(e){
             if(!this.value){
-                $(this).addClass('error');
+                $(this).setError();
                 $.tipsShow({
                     code: 0,
                     msg: '请完善表单'

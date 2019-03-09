@@ -1,0 +1,35 @@
+#toolbar_schoolList
+    .btn-group(role='group')
+        button.btn.btn-default(type='button', data-toggle="modal", data-target="#modal_school") 
+            span.glyphicon.glyphicon-plus
+            | 新增
+        button.btn.btn-default(type='button') 
+            span.glyphicon.glyphicon-remove
+            | 批量删除
+        button.btn.btn-default(type='button')
+            span.glyphicon.glyphicon-repeat
+            | 刷新
+table#schoolList
+
+#modal_school.modal.fade(tabindex='-1', role='dialog')
+    .modal-dialog(role='document')
+        .modal-content
+            .modal-header
+                h4.modal-title 添加学校信息
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span.glyphicon.glyphicon-remove(aria-hidden='true')
+            .modal-body(style="padding-right: 50px;padding-top: 30px;")
+                form#form_addSchool.form-horizontal    
+                    .form-group
+                        label.col-sm-3.control-label 唯一标识：
+                        .col-sm-9 
+                            input#username.form-control(type='text', placeholder='请输入唯一标识', name="code")
+                    .form-group
+                        label.col-sm-3.control-label 学校名：
+                        .col-sm-9 
+                            input#password.form-control(type='text', placeholder='请输入学校名', name="name")
+            .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') 关闭
+                button.btn.btn-primary(type='button') 保存
+
+script(src="/javascripts/school.js" type="text/javascript")

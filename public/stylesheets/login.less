@@ -7,92 +7,44 @@ body{
     height: 60px;
 }
 .loginBox{
-    width: 420px;
-    height: 330px;
+    width: 430px;
+    height: 320px;
     position: absolute;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     margin: auto;
-    text-align: center;
+    padding: 0 40px;
     background-color: #fff;
     .boxShadow(0px 0px 20px #bbb);
     .radius(12px);
     .title{
         font-size: 18px;
-        margin-bottom: 35px;
+        margin-bottom: 30px;
         margin-top: 30px;
         letter-spacing: 2px;
+        text-align: center;
     }
-    .formDiv{
-        .formGroup{
-            margin-bottom: 20px;
-            label{
-                color: #345;
-                display: inline-block;
-                width: 70px;
-                text-align: left;
-            }
-            input{
-                height: 40px;
-                width: 230px;
-                border: 1px solid @borderColor;
-                padding: 0px 10px;
-                font-size: 14px;
-                color: #567;
-                letter-spacing: 1px;
-                .radius(3px);
-                .animation(.4s);
-                &:hover{
-                    border-color: darken(@borderColor, 12%);
-                }
-                &:focus{
-                    border-color: @blue;
-                }
+    .form-group{
+        >label{
+            color: #444;
+            padding-right: 0px;
+            padding-top: 9px;
+            >.glyphicon{
+                color: #444;
+                font-size: 15px;
+                top: 2px;
             }
         }
-        .pswSetting{
-            .pswSettingWrap{
-                overflow: hidden;
-                width: 300px;
-                margin: 0px auto;
-                .rememberPswWrap{
-                    cursor: pointer;
-                    float: left;
-                    input{
-                        margin-right: 5px;
-                        vertical-align: middle;
-                    }
-                    span{
-                        vertical-align: middle;
-                    }
-                }
-                .forgetPswWrap{
-                    cursor: pointer;
-                    float: right;
-                    a{
-                        &:hover{
-                            color: @blue;
-                        }
-                    }
-                }
-            }
+        .form-control{
+            height: 38px;
         }
-        .loginBtn{
-            width: 300px;
-            height: 45px;
-            background-color: @blue;
-            color: #fff;
-            border: none;
-            font-size: 16px;
-            margin-top: 20px;
-            cursor: pointer;
-            .radius(4px);
-            .animation(.4s);
-            &:hover{
-                background-color: darken(@blue, 15%);
-            }
-        }
+    }
+    .checkbox{
+        text-align: right;
+    }
+    .btn{
+        margin-top: 20px;
     }
 }
