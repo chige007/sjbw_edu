@@ -10,9 +10,22 @@ $(function(){
                 }
                 $("#stuInfoEnterWrap [name='graduate_institutions']").append("<option value="+d.rows[i].code+" "+ selected +">"+d.rows[i].name+"</option>")
             }
-            $("#stuInfoEnterWrap [name='graduate_institutions']").on('change', function(e){
-                var schoolName = $(this).find("[value='"+ this.value +"']").text();
-                $("#stuInfoEnterWrap [name='graduate_institutions_name']").val(schoolName);
+            if($("#stuInfoEnterWrap [name='_id']").val()){
+                $("#stuInfoEnterWrap [name='graduate_institutions']").on('change', function(e){
+                    var schoolName = $(this).find("[value='"+ this.value +"']").text();
+                    $("#stuInfoEnterWrap [name='graduate_institutions_name']").val(schoolName);
+                });
+    
+                $("#stuInfoEnterWrap").find("select").each(function(i, e){
+                    var value = $(this).attr('data-value');
+                    $(this).find('[value='+ value +']').prop('selected',true).attr('selected','selected').siblings('option').prop('selected',false).removeAttr('selected');
+                });
+            }
+
+            $("#stuInfoEnterWrap").find("[type='radio']").each(function(i, e){
+                var value = $(this).attr('data-value');
+                if(value == this.value)
+                    $(this).prop('checked',true).attr('checked','checked');
             });
         }
     });
@@ -38,19 +51,6 @@ $(function(){
         var _id = $("#stuInfoEnterWrap").find("[name='_id']").val();
         var valid = $("#stuInfoEnterWrap").formValid();
         if(!valid)return;
-        // if(FormData){
-        //     var formData = new FormData($("#stuInfoEnterWrap")[0]);
-        //     $.myAjax({
-        //         url: _id ? '/student/update' : '/student/add',
-        //         data: formData,
-        //         processData: false,
-        //         contentType: false,
-        //         success: function(d){
-        //             console.log(d);
-        //         }
-        //     })
-        // }else{
-            $("#stuInfoEnterWrap").submit();
-        // }
+        $("#stuInfoEnterWrap").submit();
     });
 });

@@ -85,6 +85,7 @@ router.post('/update', upload.single('portrait'), (req, res, next) => {
         if(x != '_id' && x != 'portrait_url')
             newData[x] = req.body[x];
     }
+    console.log(newData);
     if(req.file){
         Student.findOne(condition, (err, result) => {
             if(err){
