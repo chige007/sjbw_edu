@@ -1,6 +1,7 @@
 div#page_stuInfoEnter(style="text-align: center")
     form#stuInfoEnterWrap.clear(action="#{studentInfo._id?'/student/update':'/student/add'}", method="post", enctype="multipart/form-data", target="iframe_studentSubmit", style="display: inline-block; max-width: 800px; padding-top: 40px;")
-        input(type="hidden", name="_id", value="#{studentInfo._id || ''}", novalid="true")
+        if studentInfo._id
+            input(type="hidden", name="_id", value="#{studentInfo._id}")
         div.formGroup(style="width: 355px; height: 201px")
             div.portraitWrap
                 img.portrait(src="#{studentInfo.portrait_url || '/images/portrait.png'}", alt="头像")
