@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    include ./../common/header_inner.jade
+    link(rel='stylesheet', href='/stylesheets/login.css')
+  body
+    div.loginBox(style="height: 290px")
+        p.title 学籍信息查询
+        form#loginForm.form-horizontal(action="/student/get", method="POST")
+            .form-group
+                label.col-sm-3.control-label(for='name') 姓　名：
+                .col-sm-9 
+                    input#name.form-control(type='text', placeholder='请输入姓名', name="name")
+            .form-group
+                label.col-sm-3.control-label(for='id_card') 身份证号：
+                .col-sm-9 
+                    input#id_card.form-control(type='id_card', placeholder='请输入身份证号', name="id_card")
+            button#loginBtn.btn.btn-primary.btn-block.btn-lg(type='button', style="margin-top: 30px;") 查　询
+    include ./../common/body_inner.jade
+    script(src="/javascripts/studentSearch.js" type="text/javascript")

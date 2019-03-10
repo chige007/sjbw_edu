@@ -24,7 +24,7 @@ $(function(){
             field: 'birthday',
             title: '出生日期'
         },{
-            field: 'graduate_institutions',
+            field: 'graduate_institutions_name',
             title: '毕业院校'
         },{
             field: 'education_type',
@@ -62,22 +62,22 @@ $(function(){
                     $.myAjax({
                         url: '/student/delete',
                         data: {
-                            _id: value
+                            _id: value,
+                            portrait_url: row.portrait_url
                         },
                         success: function(d){
                             $.tipsShow(d);
-                            $("#schoolList").bootstrapTable('refresh');
+                            $("#studentList").bootstrapTable('refresh');
                         }
                     });
                 },
+                'click .check' : function(e, value, row, index){
+                    e.stopPropagation();
+                    $("#modal_student_check").modal('show').find('.modal-body').load('/student/get', {'_id': value});
+                },
                 'click .update': function (e, value, row, index){
                     e.stopPropagation();
-                    $("#form_addSchool").find('[name]').each(function(i, e){
-                        var name = $(this).attr('name');
-                        $(this).val(row[name]);
-                    });
-                    $("#form_addSchool").find('[name="code"]').attr('readonly','readonly');
-                    $("#modal_school").modal('show');
+                    $("#modal_student_update").modal('show').find('.modal-body').load('/student', {'_id': value});
                 }
             }
         }]

@@ -8,6 +8,7 @@ var Schema = new mongoose.Schema({
     birthday: {type: String},
     id_card: {type: String},
     graduate_institutions: {type: String},
+    graduate_institutions_name: {type: String},
     education_type: {type: String},
     major: {type: String},
     edu_level: {type: String},

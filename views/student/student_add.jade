@@ -1,23 +1,26 @@
 div#page_stuInfoEnter(style="text-align: center")
-    form#stuInfoEnterWrap.clear(action="/student/add", method="post", enctype="multipart/form-data", style="display: inline-block; max-width: 800px; padding-top: 40px;")
+    form#stuInfoEnterWrap.clear(action="#{studentInfo._id?'/student/update':'/student/add'}", method="post", enctype="multipart/form-data", target="iframe_studentSubmit", style="display: inline-block; max-width: 800px; padding-top: 40px;")
+        input(type="hidden", name="_id", value="#{studentInfo._id || ''}", novalid="true")
         div.formGroup(style="width: 355px; height: 201px")
             div.portraitWrap
-                img.portrait(src="/images/portrait.png", alt="头像")
-                input(type="file", name="portrait", placeholder="请选择文件",  accept="image/x-png,image/gif,image/jpeg,image/bmp,image/jpeg,image/png")
-                button.fileButton(type="button") 上传头像
-        div.formGroup
-            label 所属学校：
-            div.inputWrap
-                select(name="school_code", placeholder="请选择")
+                img.portrait(src="#{studentInfo.portrait_url || '/images/portrait.png'}", alt="头像")
+                if !studentInfo._id
+                    input(type="file", name="portrait", placeholder="请选择文件",  accept="image/x-png,image/gif,image/jpeg,image/bmp,image/jpeg,image/png")
+                else
+                    input(type="file", name="portrait", placeholder="请选择文件",  accept="image/x-png,image/gif,image/jpeg,image/bmp,image/jpeg,image/png", disabled="disabled")
+                if !studentInfo._id
+                    button.fileButton(type="button") 上传头像
+                else
+                    button.changeFileButton(type="button") 修改头像
         div.formGroup
             label 姓名：
             div.inputWrap
-                input(type="text", name="name", placeholder="请填写", autofocus="autofocus", value="test")
+                input(type="text", name="name", placeholder="请填写", autofocus="autofocus", value="#{studentInfo.name || ''}")
         div.formGroup
             label 性别：
             div.inputWrap
                 label.radioLabel
-                    input(type="radio", name="sex", value="男", checked="checked") 
+                    input(type="radio", name="sex", value="男") 
                     span 男
                 label.radioLabel
                     input(type="radio", name="sex", value="女") 
@@ -25,33 +28,34 @@ div#page_stuInfoEnter(style="text-align: center")
         div.formGroup
             label 民族：
             div.inputWrap
-                input(type="text", name="nation", placeholder="请填写", value="汉")
+                input(type="text", name="nation", placeholder="请填写", value="#{studentInfo.nation || '汉'}")
         div.formGroup
             label 出身日期：
             div.inputWrap
-                input(type="date", name="birthday", placeholder="请选择", value="1991-02-12")
+                input(type="date", name="birthday", placeholder="请选择", value="#{studentInfo.birthday || ''}")
         div.formGroup
             label 身份证号：
             div.inputWrap
-                input(type="text", name="id_card", placeholder="请填写", value="23435345")
+                input(type="text", name="id_card", placeholder="请填写", value="#{studentInfo.id_card || ''}")
         div.formGroup
             label 毕业院校：
             div.inputWrap
-                input(type="text", name="graduate_institutions", placeholder="请填写", value="test")
+                select(name="graduate_institutions", placeholder="请选择", value="#{studentInfo.graduate_institutions || ''}")
+                input(type="hidden", name="graduate_institutions_name")
         div.formGroup
             label 学历类型：
             div.inputWrap
-                select(name="education_type", placeholder="请选择")
+                select(name="education_type", placeholder="请选择", value="#{studentInfo.education_type || '普通中等教育'}")
                     option(value="普通中等教育") 普通中等教育
                     option(value="普通高等教育") 普通高等教育
         div.formGroup
             label 专业名称：
             div.inputWrap
-                input(type="text", name="major", placeholder="请填写", value="test")
+                input(type="text", name="major", placeholder="请填写", value="#{studentInfo.major || ''}")
         div.formGroup
             label 学历层次：
             div.inputWrap
-                select(name="edu_level", placeholder="请选择")
+                select(name="edu_level", placeholder="请选择", value="#{studentInfo.edu_level || '中专'}")
                     option(value="中专") 中专
                     option(value="大专") 大专
                     option(value="本科") 本科
@@ -60,22 +64,22 @@ div#page_stuInfoEnter(style="text-align: center")
         div.formGroup
             label 学习形式：
             div.inputWrap
-                select(name="edu_type", placeholder="请选择")
+                select(name="edu_type", placeholder="请选择", value="#{studentInfo.edu_type || '全日制'}")
                     option(value="全日制") 全日制
                     option(value="普通全日制") 普通全日制
                     option(value="在职") 在职
         div.formGroup
             label 入学时间：
             div.inputWrap
-                input(type="date", name="admission_date", placeholder="请选择", value="2019-01-23")
+                input(type="date", name="admission_date", placeholder="请选择", value="#{studentInfo.admission_date || ''}")
         div.formGroup
             label 毕业时间：
             div.inputWrap
-                input(type="date", name="graduation_date", placeholder="请选择", value="2019-01-23")
+                input(type="date", name="graduation_date", placeholder="请选择", value="#{studentInfo.graduation_date || ''}")
         div.formGroup
             label 学制：
             div.inputWrap
-                select(name="edu_year", placeholder="请选择")
+                select(name="edu_year", placeholder="请选择", value="#{studentInfo.edu_year || '三年'}")
                     option(value="两年") 两年
                     option(value="三年") 三年
                     option(value="四年") 四年
@@ -83,18 +87,19 @@ div#page_stuInfoEnter(style="text-align: center")
         div.formGroup
             label 证书编号：
             div.inputWrap
-                input(type="text", name="certificate_num", placeholder="请填写", value="23345345345345")
+                input(type="text", name="certificate_num", placeholder="请填写", value="#{studentInfo.certificate_num || ''}")
         div.formGroup
             label 毕结业结论：
             div.inputWrap
-                select(name="edu_conclusion", placeholder="请选择")
+                select(name="edu_conclusion", placeholder="请选择", value="#{studentInfo.edu_conclusion || '毕业'}")
                     option(value="毕业") 毕业
                     option(value="结业") 结业
-        //- div.formGroup
-        //-     label 查询网址：
-        //-     div.inputWrap
-        //-         input(type="text", name="check_website", placeholder="请填写", value="www.ahjzgc.org.cn")
+        div.formGroup
+            label 查询网址：
+            div.inputWrap
+                input(type="text", name="check_website", placeholder="请填写", value="#{studentInfo.check_website || 'www.ahjzgc.org.cn'}")
         div.buttonList(style="text-align: center")
             button.reset(type="reset") 重置
             button.submit(type="button") 确认提交
+iframe#iframe_studentSubmit(src="", frameborder="0", name="iframe_studentSubmit", height="0px", width="0px")
 script(src="/javascripts/student.js" type="text/javascript")

@@ -41,6 +41,7 @@ $(function(){
             }else if(msgObj.code == 'warn'){
                 boxClass = 'alert-warning';
             }
+            $(tipsBox).removeClass("alert-info alert-success alert-danger alert-warning")
             $(tipsBox).addClass(boxClass + ' show');
             T_TIPS = setTimeout(function(){
                 $.tipsHide();
@@ -131,7 +132,7 @@ $(function(){
         formValid: function(){
             var flag = true;
             $(this).find('input,select,textarea').each(function(e){
-                if(!this.value && !$(this).attr('novalid')){
+                if(!this.value && !$(this).attr('novalid') && !$(this).prop('disabled')){
                     $(this).setError();
                     $.tipsShow({
                         code: 1,

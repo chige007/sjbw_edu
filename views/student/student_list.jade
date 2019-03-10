@@ -1,8 +1,8 @@
 #toolbar_studentList
     .btn-group(role='group')
-        button.btn.btn-default(type='button', data-toggle="modal", data-target="#modal_school") 
-            span.glyphicon.glyphicon-plus
-            | 新增
+        //- button.btn.btn-default(type='button', data-toggle="modal", data-target="#modal_school") 
+        //-     span.glyphicon.glyphicon-plus
+        //-     | 新增
         //- button.btn.btn-default(type='button') 
         //-     span.glyphicon.glyphicon-remove
         //-     | 批量删除
@@ -11,17 +11,25 @@
             | 刷新
 table#studentList
 
-#modal_school.modal.fade(tabindex='-1', role='dialog')
-    .modal-dialog(role='document')
+#modal_student_check.modal.bs-example-modal-lg.fade(tabindex='-1', role='dialog')
+    .modal-dialog.modal-lg(role='document')
         .modal-content
             .modal-header
                 h4.modal-title 学籍信息
                 button.close(type='button', data-dismiss='modal', aria-label='Close')
                     span.glyphicon.glyphicon-remove(aria-hidden='true')
-            .modal-body(style="padding-right: 50px;padding-top: 30px;")
-                
+            .modal-body
             .modal-footer
                 button.btn.btn-default(type='button', data-dismiss='modal') 关闭
-                button.btn.btn-primary(type='button') 保存
+
+#modal_student_update.modal.bs-example-modal-lg.fade(tabindex='-1', role='dialog')
+    .modal-dialog.modal-lg(role='document')
+        .modal-content
+            .modal-header
+                h4.modal-title 学籍信息
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span.glyphicon.glyphicon-remove(aria-hidden='true')
+            .modal-body
+                asdfasdf
 
 script(src="/javascripts/studentManager.js" type="text/javascript")

@@ -79,7 +79,6 @@ router.post('/get', (req, res, next) => {
             res.send(err)
         }else{
             var sender = new Sender({
-                msg: '修改成功',
                 data: result
             }).getData();
             res.send(sender);

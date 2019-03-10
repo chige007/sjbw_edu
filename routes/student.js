@@ -10,7 +10,22 @@ var upload = multer({ dest: path.join(__dirname, '../public/userUploaded/portrai
 
 // 学籍信息录入页
 router.get('/', (req, res, next) => {
-    res.render('student/student_add', {title: '学籍信息录入'});
+    res.render('student/student_add', {
+        title: '学籍信息录入',
+        studentInfo: {}
+    });
+});
+router.post('/', (req, res, next) => {
+    Student.findOne(req.body, (err, result) => {
+        if(err){
+            res.send(err)
+        }else{
+            res.render('student/student_add', {
+                title: '学籍信息查询',
+                studentInfo: result
+            });
+        }
+    });
 });
 // 学籍信息录入成功页
 router.get('/add/success', (req, res, next) => {
@@ -18,26 +33,7 @@ router.get('/add/success', (req, res, next) => {
 });
 // 学籍信息保存
 router.post('/add', upload.single('portrait'), (req, res, next) => {
-    var formData = req.body;
-    var studentData = new Student({
-        school_code: formData.school_code,
-        name: formData.name,
-        sex: formData.sex,
-        nation: formData.nation,
-        birthday: formData.birthday,
-        id_card: formData.id_card,
-        graduate_institutions: formData.graduate_institutions,
-        education_type: formData.education_type,
-        major: formData.major,
-        edu_level: formData.edu_level,
-        edu_type: formData.edu_type,
-        admission_date: formData.admission_date,
-        graduation_date: formData.graduation_date,
-        edu_year: formData.edu_year,
-        certificate_num: formData.certificate_num,
-        edu_conclusion: formData.edu_conclusion,
-        check_website: formData.check_website
-    });
+    var studentData = new Student(req.body);
     studentData.save((err, result) => {
         if(err) {
             console.log(err);
@@ -54,7 +50,7 @@ router.post('/add', upload.single('portrait'), (req, res, next) => {
                 Student.updateOne({'_id': result._id}, {'portrait_url' : '/userUploaded/portraits/' + newFullFileName}, (err, result) => {
                     if (err) throw err;
                     console.log('修改头像路径成功');
-                    res.redirect("/student/add/success");
+                    res.send('<script>window.top.$("#contentWrap").load("/student/add/success");</script>');
                 })
             });
         }
@@ -62,15 +58,92 @@ router.post('/add', upload.single('portrait'), (req, res, next) => {
 });
 // 获取单个学籍信息
 router.post('/get', (req, res, next) => {
-
+    console.log(req.body);
+    Student.findOne(req.body, (err, result) => {
+        if(err){
+            res.send(err)
+        }else{
+            console.log(result);
+            if(result){
+                res.render('student/student_check', {
+                    title: '学籍信息查询',
+                    studentInfo: result
+                });
+            }else{
+                res.render('student/student_search_none', {title: '学籍信息查询'});
+            }
+        }
+    });
 });
 // 更新单个学籍信息
-router.post('/update', (req, res, next) => {
-
+router.post('/update', upload.single('portrait'), (req, res, next) => {
+    var condition = {
+        _id: req.body._id
+    }
+    var newData = {};
+    for(var x in req.body){
+        if(x != '_id' && x != 'portrait_url')
+            newData[x] = req.body[x];
+    }
+    if(req.file){
+        Student.findOne(condition, (err, result) => {
+            if(err){
+                res.send(err)
+            }else{
+                var oldFilePath = path.join(__dirname, '../public' + result.portrait_url);
+                console.log(oldFilePath);
+                fs.unlink(oldFilePath, (err) => {
+                    if(err){
+                        res.send(err);
+                    }else{
+                        var portrait = req.file;
+                        var tempPath = portrait.path;
+                        var ext = '.' + portrait.originalname.split('.')[1];
+                        var newFullFileName = 'portrait_' + req.body._id + ext;
+                        var newFilePath = './public/userUploaded/portraits/' + newFullFileName;
+                        fs.rename(tempPath, newFilePath, (err,data) => {
+                            if (err) throw err;
+                            console.log('头像改名成功');
+                            Student.updateOne({'_id': req.body._id}, {'portrait_url' : '/userUploaded/portraits/' + newFullFileName}, (err, result) => {
+                                if (err) throw err;
+                                console.log('修改头像路径成功');
+                            })
+                        });
+                    }
+                });
+            }
+        });
+    }
+    Student.update(condition, {$set: newData}, (err, result) => {
+        if(err){
+            res.send(err)
+        }else{
+            res.send('<script>window.top.$.tipsShow({code: 0, msg: "修改成功"});window.top.$("#modal_student_update").modal("hide");window.top.$("#studentList").bootstrapTable("refresh");</script>');
+        }
+    });
 });
 // 删除单个学籍信息
 router.post('/delete', (req, res, next) => {
-
+    console.log(req.body);
+    Student.remove(req.body, (err, result) => {
+        console.log(result);
+        if(err){
+            res.send(err)
+        }else{
+            var full_portrait_path = path.join(__dirname, '../public' + req.body.portrait_url);
+            console.log(full_portrait_path);
+            fs.unlink(full_portrait_path, (err) => {
+                if(err){
+                    res.send(err)
+                }else{
+                    var sender = new Sender({
+                        msg: '删除成功'
+                    }).getData();
+                    res.send(sender);
+                }
+            });
+        }
+    });
 });
 
 // 学籍管理页
@@ -102,4 +175,9 @@ router.post('/list/get', (req, res, next) => {
         }
     });
 });
+
+router.get('/search', (req, res, next) => {
+    res.render('student/student_search', {title: '学籍信息查询'});
+});
+
 module.exports = router;
