@@ -1,4 +1,12 @@
 $(function(){
+    $.myAjax({
+        url: '/school/list/get',
+        success: function(d){
+            for(var i = 0; i < d.rows.length ; i++){
+                $("#stuInfoEnterWrap [name='school_code']").append("<option value="+d.rows[i].code+">"+d.rows[i].name+"</option>")
+            }
+        }
+    });
     $('#page_stuInfoEnter .fileButton').on('click', function(){
         $(this).siblings('[type="file"]').click();
     });

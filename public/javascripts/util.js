@@ -50,6 +50,39 @@ $(function(){
             clearTimeout(T_TIPS);
             var tipsBox = $('#topTips');
             $(tipsBox).removeClass('show');
+        },
+        getOperateBtn: function(btnArray,btnTips){//获取表格行工具按钮
+            btnArray = btnArray || [];
+            btnTips = btnTips || [];
+            var btnsStr = "";
+            if($.inArray('publish',btnArray) != -1){
+                btnsStr += '<i class="operateBtn publish glyphicon glyphicon-ok" data-toggle="tooltip" title="'+(btnTips[$.inArray("publish",btnArray)] || "发布")+'"></i>';
+            }
+            if($.inArray('noPublish',btnArray) != -1){
+                btnsStr += '<i class="operateBtn noPublish glyphicon glyphicon-ban-circle" data-toggle="tooltip" title="'+(btnTips[$.inArray("noPublish",btnArray)] || "撤销发布")+'"></i>';
+            }
+            if($.inArray('check',btnArray) != -1){
+                btnsStr += '<i class="operateBtn check glyphicon glyphicon-search" data-toggle="tooltip" title="'+(btnTips[$.inArray("check",btnArray)] || "查看")+'"></i>';
+            }
+            if($.inArray('update',btnArray) != -1){
+                btnsStr += '<i class="operateBtn update glyphicon glyphicon-pencil" data-toggle="tooltip" title="'+(btnTips[$.inArray("update",btnArray)] || "编辑")+'"></i>';
+            }
+            if($.inArray('compare',btnArray) != -1){
+                btnsStr += '<i class="operateBtn compare iconfont icon-daimatuoguan f-16" data-toggle="tooltip" title="'+(btnTips[$.inArray("compare",btnArray)] || "对比")+'"></i>';
+            }
+            if($.inArray('upload',btnArray) != -1){
+                btnsStr += '<i class="operateBtn upload glyphicon glyphicon glyphicon-open" data-toggle="tooltip" title="'+(btnTips[$.inArray("upload",btnArray)] || "上传")+'"></i>';
+            }
+            if($.inArray('download',btnArray) != -1){
+                btnsStr += '<i class="operateBtn download glyphicon glyphicon-download-alt" data-toggle="tooltip" title="'+(btnTips[$.inArray("download",btnArray)] || "下载")+'"></i>';
+            }
+            if($.inArray('list',btnArray) != -1){
+                btnsStr += '<i class="operateBtn list glyphicon glyphicon-th-list" data-toggle="tooltip" title=""'+(btnTips[$.inArray("list",btnArray)] || "查看详情")+'"></i>';
+            }
+            if($.inArray('remove',btnArray) != -1){
+                btnsStr += '<i class="operateBtn remove glyphicon glyphicon-trash" data-toggle="tooltip" title="'+(btnTips[$.inArray("remove",btnArray)] || "删除")+'"></i>';
+            }
+            return btnsStr;
         }
     });
 
@@ -98,7 +131,7 @@ $(function(){
         formValid: function(){
             var flag = true;
             $(this).find('input,select,textarea').each(function(e){
-                if(!this.value){
+                if(!this.value && !$(this).attr('novalid')){
                     $(this).setError();
                     $.tipsShow({
                         code: 1,

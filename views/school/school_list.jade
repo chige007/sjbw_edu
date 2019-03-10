@@ -3,9 +3,9 @@
         button.btn.btn-default(type='button', data-toggle="modal", data-target="#modal_school") 
             span.glyphicon.glyphicon-plus
             | 新增
-        button.btn.btn-default(type='button') 
-            span.glyphicon.glyphicon-remove
-            | 批量删除
+        //- button.btn.btn-default(type='button') 
+        //-     span.glyphicon.glyphicon-remove
+        //-     | 批量删除
         button.btn.btn-default(type='button', onclick="$('#schoolList').bootstrapTable('refresh')")
             span.glyphicon.glyphicon-repeat
             | 刷新
@@ -20,6 +20,7 @@ table#schoolList
                     span.glyphicon.glyphicon-remove(aria-hidden='true')
             .modal-body(style="padding-right: 50px;padding-top: 30px;")
                 form#form_addSchool.form-horizontal    
+                    input(type="hidden", name="_id", value="", novalid="true")
                     .form-group
                         label.col-sm-3.control-label 唯一标识：
                         .col-sm-9 

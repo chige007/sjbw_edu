@@ -20,6 +20,7 @@ router.get('/add/success', (req, res, next) => {
 router.post('/add', upload.single('portrait'), (req, res, next) => {
     var formData = req.body;
     var studentData = new Student({
+        school_code: formData.school_code,
         name: formData.name,
         sex: formData.sex,
         nation: formData.nation,
@@ -60,15 +61,15 @@ router.post('/add', upload.single('portrait'), (req, res, next) => {
     });
 });
 // 获取单个学籍信息
-router.get('/get', (req, res, next) => {
+router.post('/get', (req, res, next) => {
 
 });
 // 更新单个学籍信息
-router.get('/update', (req, res, next) => {
+router.post('/update', (req, res, next) => {
 
 });
 // 删除单个学籍信息
-router.get('/delete', (req, res, next) => {
+router.post('/delete', (req, res, next) => {
 
 });
 
@@ -77,7 +78,28 @@ router.get('/list', (req, res, next) => {
     res.render('student/student_list', {title: '学籍管理'});
 });
 // 学籍列表
-router.get('/list/get', (req, res, next) => {
-
+router.post('/list/get', (req, res, next) => {
+    console.log(req.body);
+    var offset = parseInt(req.body.offset);
+    var pageSize = parseInt(req.body.limit);
+    var order = req.body.order;
+    var sort = {};
+    if(order == 'asc')
+        sort[req.body.sort] = 1;
+    else
+        sort[req.body.sort] = -1;
+    var query = Student.find({});
+    query.skip(offset).limit(pageSize).sort(sort).exec((err, rs) => {
+        if(err){
+            res.send(err);
+        }else{
+            Student.find((err,result) => {
+                res.send({
+                    total: result.length,
+                    rows: rs
+                });
+            });
+        }
+    });
 });
 module.exports = router;

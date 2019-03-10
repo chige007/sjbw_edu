@@ -6,6 +6,10 @@ div#page_stuInfoEnter(style="text-align: center")
                 input(type="file", name="portrait", placeholder="请选择文件",  accept="image/x-png,image/gif,image/jpeg,image/bmp,image/jpeg,image/png")
                 button.fileButton(type="button") 上传头像
         div.formGroup
+            label 所属学校：
+            div.inputWrap
+                select(name="school_code", placeholder="请选择")
+        div.formGroup
             label 姓名：
             div.inputWrap
                 input(type="text", name="name", placeholder="请填写", autofocus="autofocus", value="test")
@@ -84,12 +88,12 @@ div#page_stuInfoEnter(style="text-align: center")
             label 毕结业结论：
             div.inputWrap
                 select(name="edu_conclusion", placeholder="请选择")
-                    option(value="0") 毕业
-                    option(value="1") 结业
-        div.formGroup
-            label 查询网址：
-            div.inputWrap
-                input(type="text", name="check_website", placeholder="请填写", value="www.ahjzgc.org.cn")
+                    option(value="毕业") 毕业
+                    option(value="结业") 结业
+        //- div.formGroup
+        //-     label 查询网址：
+        //-     div.inputWrap
+        //-         input(type="text", name="check_website", placeholder="请填写", value="www.ahjzgc.org.cn")
         div.buttonList(style="text-align: center")
             button.reset(type="reset") 重置
             button.submit(type="button") 确认提交

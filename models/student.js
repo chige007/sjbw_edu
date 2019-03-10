@@ -1,6 +1,7 @@
 var mongoose = require('./../db');
 
 var Schema = new mongoose.Schema({
+    school_code: {type: String},
     name: {type: String},
     sex: {type: String},
     nation: {type: String},
