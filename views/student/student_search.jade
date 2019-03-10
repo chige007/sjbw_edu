@@ -3,7 +3,7 @@ html
   head
     include ./../common/header_inner.jade
     link(rel='stylesheet', href='/stylesheets/login.css')
-  body
+  body(style="background-color: #f5f5f5;")
     div.loginBox(style="height: 290px")
         p.title 学籍信息查询
         form#loginForm.form-horizontal(action="/student/get", method="POST")
