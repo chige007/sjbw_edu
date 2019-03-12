@@ -5,25 +5,28 @@ html
     link(rel='stylesheet', href='/stylesheets/login.css')
   body
     img.logo(src="/images/sjbw_logo.png", alt="logo")
-    div.loginBox
-        p.title 用户登录
-        form#loginForm.form-horizontal(action="/login/login", method="POST")
-            .form-group
-                label.col-sm-3.control-label(for='username') 
-                    span.glyphicon.glyphicon-user
-                    |  用户名：
-                .col-sm-9 
-                    input#username.form-control(type='text', placeholder='请输入用户名', name="username")
-            .form-group
-                label.col-sm-3.control-label(for='password') 
-                    span.glyphicon.glyphicon-lock
-                    |  密　码：
-                .col-sm-9 
-                    input#password.form-control(type='password', placeholder='请输入密码', name="password")
-            .checkbox
-                label
-                    input(type='checkbox')
-                    |  记住密码
-            button#loginBtn.btn.btn-primary.btn-block.btn-lg(type='button') 登　录
+    .tableWrap
+        .tableCellWrap
+            div.loginBox
+                p.title 用户登录
+                form#loginForm.form-horizontal(action="/login/login", method="POST", target="iframe_login")
+                    .form-group
+                        label.col-sm-3.control-label(for='username') 
+                            span.glyphicon.glyphicon-user
+                            |  用户名：
+                        .col-sm-9 
+                            input#username.form-control(type='text', placeholder='请输入用户名', name="username")
+                    .form-group
+                        label.col-sm-3.control-label(for='password') 
+                            span.glyphicon.glyphicon-lock
+                            |  密　码：
+                        .col-sm-9 
+                            input#password.form-control(type='password', placeholder='请输入密码', name="password")
+                    .checkbox
+                        label
+                            input(type='checkbox')
+                            |  记住密码
+                    button#loginBtn.btn.btn-primary.btn-block.btn-lg(type='button') 登　录
+    iframe#iframe_login(frameborder="0", height="0", width="0", name="iframe_login")
     include ./../common/body_inner.jade
     script(src="/javascripts/login.js" type="text/javascript")

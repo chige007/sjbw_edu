@@ -21,10 +21,10 @@ router.post('/login', (req, res, next) => {
             console.log(err)
         }else{
             if(!count){
-                res.send('<script>alert("用户名或密码错误");window.location.href="/login"</script>');
+                res.send('<script>window.top.loginFalse();</script>');
             }else{
                 req.session.username = username;
-                res.redirect('/');
+                res.send('<script>window.top.location.href="/"</script>');
             }
         }
     });

@@ -1,3 +1,10 @@
+var loginFalse = function(){
+    $.tipsShow({
+        code:1,
+        msg:"用户名或密码错误！"
+    });
+    $("#loginBtn").text("登　录");
+};
 $(function(){
     var login = function(){
         var username = $.trim($("#username").val());
