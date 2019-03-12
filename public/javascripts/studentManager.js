@@ -1,10 +1,21 @@
 $(function(){
-    $("#studentList").initTable({
+    $('#modal_student_check .print').on('click', function(){
+        // if($("#form_student_print"))
+        //     $("#form_student_print").submit();
+        $('#wrap_student_print').load('/student/print', {'_id': $('#wrap_student_print').data('id')}, function(d){
+            $("#student_print").print();
+        });
+    });
+    $('#modal_student_check .download').on('click', function(){
+        if($("#form_student_download"))
+            $("#form_student_download").submit();
+    });
+    $('#studentList').initTable({
         search: true,//是否有关键字查询
-        sort : "updateTime",
-        order : "desc",
-        url: "/student/list/get",
-        toolbar: "#toolbar_studentList",
+        sort : 'updateTime',
+        order : 'desc',
+        url: '/student/list/get',
+        toolbar: '#toolbar_studentList',
         columns: [{
             checkbox : true,
             align: 'center',
@@ -67,17 +78,17 @@ $(function(){
                         },
                         success: function(d){
                             $.tipsShow(d);
-                            $("#studentList").bootstrapTable('refresh');
+                            $('#studentList').bootstrapTable('refresh');
                         }
                     });
                 },
                 'click .check' : function(e, value, row, index){
                     e.stopPropagation();
-                    $("#modal_student_check").modal('show').find('.modal-body').load('/student/get', {'_id': value});
+                    $('#modal_student_check').modal('show').find('.modal-body').load('/student/get', {'_id': value, 'hasBack': '0'});
                 },
                 'click .update': function (e, value, row, index){
                     e.stopPropagation();
-                    $("#modal_student_update").modal('show').find('.modal-body').load('/student', {'_id': value});
+                    $('#modal_student_update').modal('show').find('.modal-body').load('/student', {'_id': value});
                 }
             }
         }]

@@ -29,14 +29,18 @@ router.post('/', (req, res, next) => {
 });
 // 学籍信息录入成功页
 router.get('/add/success', (req, res, next) => {
+    console.log('/student/add/success');
+    console.log(req.body);
     res.render('student/student_add_success', {title: '系统提示'});
 });
 // 学籍信息保存
 router.post('/add', upload.single('portrait'), (req, res, next) => {
+    console.log('/student/add');
+    console.log(req.body);
     var studentData = new Student(req.body);
     studentData.save((err, result) => {
         if(err) {
-            console.log(err);
+            res.send(err)
         } else {
             console.log('新增学籍成功');
             var portrait = req.file;
@@ -58,16 +62,20 @@ router.post('/add', upload.single('portrait'), (req, res, next) => {
 });
 // 获取单个学籍信息
 router.post('/get', (req, res, next) => {
+    console.log('/student/get');
     console.log(req.body);
-    Student.findOne(req.body, (err, result) => {
+    var condition = req.body;
+    var hasBack = req.body.hasBack;
+    delete condition['hasBack'];
+    Student.findOne(condition, (err, result) => {
         if(err){
             res.send(err)
         }else{
-            console.log(result);
             if(result){
                 res.render('student/student_check', {
                     title: '学籍信息查询',
-                    studentInfo: result
+                    studentInfo: result,
+                    hasBack: hasBack
                 });
             }else{
                 res.render('student/student_search_none', {title: '学籍信息查询'});
@@ -77,6 +85,8 @@ router.post('/get', (req, res, next) => {
 });
 // 更新单个学籍信息
 router.post('/update', upload.single('portrait'), (req, res, next) => {
+    console.log('/student/update');
+    console.log(req.body);
     var condition = {
         _id: req.body._id
     }
@@ -85,14 +95,12 @@ router.post('/update', upload.single('portrait'), (req, res, next) => {
         if(x != '_id' && x != 'portrait_url')
             newData[x] = req.body[x];
     }
-    console.log(newData);
     if(req.file){
         Student.findOne(condition, (err, result) => {
             if(err){
                 res.send(err)
             }else{
                 var oldFilePath = path.join(__dirname, '../public' + result.portrait_url);
-                console.log(oldFilePath);
                 fs.unlink(oldFilePath, (err) => {
                     if(err){
                         res.send(err);
@@ -125,14 +133,13 @@ router.post('/update', upload.single('portrait'), (req, res, next) => {
 });
 // 删除单个学籍信息
 router.post('/delete', (req, res, next) => {
+    console.log('/student/delete');
     console.log(req.body);
     Student.remove(req.body, (err, result) => {
-        console.log(result);
         if(err){
             res.send(err)
         }else{
             var full_portrait_path = path.join(__dirname, '../public' + req.body.portrait_url);
-            console.log(full_portrait_path);
             fs.unlink(full_portrait_path, (err) => {
                 if(err){
                     res.send(err)
@@ -149,10 +156,13 @@ router.post('/delete', (req, res, next) => {
 
 // 学籍管理页
 router.get('/list', (req, res, next) => {
+    console.log('/student/list');
+    console.log(req.body);
     res.render('student/student_list', {title: '学籍管理'});
 });
 // 学籍列表
 router.post('/list/get', (req, res, next) => {
+    console.log('/student/list/get');
     console.log(req.body);
     var offset = parseInt(req.body.offset);
     var pageSize = parseInt(req.body.limit);
@@ -178,7 +188,22 @@ router.post('/list/get', (req, res, next) => {
 });
 
 router.get('/search', (req, res, next) => {
+    console.log('/student/search');
+    console.log(req.body);
     res.render('student/student_search', {title: '学籍信息查询'});
 });
 
+router.post('/print', (req, res, next) => {
+    console.log('/student/print');
+    console.log(req.body);
+    Student.findOne(req.body, (err, result) => {
+        if(err){
+            res.send(err)
+        }else if(result){
+            res.render('student/student_print', {
+                studentInfo: result
+            });
+        }
+    });
+});
 module.exports = router;

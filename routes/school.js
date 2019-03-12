@@ -4,10 +4,12 @@ const Sender = require('./../modules/sender');
 const School = require('./../models/school');
 
 router.get('/list', (req, res, next) => {
+    console.log('/school/list');
     res.render('school/school_list');
 });
 
 router.post('/list/get', (req, res, next) => {
+    console.log('/school/list/get');
     console.log(req.body);
     var offset = parseInt(req.body.offset);
     var pageSize = parseInt(req.body.limit);
@@ -33,6 +35,8 @@ router.post('/list/get', (req, res, next) => {
 });
 
 router.post('/checkCode', (req, res, next) => {
+    console.log('/school/checkCode');
+    console.log(req.body);
     var code = req.body.code
     School.countDocuments({
         code: code
@@ -55,8 +59,9 @@ router.post('/checkCode', (req, res, next) => {
 });
 
 router.post('/add', (req, res, next) => {
+    console.log('/school/add');
+    console.log(req.body);
     var formData = req.body;
-    console.log(formData);
     var schoolData = new School({
         code: formData.code,
         name: formData.name
@@ -74,6 +79,8 @@ router.post('/add', (req, res, next) => {
 });
 
 router.post('/get', (req, res, next) => {
+    console.log('/school/get');
+    console.log(req.body);
     School.find(req.body, (err, result) => {
         if(err){
             res.send(err)
@@ -87,6 +94,8 @@ router.post('/get', (req, res, next) => {
 });
 
 router.post('/update', (req, res, next) => {
+    console.log('/school/update');
+    console.log(req.body);
     var condition = {
         _id: req.body._id
     }
@@ -103,6 +112,7 @@ router.post('/update', (req, res, next) => {
 });
 
 router.post('/delete', (req, res, next) => {
+    console.log('/school/delete');
     console.log(req.body);
     School.remove(req.body, (err, result) => {
         if(err){

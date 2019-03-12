@@ -53,4 +53,12 @@ html
             tr 
                 td.title 查询网址
                 td(colspan="3") #{studentInfo.check_website}
-a.toSearchPage(href="/student/search") <<查询入口页
+if hasBack==1
+    a.toSearchPage(href="/student/search") <<查询入口页
+#wrap_student_print(data-id="#{studentInfo._id}", style="height: 0px; overflow: hidden")
+//- form#form_student_print(action="/student/print", method="post", style="display: none", target="iframe_student_print")
+//-     input(type="hidden", value="#{studentInfo._id}")
+//- iframe#iframe_student_print(frameborder="0", height="0", width="0", name="iframe_student_print")
+form#form_student_download(action="/student/download", method="post", style="display: none", target="iframe_student_download")
+    input(type="hidden", value="#{studentInfo._id}")
+iframe#iframe_student_download(frameborder="0", height="0", width="0", name="iframe_student_download")

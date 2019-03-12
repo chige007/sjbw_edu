@@ -20,6 +20,12 @@ table#studentList
                     span.glyphicon.glyphicon-remove(aria-hidden='true')
             .modal-body
             .modal-footer
+                button.btn.btn-primary.print(type='button') 
+                    span.glyphicon.glyphicon-print(style="vertical-align: -1px; font-size: 14px;")
+                    | 打印
+                button.btn.btn-danger.download(type='button')
+                    span.glyphicon.glyphicon-download(style="vertical-align: -2px; font-size: 15px;")
+                    | 下载PDF
                 button.btn.btn-default(type='button', data-dismiss='modal') 关闭
 
 #modal_student_update.modal.bs-example-modal-lg.fade(tabindex='-1', role='dialog')
@@ -30,6 +36,5 @@ table#studentList
                 button.close(type='button', data-dismiss='modal', aria-label='Close')
                     span.glyphicon.glyphicon-remove(aria-hidden='true')
             .modal-body
-                asdfasdf
 
 script(src="/javascripts/studentManager.js" type="text/javascript")

@@ -5,12 +5,13 @@ const User = require('./../models/user');
 
 // 登录页
 router.get('/', (req, res, next) => {
-    console.log(req.body);
     res.render('login/login', {title: '登录'});
 });
 
 // 登录
 router.post('/login', (req, res, next) => {
+    console.log('/login/login');
+    console.log(req.body);
     var username = req.body.username;
     var password = req.body.password;
     User.countDocuments({
@@ -18,7 +19,7 @@ router.post('/login', (req, res, next) => {
         password: password
     }, (err, count) => {
         if(err){
-            console.log(err)
+            res.send(err)
         }else{
             if(!count){
                 res.send('<script>window.top.loginFalse();</script>');
@@ -32,8 +33,7 @@ router.post('/login', (req, res, next) => {
 router.get('/logout', (req, res, next) => {
     req.session.destroy(function(err) {
         if(err){
-            console.log(err);
-            return;
+            res.send(err)
         }
         res.clearCookie('sjbw_session');
         res.redirect('/login');
