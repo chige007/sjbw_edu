@@ -3,6 +3,7 @@ var router = express.Router();
 var fs = require('fs');
 var path = require('path');
 var multer  = require('multer');
+var qr = require('qr-image')
 const Sender = require('./../modules/sender');
 const Student = require('./../models/student');
 
@@ -220,5 +221,23 @@ router.get('/checkOnline/:_id', (req, res, next) => {
     console.log('/student/checkOnline');
     console.log(req.params);
     getStudentInfo(req.params, res);
+});
+
+router.get('/getQrcode/:_id', (req, res, next) => {
+    console.log('/student/getQrcode');
+    console.log(req.params);
+    var text = 'http://search.hnjn-edu.cn:3000/student/checkOnline/' + req.params._id;
+    try {
+        var img = qr.image(text, {
+            type: 'png',
+            margin: 1,
+            size: 6
+        });
+        res.writeHead(200, {'Content-Type': 'image/png'});
+        img.pipe(res);
+    } catch (e) {
+        res.writeHead(414, {'Content-Type': 'text/html'});
+        res.end('<h1>414 Request-URI Too Large</h1>');
+    }
 });
 module.exports = router;
