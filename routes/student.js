@@ -193,17 +193,32 @@ router.get('/search', (req, res, next) => {
     res.render('student/student_search', {title: '学籍信息查询'});
 });
 
-router.post('/print', (req, res, next) => {
-    console.log('/student/print');
-    console.log(req.body);
-    Student.findOne(req.body, (err, result) => {
+
+var getStudentInfo = function(condition, res){
+    Student.findOne(condition, (err, result) => {
         if(err){
             res.send(err)
         }else if(result){
+            var d = new Date();
+            var date = d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();
+            result.printDate = date;
+            var checkWebsite = 'http://search.hnjn-edu.cn:3000/student/checkOnline/' + result._id;
+            result.checkWebsite = checkWebsite;
             res.render('student/student_print', {
                 studentInfo: result
             });
         }
     });
+}
+router.post('/print', (req, res, next) => {
+    console.log('/student/print');
+    console.log(req.body);
+    getStudentInfo(req.body, res);
+});
+
+router.get('/checkOnline/:_id', (req, res, next) => {
+    console.log('/student/checkOnline');
+    console.log(req.params);
+    getStudentInfo(req.params, res);
 });
 module.exports = router;
