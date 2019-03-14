@@ -35,22 +35,20 @@ var Schema = new mongoose.Schema({
     timestamps: { createdAt: 'createTime', updatedAt: 'updateTime' }
 });
 
-Schema.pre('save', (next) => {
+Schema.pre('save', function(next){
     console.log('preSave');
     var doc = this;
-    Counters.findByIdAndUpdate({
+    Counters.findOneAndUpdate({
         _id: 'report_code'
     }, {
-        $inc: { sequence_value: 1 }
+        $inc: { seq: 1 }
     }, {
-        new: true//,
-        // upsert: true
-    }, (err, counter) => {
-        console.log(counter);
+        new: true,
+        upsert: true
+    }, function(err, counter){
         if(err)
             return next(err);
-        doc.report_code = counter.sequence_value;
-        console.log(doc.report_code);
+        doc.report_code = counter.seq;
         next();
     })
 });

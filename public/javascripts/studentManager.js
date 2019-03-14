@@ -3,7 +3,9 @@ $(function(){
         // if($("#form_student_print"))
         //     $("#form_student_print").submit();
         $('#wrap_student_print').load('/student/print', {'_id': $('#wrap_student_print').data('id')}, function(d){
-            $("#student_print").print();
+            setTimeout(function(){
+                $("#student_print").print();
+            }, 300);
         });
     });
     $('#modal_student_check .download').on('click', function(){

@@ -9,11 +9,11 @@ html
     body
         #student_print
             p.text1 
-                b.ht《中华人民共和国职业教育法》
+                b.ht 《中华人民共和国职业教育法》
                 span.st 自1996年9月1日起施行，其第二十五条规定：接受职业学校教育的学生，经学校考核合格，按照国家有关规定，发给学历证书。接受职业培训的学生，经培训的职业学校或者职业培训机构考核合格，按照国家有关规定，发给培训证书。学历证书、培训证书按照国家有关规定，作为职业学校、职业培训机构的毕业生、结业生从业的凭证。
             p.text2.ht 中国中等职业教育认证报告
             p.text3.st 报告编号：
-                span.space-3 7501120
+                span.space-3 #{("0000000000000000" + studentInfo.report_code ).substr( -7 )}
             p.text4.st 打印日期：
                 span.space-3 #{studentInfo.printDate}
             div.text5

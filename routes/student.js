@@ -46,21 +46,25 @@ router.post('/add', upload.single('portrait'), (req, res, next) => {
         } else {
             console.log('新增学籍成功');
             var portrait = req.file;
-            var tempPath = portrait.path;
-            var ext = '.' + portrait.originalname.split('.')[1];
-            var newFullFileName = 'portrait_' + result._id + ext;
-            var newFilePath = './public/userUploaded/portraits/' + newFullFileName;
-            fs.rename(tempPath, newFilePath, (err,data) => {
-                if (err) throw err;
-                console.log('头像改名成功');
-                Student.updateOne({'_id': result._id}, {
-                    'portrait_url' : '/userUploaded/portraits/' + newFullFileName
-                }, (err, result) => {
+            if(portrait){
+                var tempPath = portrait.path;
+                var ext = '.' + portrait.originalname.split('.')[1];
+                var newFullFileName = 'portrait_' + result._id + ext;
+                var newFilePath = './public/userUploaded/portraits/' + newFullFileName;
+                fs.rename(tempPath, newFilePath, (err,data) => {
                     if (err) throw err;
-                    console.log('修改头像路径成功');
-                    res.send('<script>window.top.$("#contentWrap").load("/student/add/success");</script>');
-                })
-            });
+                    console.log('头像改名成功');
+                    Student.updateOne({'_id': result._id}, {
+                        'portrait_url' : '/userUploaded/portraits/' + newFullFileName
+                    }, (err, result) => {
+                        if (err) throw err;
+                        console.log('修改头像路径成功');
+                        res.send('<script>window.top.$("#contentWrap").load("/student/add/success");</script>');
+                    })
+                });
+            }else{
+                res.send('<script>window.top.$("#contentWrap").load("/student/add/success");</script>');
+            }
         }
     });
 });
@@ -203,13 +207,14 @@ var getStudentInfo = function(condition, res){
         if(err){
             res.send(err)
         }else if(result){
+            var sendData = result
             var d = new Date();
             var date = d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();
-            result.printDate = date;
+            sendData.printDate = date;
             var checkWebsite = 'http://search.hnjn-edu.cn:3000/student/checkOnline/' + result._id;
-            result.checkWebsite = checkWebsite;
+            sendData.checkWebsite = checkWebsite;
             res.render('student/student_print', {
-                studentInfo: result
+                studentInfo: sendData
             });
         }
     });
