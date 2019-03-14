@@ -38,7 +38,8 @@ router.get('/add/success', (req, res, next) => {
 router.post('/add', upload.single('portrait'), (req, res, next) => {
     console.log('/student/add');
     console.log(req.body);
-    var studentData = new Student(req.body);
+    var data = req.body;
+    var studentData = new Student(data);
     studentData.save((err, result) => {
         if(err) {
             res.send(err)
@@ -52,7 +53,9 @@ router.post('/add', upload.single('portrait'), (req, res, next) => {
             fs.rename(tempPath, newFilePath, (err,data) => {
                 if (err) throw err;
                 console.log('头像改名成功');
-                Student.updateOne({'_id': result._id}, {'portrait_url' : '/userUploaded/portraits/' + newFullFileName}, (err, result) => {
+                Student.updateOne({'_id': result._id}, {
+                    'portrait_url' : '/userUploaded/portraits/' + newFullFileName
+                }, (err, result) => {
                     if (err) throw err;
                     console.log('修改头像路径成功');
                     res.send('<script>window.top.$("#contentWrap").load("/student/add/success");</script>');
