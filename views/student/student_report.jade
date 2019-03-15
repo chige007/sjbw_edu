@@ -40,7 +40,7 @@ html
                 p.ht (以下无正文)
             p.text6.yt 全国中等教育学生信息
             p.text7.yt 咨询与就业服务中心
-            img.qrcode(src="/student/getQrcode/#{studentInfo._id}", onload="window.top.$('#modal_student_report .print').removeAttr('disabled')")
+            img.qrcode(src="/student/getQrcode/#{studentInfo._id}", onload="if(window.top.$)window.top.$('#modal_student_report .print,.download').removeAttr('disabled')")
             p.text8 认证报告在线验证网址：
             p.text9 #{studentInfo.checkWebsite}
             p.text10 报告说明：

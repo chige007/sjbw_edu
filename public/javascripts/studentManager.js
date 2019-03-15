@@ -25,6 +25,7 @@ $(function(){
     
     $("#modal_student_report").on('hidden.bs.modal', function(){
         $(this).find('.print').attr('disabled', 'disabled');
+        $(this).find('.download').attr('disabled', 'disabled');
         $(this).find('.modal-header .modal-title').text('认证报告');
     });
     $("#modal_student_check").on('hidden.bs.modal', function(){
