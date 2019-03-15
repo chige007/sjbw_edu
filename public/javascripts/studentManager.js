@@ -5,7 +5,7 @@ $(function(){
             $("#form_student_print").submit();
     });
     $('#modal_student_report .print').on('click', function(){
-        $("#iframe_student_report").contents().find("#student_print").print({
+        $("#iframe_student_report").contents().find("#student_print").focus().print({
             debug: false,  //是否显示iframe查看效果
             importCSS: true,
             printContainer: true,
@@ -16,7 +16,7 @@ $(function(){
         $("#iframe_student_report").contents().scrollTop(0);
         var pdf = new jsPDF('p', 'mm', 'a4'); 
         var print_content = $("#iframe_student_report").contents().find("#student_print"); 
-        var filename = $('#modal_student_report').find('.modal-header .modal-title').text() + '认证报告.pdf'; 
+        var filename = $('#modal_student_report').find('.modal-header .modal-title').text() + '.pdf'; 
 
         pdf.addHTML(print_content, function(){
             pdf.output("save", filename)
