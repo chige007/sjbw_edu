@@ -7,55 +7,57 @@ html
         title #{title}
         link(rel='stylesheet', href='/stylesheets/student_check.css')
     body
-        table#table_student_check
-            tr 
-                td.bigTitle(colspan="5") 毕业信息查询结果
-            tr
-                td.title 姓名
-                td(colspan="3") #{studentInfo.name}
-                td(rowspan="9") 
-                    img.portrait(src="#{studentInfo.portrait_url}", alt="")
-            tr
-                td.title 性别
-                td #{studentInfo.sex}
-                td.title 民族
-                td #{studentInfo.nation}
-            tr
-                td.title 出生日期
-                td #{studentInfo.birthday}
-                td.title 身份证号
-                td #{studentInfo.id_card}
-            tr
-                td.title 毕业院校
-                td #{studentInfo.graduate_institutions_name}
-                td.title 学历类型
-                td #{studentInfo.education_type}
-            tr
-                td.title 专业名称
-                td #{studentInfo.major}
-                td.title 学历层次
-                td #{studentInfo.edu_level}
-            tr
-                td.title 学习形式
-                td #{studentInfo.edu_type}
-                td.title 入学时间
-                td #{studentInfo.admission_date}
-            tr
-                td.title 毕业时间
-                td #{studentInfo.graduation_date}
-                td.title 学制
-                td #{studentInfo.edu_year}
-            tr
-                td.title 证书编号
-                td #{studentInfo.certificate_num}
-                td.title 毕结业结论
-                td #{studentInfo.edu_conclusion}
-            tr 
-                td.title 查询网址
-                td(colspan="3") #{studentInfo.check_website}
-if hasBack==1
-    a.toSearchPage(href="/student/search") <<查询入口页
-#wrap_student_print(data-id="#{studentInfo._id}", style="height: 0px; overflow: hidden")
+        #wrap_table_student_check
+            p.report_code 编号：#{("0000000000000000" + studentInfo.report_code ).substr( -7 )}
+            table.table_student_check
+                tr 
+                    td.bigTitle(colspan="5") 毕业信息查询结果
+                tr
+                    td.title 姓名
+                    td(colspan="3") #{studentInfo.name}
+                    td(rowspan="9") 
+                        img.portrait(src="#{studentInfo.portrait_url}", alt="")
+                tr
+                    td.title 性别
+                    td #{studentInfo.sex}
+                    td.title 民族
+                    td #{studentInfo.nation}
+                tr
+                    td.title 出生日期
+                    td #{studentInfo.birthday}
+                    td.title 身份证号
+                    td #{studentInfo.id_card}
+                tr
+                    td.title 毕业院校
+                    td #{studentInfo.graduate_institutions_name}
+                    td.title 学历类型
+                    td #{studentInfo.education_type}
+                tr
+                    td.title 专业名称
+                    td #{studentInfo.major}
+                    td.title 学历层次
+                    td #{studentInfo.edu_level}
+                tr
+                    td.title 学习形式
+                    td #{studentInfo.edu_type}
+                    td.title 入学时间
+                    td #{studentInfo.admission_date}
+                tr
+                    td.title 毕业时间
+                    td #{studentInfo.graduation_date}
+                    td.title 学制
+                    td #{studentInfo.edu_year}
+                tr
+                    td.title 证书编号
+                    td #{studentInfo.certificate_num}
+                    td.title 毕结业结论
+                    td #{studentInfo.edu_conclusion}
+                tr 
+                    td.title 查询网址
+                    td(colspan="3") #{studentInfo.check_website}
+            if hasBack==1
+                a.toSearchPage(href="/student/search") <<查询入口页
+#wrap_student_print(data-id="#{studentInfo._idMask}", style="position: absolute; top: 5000px")
 //- , target="iframe_student_print"
 //- form#form_student_print(action="/student/print", method="post", style="display: none")
 //-     input(type="hidden", value="#{studentInfo._id}")

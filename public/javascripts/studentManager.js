@@ -5,7 +5,7 @@ $(function(){
         $('#wrap_student_print').load('/student/print', {'_id': $('#wrap_student_print').data('id')}, function(d){
             setTimeout(function(){
                 $("#student_print").print();
-            }, 300);
+            }, 500);
         });
     });
     $('#modal_student_check .download').on('click', function(){

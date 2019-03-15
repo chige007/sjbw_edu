@@ -80,6 +80,7 @@ router.post('/get', (req, res, next) => {
             res.send(err)
         }else{
             if(result){
+                result._idMask = new Buffer(result._id + '').toString('base64');
                 res.render('student/student_check', {
                     title: '学籍信息查询',
                     studentInfo: result,
@@ -203,15 +204,19 @@ router.get('/search', (req, res, next) => {
 
 
 var getStudentInfo = function(condition, res){
+    condition._id = new Buffer(condition._id + '', 'base64').toString();
+    console.log('func: getStudentInfo');
+    console.log(condition);
     Student.findOne(condition, (err, result) => {
         if(err){
             res.send(err)
         }else if(result){
+            var _idMask = new Buffer(result._id + '').toString('base64');
             var sendData = result
             var d = new Date();
             var date = d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();
             sendData.printDate = date;
-            var checkWebsite = 'http://search.hnjn-edu.cn:3000/student/checkOnline/' + result._id;
+            var checkWebsite = 'http://search.hnjn-edu.cn:3000/student/co/' + _idMask;
             sendData.checkWebsite = checkWebsite;
             res.render('student/student_print', {
                 studentInfo: sendData
@@ -225,8 +230,8 @@ router.post('/print', (req, res, next) => {
     getStudentInfo(req.body, res);
 });
 
-router.get('/checkOnline/:_id', (req, res, next) => {
-    console.log('/student/checkOnline');
+router.get('/co/:_id', (req, res, next) => {
+    console.log('/student/co');
     console.log(req.params);
     getStudentInfo(req.params, res);
 });
@@ -234,7 +239,8 @@ router.get('/checkOnline/:_id', (req, res, next) => {
 router.get('/getQrcode/:_id', (req, res, next) => {
     console.log('/student/getQrcode');
     console.log(req.params);
-    var text = 'http://search.hnjn-edu.cn:3000/student/checkOnline/' + req.params._id;
+    var _idMask = new Buffer(req.params._id + '').toString('base64');
+    var text = 'http://search.hnjn-edu.cn:3000/student/co/' + _idMask;
     try {
         var img = qr.image(text, {
             type: 'png',
