@@ -5,7 +5,7 @@ $(function(){
             $("#form_student_print").submit();
     });
     $('#modal_student_report .print').on('click', function(){
-        $("#iframe_student_report").contents().find("#student_print").focus().print({
+        $("#iframe_student_report").contents().find("html").focus().print({
             debug: false,  //是否显示iframe查看效果
             importCSS: true,
             printContainer: true,
