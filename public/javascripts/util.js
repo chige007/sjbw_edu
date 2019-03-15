@@ -100,6 +100,9 @@ $(function(){
         removeError: function(){
             $(this).closest('.form-group').removeClass('has-error');
         },
+        initToolTips: function(options){
+            $(this).tooltip(options);
+        },
         initTable: function(options){
             options = options || {};
             var defaultOpts = {
@@ -125,7 +128,7 @@ $(function(){
             }
             $.extend(true,defaultOpts,options);
             $(this).on("load-success.bs.table",function(){
-                // $(this).find("[data-toggle='tooltip']").initToolTips();
+                $(this).find("[data-toggle='tooltip']").initToolTips();
             });
             $(this).bootstrapTable(defaultOpts);
         },

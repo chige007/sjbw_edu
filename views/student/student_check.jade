@@ -9,6 +9,7 @@ html
     body
         #wrap_table_student_check
             p.report_code 编号：#{("0000000000000000" + studentInfo.report_code ).substr( -7 )}
+            input(type="hidden", name="_idMask", value="#{studentInfo._idMask}")
             table.table_student_check
                 tr 
                     td.bigTitle(colspan="5") 毕业信息查询结果
@@ -57,10 +58,10 @@ html
                     td(colspan="3") #{studentInfo.check_website}
             if hasBack==1
                 a.toSearchPage(href="/student/search") <<查询入口页
-#wrap_student_print(data-id="#{studentInfo._idMask}", style="position: absolute; top: 5000px")
+//- #wrap_student_print(data-id="#{studentInfo._idMask}", style="position: absolute; top: 5000px")
 //- , target="iframe_student_print"
-//- form#form_student_print(action="/student/print", method="post", style="display: none")
-//-     input(type="hidden", value="#{studentInfo._id}")
+form#form_student_print(action="/student/print", method="post", style="display: none", target="iframe_student_report")
+    input(type="hidden", value="#{studentInfo._idMask}", name="_id")
 //- iframe#iframe_student_print(frameborder="0", height="0", width="0", name="iframe_student_print")
 form#form_student_download(action="/student/download", method="post", style="display: none", target="iframe_student_download")
     input(type="hidden", value="#{studentInfo._id}")

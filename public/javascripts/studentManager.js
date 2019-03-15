@@ -1,22 +1,39 @@
 $(function(){
-    $('#modal_student_check .print').on('click', function(){
-        // if($("#form_student_print"))
-        //     $("#form_student_print").submit();
-        $('#wrap_student_print').load('/student/print', {'_id': $('#wrap_student_print').data('id')}, function(d){
-            setTimeout(function(){
-                $("#student_print").print({
-                    debug: false,  //是否显示iframe查看效果
-                    importCSS: true,
-                    printContainer: true,
-                    operaSupport: false
-                });
-            }, 500);
+    $('#modal_student_check .report').on('click', function(){
+        $("#modal_student_report").modal('show');
+        if($("#form_student_print"))
+            $("#form_student_print").submit();
+    });
+    $('#modal_student_report .print').on('click', function(){
+        $("#iframe_student_report").contents().find("#student_print").print({
+            debug: false,  //是否显示iframe查看效果
+            importCSS: true,
+            printContainer: true,
+            operaSupport: false
         });
     });
-    $('#modal_student_check .download').on('click', function(){
-        if($("#form_student_download"))
-            $("#form_student_download").submit();
+    $('#modal_student_report .download').on('click', function(){
+        $("#iframe_student_report").contents().scrollTop(0);
+        var pdf = new jsPDF('p', 'mm', 'a4'); 
+        var print_content = $("#iframe_student_report").contents().find("#student_print"); 
+        var filename = $('#modal_student_report').find('.modal-header .modal-title').text() + '认证报告.pdf'; 
+
+        pdf.addHTML(print_content, function(){
+            pdf.output("save", filename)
+        })
     });
+    
+    $("#modal_student_report").on('hidden.bs.modal', function(){
+        $(this).find('.print').attr('disabled', 'disabled');
+        $(this).find('.modal-header .modal-title').text('认证报告');
+    });
+    $("#modal_student_check").on('hidden.bs.modal', function(){
+        $(this).find('.modal-body').empty();
+    });
+    $("#modal_student_update").on('hidden.bs.modal', function(){
+        $(this).find('.modal-body').empty();
+    });
+
     $('#studentList').initTable({
         search: true,//是否有关键字查询
         sort : 'updateTime',
@@ -49,7 +66,7 @@ $(function(){
             title: '专业'
         },{
             field: 'edu_level',
-            title: '学历层次'
+            title: '学历'
         },{
             field: 'edu_type',
             title: '学习形式'
@@ -61,7 +78,7 @@ $(function(){
             title: '入学时间'
         },{
             field: 'edu_conclusion',
-            title: '毕结业结论'
+            title: '毕结业'
         },{
             field: 'graduation_date',
             title: '毕业时间'
@@ -69,10 +86,12 @@ $(function(){
             field: '_id',
             title: '操作',
             align: 'center',
-            width: '110px',
+            width: '130px',
             sortable: false,
             formatter: function(value, row, index){
-                return $.getOperateBtn(['update','check','remove']);//设置操作按钮
+                var buttons = $.getOperateBtn(['update','check','remove']);
+                buttons = '<i class="operateBtn report glyphicon glyphicon-list-alt" title="认证报告" data-toggle="tooltip"></i>' + buttons;
+                return buttons;//设置操作按钮
             },
             events : {//设置操作按钮事件
                 'click .remove': function (e, value, row, index){
@@ -96,6 +115,13 @@ $(function(){
                 'click .update': function (e, value, row, index){
                     e.stopPropagation();
                     $('#modal_student_update').modal('show').find('.modal-body').load('/student', {'_id': value});
+                },
+                'click .report' : function(e, value, row, index){
+                    e.stopPropagation();
+                    $('#modal_student_report').modal('show').find('.modal-header .modal-title').text(row.name + '认证报告');
+                    $("#form_student_print").find('[name="_id"]').val(value);
+                    if($("#form_student_print"))
+                        $("#form_student_print").submit();
                 }
             }
         }]

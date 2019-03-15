@@ -203,8 +203,9 @@ router.get('/search', (req, res, next) => {
 });
 
 
-var getStudentInfo = function(condition, res){
-    condition._id = new Buffer(condition._id + '', 'base64').toString();
+var getStudentInfo = function(condition, res, encode){
+    if(encode)
+        condition._id = new Buffer(condition._id + '', 'base64').toString();
     console.log('func: getStudentInfo');
     console.log(condition);
     Student.findOne(condition, (err, result) => {
@@ -218,7 +219,7 @@ var getStudentInfo = function(condition, res){
             sendData.printDate = date;
             var checkWebsite = 'http://search.hnjn-edu.cn:3000/student/co/' + _idMask;
             sendData.checkWebsite = checkWebsite;
-            res.render('student/student_print', {
+            res.render('student/student_report', {
                 studentInfo: sendData
             });
         }
@@ -227,13 +228,13 @@ var getStudentInfo = function(condition, res){
 router.post('/print', (req, res, next) => {
     console.log('/student/print');
     console.log(req.body);
-    getStudentInfo(req.body, res);
+    getStudentInfo(req.body, res, false);
 });
 
 router.get('/co/:_id', (req, res, next) => {
     console.log('/student/co');
     console.log(req.params);
-    getStudentInfo(req.params, res);
+    getStudentInfo(req.params, res, true);
 });
 
 router.get('/getQrcode/:_id', (req, res, next) => {
