@@ -4,7 +4,12 @@ $(function(){
         //     $("#form_student_print").submit();
         $('#wrap_student_print').load('/student/print', {'_id': $('#wrap_student_print').data('id')}, function(d){
             setTimeout(function(){
-                $("#student_print").print();
+                $("#student_print").print({
+                    debug: false,  //是否显示iframe查看效果
+                    importCSS: true,
+                    printContainer: true,
+                    operaSupport: false
+                });
             }, 500);
         });
     });
