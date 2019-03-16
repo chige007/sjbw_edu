@@ -230,12 +230,8 @@ var getStudentInfo = function(condition, res, encode){
             var d = new Date();
             var date = d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();
             sendData.printDate = date;
-            var searchWebsite = 'http://search.chsecon.com/student/search';
-            sendData.searchWebsite = searchWebsite;
+            var checkWebsite = 'http://search.hnjn-edu.cn:3000/student/co/' + result.report_code;
             sendData.checkWebsite = checkWebsite;
-            var checkWebsite = 'http://search.hnjn-edu.cn/student/report/' + result.report_code;
-            sendData.checkWebsite = checkWebsite;
-
             res.render('student/student_report', {
                 studentInfo: sendData
             });
@@ -254,17 +250,11 @@ router.get('/co/:_id', (req, res, next) => {
     getStudentInfo(req.params, res, true);
 });
 
-router.get('/report/:report_code', (req, res, next) => {
-    console.log('/student/report');
-    console.log(req.params);
-    getStudentInfo(req.params, res);
-});
-
 router.get('/getQrcode/:_id', (req, res, next) => {
     console.log('/student/getQrcode');
     console.log(req.params);
     var _idMask = new Buffer(req.params._id + '').toString('base64');
-    var text = 'http://search.hnjn-edu.cn/student/co/' + _idMask;
+    var text = 'http://search.hnjn-edu.cn:3000/student/co/' + _idMask;
     try {
         var img = qr.image(text, {
             type: 'png',

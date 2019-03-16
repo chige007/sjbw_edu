@@ -7,7 +7,7 @@ $(function(){
     $('#modal_student_report .print').on('click', function(){
         $("#iframe_student_report").contents().find("html").focus().print({
             debug: false,  //是否显示iframe查看效果
-            importCSS: true,
+            importCSS: false,
             printContainer: true,
             operaSupport: false
         });
@@ -22,7 +22,6 @@ $(function(){
             pdf.output("save", filename)
         })
     });
-    
     $("#modal_student_report").on('hidden.bs.modal', function(){
         $(this).find('.print').attr('disabled', 'disabled');
         $(this).find('.download').attr('disabled', 'disabled');
@@ -36,7 +35,7 @@ $(function(){
     });
 
     $('#studentList').initTable({
-        search: true,//是否有关键字查询
+        // search: true,//是否有关键字查询
         sort : 'updateTime',
         order : 'desc',
         url: '/student/list/get',
@@ -97,25 +96,30 @@ $(function(){
             events : {//设置操作按钮事件
                 'click .remove': function (e, value, row, index){
                     e.stopPropagation();
-                    $.myAjax({
-                        url: '/student/delete',
-                        data: {
-                            _id: value,
-                            portrait_url: row.portrait_url
-                        },
-                        success: function(d){
-                            $.tipsShow(d);
-                            $('#studentList').bootstrapTable('refresh');
+                    $.confirmShow({
+                        text: '是否确认删除该信息？',
+                        confirm: function(){
+                            $.myAjax({
+                                url: '/student/delete',
+                                data: {
+                                    _id: value,
+                                    portrait_url: row.portrait_url
+                                },
+                                success: function(d){
+                                    $.tipsShow(d);
+                                    $('#studentList').bootstrapTable('refresh');
+                                }
+                            });
                         }
-                    });
+                    })
                 },
                 'click .check' : function(e, value, row, index){
                     e.stopPropagation();
-                    $('#modal_student_check').modal('show').find('.modal-body').load('/student/get', {'_id': value, 'hasBack': '0'});
+                    $('#modal_student_check').modal('show').find('.modal-body').loadingShow().load('/student/get', {'_id': value, 'hasBack': '0'});
                 },
                 'click .update': function (e, value, row, index){
                     e.stopPropagation();
-                    $('#modal_student_update').modal('show').find('.modal-body').load('/student', {'_id': value});
+                    $('#modal_student_update').modal('show').find('.modal-body').loadingShow().load('/student', {'_id': value});
                 },
                 'click .report' : function(e, value, row, index){
                     e.stopPropagation();

@@ -81,6 +81,22 @@ button{
     }
 }
 .bootstrap-table{
+    .fixed-table-toolbar{
+        .bs-bars{
+            width: 100%;
+            line-height: 32px;
+            .searchBar{
+                float: right;
+                .form-group{
+                    margin-right: 10px;
+                    label{
+                        padding-right: 8px;
+                        margin-bottom: 0px;
+                    }
+                }
+            }
+        }
+    }
     .fixed-table-pagination{
         padding: 0px 10px;
     }
@@ -116,6 +132,26 @@ button{
     }
     &.show{
         display: block;
+    }
+}
+.loadingWrap{
+    padding: 15px;
+    &.full{
+        position: absolute;
+        z-index: 999;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        margin: auto;
+        img{
+            position: absolute;
+            top: 0px;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            margin: auto;
+        }
     }
 }
 .clear{

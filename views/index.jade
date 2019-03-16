@@ -1,32 +1,45 @@
 doctype html
 html
-  head
-    include ./common/header_inner.jade
-    link(rel='stylesheet', href='/stylesheets/index.css')
-  body
-    div#app
-        div#header
-            .logoWrap
-                img.logo(src="/images/sjbw_logo.png", alt="")
-            .userInfo
-                span 您好！#{username}
-                a.logout(href="/login/logout") [安全退出]
-        div#menuBar
-            p.title 菜单
-            .list-group
-                a.list-group-item(data-url='/student' href="javascript:void(0)")
-                    span.glyphicon.glyphicon-pencil
-                    | 学籍信息录入
-                    span.glyphicon.glyphicon-chevron-right
-                a.list-group-item(data-url='/student/list' href="javascript:void(0)")
-                    span.glyphicon.glyphicon-th-list
-                    | 学籍信息管理
-                    span.glyphicon.glyphicon-chevron-right
-                a.list-group-item(data-url='/school/list' href="javascript:void(0)")
-                    span.glyphicon.glyphicon-home
-                    | 学校管理
-                    span.glyphicon.glyphicon-chevron-right
-        div#contentWrap
+    head
+        include ./common/header_inner.jade
+        link(rel='stylesheet', href='/stylesheets/index.css')
+    body
+        div#app
+            div#header
+                .logoWrap
+                    img.logo(src="/images/sjbw_logo.png", alt="")
+                .userInfo
+                    span 您好！#{username}
+                    a.logout(href="/login/logout") [安全退出]
+            div#menuBar
+                p.title 菜单
+                .list-group
+                    a.list-group-item(data-url='/student' href="javascript:void(0)")
+                        span.glyphicon.glyphicon-pencil
+                        | 学籍信息录入
+                        span.glyphicon.glyphicon-chevron-right
+                    a.list-group-item(data-url='/student/list' href="javascript:void(0)")
+                        span.glyphicon.glyphicon-th-list
+                        | 学籍信息管理
+                        span.glyphicon.glyphicon-chevron-right
+                    a.list-group-item(data-url='/school/list' href="javascript:void(0)")
+                        span.glyphicon.glyphicon-home
+                        | 学校管理
+                        span.glyphicon.glyphicon-chevron-right
+            div#contentWrap    
+    #confirmBox.modal.fade(tabindex='-1', role='dialog')
+        .modal-dialog(role='document')
+            .modal-content
+                .modal-header
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                        span.glyphicon.glyphicon-remove(aria-hidden='true')
+                    h4.modal-title 系统提示
+                .modal-body
+                    p.text
+                .modal-footer
+                    button.btn.btn-default.cancel(type='button', data-dismiss='modal') 取消
+                    button.btn.btn-primary.confirm(type='button', data-dismiss='modal') 确定
+    
     include ./common/body_inner.jade
     script(src="/javascripts/index.js" type="text/javascript")
     script(src="/plugins/jqPrint/jQuery.print.js" type="text/javascript")

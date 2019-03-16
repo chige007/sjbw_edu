@@ -1,6 +1,6 @@
 #toolbar_studentList
     .btn-group(role='group')
-        //- button.btn.btn-default(type='button', data-toggle="modal", data-target="#modal_school") 
+        //- button.btn.btn-default(type='button', data-toggle='modal', data-target='#modal_school') 
         //-     span.glyphicon.glyphicon-plus
         //-     | 新增
         //- button.btn.btn-default(type='button') 
@@ -9,6 +9,18 @@
         button.btn.btn-default(type='button', onclick="$('#studentList').bootstrapTable('refresh')")
             span.glyphicon.glyphicon-repeat
             | 刷新
+    form.searchBar.form-inline
+        .form-group
+            label(for='exampleInputName2') 姓名
+            input#exampleInputName2.form-control(type='text', placeholder='请填写', name='name')
+        .form-group
+            label(for='exampleInputEmail2') 证书编号
+            input#exampleInputEmail2.form-control(type='text', placeholder='请填写', name='certificate_num')
+        .form-group
+            label(for='exampleInputEmail2') 毕业时间
+            input#exampleInputEmail2.form-control(type='date', placeholder='请选择', name='graduation_date')
+        button.searchBtn.btn.btn-primary(type='button') 查询
+
 table#studentList
 #modal_student_check.modal.bs-example-modal-lg.fade(tabindex='-1', role='dialog')
     .modal-dialog.modal-lg(role='document')
@@ -38,15 +50,15 @@ table#studentList
                 button.close(type='button', data-dismiss='modal', aria-label='Close')
                     span.glyphicon.glyphicon-remove(aria-hidden='true')
             .modal-body
-                iframe(src="", frameborder="0", width="100%", height="100%", id="iframe_student_report", name="iframe_student_report")
+                iframe#iframe_student_report(src='', frameborder='0', width='100%', height='100%', name='iframe_student_report')
             .modal-footer
                 button.btn.btn-danger.download(type='button')
                     span.glyphicon.glyphicon-save
                     | 下载PDF
-                button.btn.btn-primary.print(type='button', disabled="disabled")
-                    span.glyphicon.glyphicon-print(style="vertical-align: -2px; font-size: 15px;")
+                button.btn.btn-primary.print(type='button', disabled='disabled')
+                    span.glyphicon.glyphicon-print(style='vertical-align: -2px; font-size: 15px;')
                     | 在线打印
                 button.btn.btn-default(type='button', data-dismiss='modal') 关闭
-form#form_student_print(action="/student/print", method="post", style="display: none", target="iframe_student_report")
-    input(type="hidden", name="_id")
-script(src="/javascripts/studentManager.js" type="text/javascript")
+form#form_student_print(action='/student/print', method='post', style='display: none', target='iframe_student_report')
+    input(type='hidden', name='_id')
+script(src='/javascripts/studentManager.js' type='text/javascript')

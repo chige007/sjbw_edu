@@ -1,0 +1,49 @@
+doctype html
+html
+    head
+        meta(charset="utf-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1")
+        title 打印学籍信息
+        link(rel='stylesheet', href='/stylesheets/student_print.css')
+    body
+        #student_print
+            p.text1 
+                b.ht 《中华人民共和国职业教育法》
+                span.st 自1996年9月1日起施行，其第二十五条规定：接受职业学校教育的学生，经学校考核合格，按照国家有关规定，发给学历证书。接受职业培训的学生，经培训的职业学校或者职业培训机构考核合格，按照国家有关规定，发给培训证书。学历证书、培训证书按照国家有关规定，作为职业学校、职业培训机构的毕业生、结业生从业的凭证。
+            p.text2.ht 中国中等职业教育认证报告
+            p.text3.st 报告编号：
+                span.space-3 #{("0000000000000000" + studentInfo.report_code ).substr( -7 )}
+            p.text4.st 打印日期：
+                span.space-3 #{studentInfo.printDate}
+            div.text5
+                p.ht 姓　　名：
+                    span.st #{studentInfo.name}
+                p.ht 性　　别：
+                    span.st #{studentInfo.sex}
+                p.ht 出生日期：
+                    span.st #{studentInfo.birthday}
+                p.ht 院校类别：
+                    span.st #{studentInfo.education_type}
+                p.ht 院校名称：
+                    span.st #{studentInfo.graduate_institutions_name}
+                p.ht 专业名称：
+                    span.st #{studentInfo.major}
+                p.ht 毕业日期：
+                    span.st #{studentInfo.graduation_date}
+                p.ht 毕 结 业：
+                    span.st #{studentInfo.edu_conclusion}
+                p.ht 证书编号：
+                    span.st #{studentInfo.certificate_num}
+                p.ht 以上学历情况属实,专此认证。
+                p.ht (以下无正文)
+            p.text6.yt 全国中等教育学生信息
+            p.text7.yt 咨询与就业服务中心
+            img.qrcode(src="/student/getQrcode/#{studentInfo._id}", onload="if(window.top.$)window.top.$('#modal_student_report .print,.download').removeAttr('disabled')")
+            p.text8 认证报告在线验证网址：
+            p.text9 #{studentInfo.checkWebsite}
+            p.text10 报告说明：
+            p.text11.st 1、中国中等专业学校学生信息网(hp/wwwchsys.comen)是全国中等专业学校的学生公益服务平台
+            p.text12.st 2、证书内容由发证机关负责,中国中等专业学校学生信息网负责对外公示
+            
+

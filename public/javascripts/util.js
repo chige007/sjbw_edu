@@ -9,25 +9,19 @@ $(function(){
                     if(options.loadWrap && !options.noLoading){
                         $(options.loadWrap).loadingShow();
                     }else if(!options.noLoading){
-                        $.loadingShow();
+                        $('body').loadingShow();
                     }
                 },
                 success: function(d){
                     if(options.loadWrap){
                         $(options.loadWrap).loadingShow();
                     }else{
-                        $.loadingShow();
+                        $('body').loadingShow();
                     }
                 }
             };
             $.extend(true, defaultOpts, options);
             $.ajax(defaultOpts);
-        },
-        loadingShow: function(){
-            console.log('loadingShow');
-        },
-        loadingHide: function(){
-            console.log('loadingShow');
         },
         tipsShow: function(msgObj){
             msgObj = msgObj || {};
@@ -51,6 +45,26 @@ $(function(){
             clearTimeout(T_TIPS);
             var tipsBox = $('#topTips');
             $(tipsBox).removeClass('show');
+        },
+        confirmShow: function(options){
+            var box = $('#confirmBox');
+            var defaultOpts = {
+                title: '系统提示',
+                text: '？',
+                confirm: $.noop,
+                cancel: function(){
+                    $.confirmHide();
+                }
+            }
+            $.extend(defaultOpts, options);
+            $(box).find('.modal-title').text(options.title);
+            $(box).find('.modal-body .text').text(options.text);
+            $(box).find('.modal-footer .cancel').off('click').on('click', defaultOpts.cancel);
+            $(box).find('.modal-footer .confirm').off('click').on('click', defaultOpts.confirm);
+            $('#confirmBox').modal('show');
+        },
+        confirmHide: function(){
+            $('#confirmBox').modal('hide');
         },
         getOperateBtn: function(btnArray,btnTips){//获取表格行工具按钮
             btnArray = btnArray || [];
@@ -88,20 +102,20 @@ $(function(){
     });
 
     $.fn.extend({
-        loadingShow: function(){
-            console.log('loadingShow');
+        loadingShow: function(extendsClass){
+            return $(this).append('<div class="loadingWrap '+ extendsClass +'"><img src="/images/loading-min.gif"/></div>');
         },
         loadingHide: function(){
-            console.log('loadingShow');
+            return $(this).find('.loadingWrap').remove();
         },
         setError: function(){
-            $(this).closest('.form-group').addClass('has-error');
+            return $(this).closest('.form-group').addClass('has-error');
         },
         removeError: function(){
-            $(this).closest('.form-group').removeClass('has-error');
+            return $(this).closest('.form-group').removeClass('has-error');
         },
         initToolTips: function(options){
-            $(this).tooltip(options);
+            return $(this).tooltip(options);
         },
         initTable: function(options){
             options = options || {};
@@ -128,9 +142,21 @@ $(function(){
             }
             $.extend(true,defaultOpts,options);
             $(this).on("load-success.bs.table",function(){
-                $(this).find("[data-toggle='tooltip']").initToolTips();
+                var table = this;
+                $(table).find("[data-toggle='tooltip']").initToolTips();
+                var toolbar = $(table).bootstrapTable('getOptions').toolbar;
+                $(toolbar).find('.searchBtn').off('click').on('click', function(){
+                    var form = $(this).closest('form').eq(0);
+                    var params = {};
+                    $(form).find('[name]').each(function(i, e){
+                        params[$(this).attr('name')] = $(this).val();
+                    });
+                    $(table).bootstrapTable('refresh', {
+                        query: params
+                    });
+                });
             });
-            $(this).bootstrapTable(defaultOpts);
+            return $(this).bootstrapTable(defaultOpts);
         },
         formValid: function(){
             var flag = true;

@@ -1,7 +1,7 @@
 $(function(){
     $("#menuBar .list-group-item").on('click', function(){
         var url = $(this).attr('data-url');
-        $("#contentWrap").load(url, function(d){});
+        $("#contentWrap").loadingShow('full').load(url, function(d){});
         $(this).siblings('.list-group-item').removeClass('active');
         $(this).addClass('active');
     });

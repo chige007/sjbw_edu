@@ -5,12 +5,166 @@ html
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1")
         title 打印学籍信息
-        link(rel='stylesheet', href='/stylesheets/student_print.css')
-    body
+        //- link(rel='stylesheet', href='/stylesheets/student_print.css')
+    body(style='margin: 0px;')
+        style.
+            #student_print {
+                position: relative;
+                margin: 0 auto;
+                width: 820px;
+                height: 1160px;
+                background: url(/images/bg_student_print.jpg) no-repeat center center;
+                background-size: 100% 100%
+            }
+
+            #student_print p {
+                margin-top: 0;
+                margin-bottom: 0
+            }
+
+            #student_print>* {
+                position: absolute
+            }
+
+            #student_print .space-5 {
+                letter-spacing: 5px
+            }
+
+            #student_print .space-4 {
+                letter-spacing: 4px
+            }
+
+            #student_print .space-3 {
+                letter-spacing: 3px
+            }
+
+            #student_print .space-2 {
+                letter-spacing: 2px
+            }
+
+            #student_print .space-1 {
+                letter-spacing: 1px
+            }
+
+            #student_print .ht {
+                font-family: '黑体'
+            }
+
+            #student_print .st {
+                font-family: '宋体'
+            }
+
+            #student_print .wryh {
+                font-family: 'Microsoft YaHei'
+            }
+
+            #student_print .yt {
+                font-family: '圆体', Helvetica
+            }
+
+            #student_print .text1 {
+                font-size: 14px;
+                top: 90px;
+                left: 88px;
+                right: 78px;
+                line-height: 25px;
+                letter-spacing: 1px;
+            }
+
+            #student_print .text2 {
+                color: #000;
+                font-weight: 600;
+                top: 240px;
+                right: 0;
+                left: 0;
+                text-align: center;
+                font-size: 36px;
+                letter-spacing: 12px
+            }
+
+            #student_print .text3 {
+                top: 320px;
+                left: 475px;
+                letter-spacing: 5px;
+                font-size: 15px
+            }
+
+            #student_print .text4 {
+                top: 350px;
+                left: 475px;
+                letter-spacing: 5px;
+                font-size: 15px
+            }
+
+            #student_print .text5 {
+                top: 395px;
+                left: 100px;
+                letter-spacing: 4px;
+                line-height: 40px;
+                font-size: 17px
+            }
+
+            #student_print .text6 {
+                top: 850px;
+                left: 430px;
+                font-size: 22px;
+                letter-spacing: 7px;
+                font-weight: 100
+            }
+
+            #student_print .text7 {
+                top: 885px;
+                left: 443px;
+                font-size: 22px;
+                letter-spacing: 7px;
+                font-weight: 100
+            }
+
+            #student_print .qrcode {
+                top: 872px;
+                left: 100px;
+                width: 110px;
+                height: 110px
+            }
+
+            #student_print .text8 {
+                font-size: 10px;
+                top: 945px;
+                left: 214px;
+                font-weight: 100;
+                letter-spacing: 0
+            }
+
+            #student_print .text9 {
+                font-size: 10px;
+                top: 966px;
+                left: 214px;
+                font-weight: 100;
+                letter-spacing: 0px
+            }
+
+            #student_print .text10 {
+                font-size: 17px;
+                top: 985px;
+                left: 100px
+            }
+
+            #student_print .text11 {
+                font-size: 13px;
+                left: 100px;
+                top: 1021px
+            }
+
+            #student_print .text12 {
+                font-size: 13px;
+                left: 100px;
+                top: 1046px
+            }
+
         #student_print
-            p.text1 
+            p.text1
                 b.ht 《中华人民共和国职业教育法》
-                span.st 自1996年9月1日起施行，其第二十五条规定：接受职业学校教育的学生，经学校考核合格，按照国家有关规定，发给学历证书。接受职业培训的学生，经培训的职业学校或者职业培训机构考核合格，按照国家有关规定，发给培训证书。学历证书、培训证书按照国家有关规定，作为职业学校、职业培训机构的毕业生、结业生从业的凭证。
+                span.st 自1996年9月1日起施行，其第二十五条规定: 接受职业学校教育的学生，经学校考核合格，按照国家有关规定，发给学历证书。接受职业培训的学生，经培训的职业学校或者职业培训机构考核合格，按照国家有关规定，发给培训证书。学历证书、培训证书按照国家有关规定，作为职业学校、职业培训机构的毕业生、结业生从业的凭证。
             p.text2.ht 中国中等职业教育认证报告
             p.text3.st 报告编号：
                 span.space-3 #{("0000000000000000" + studentInfo.report_code ).substr( -7 )}
@@ -43,7 +197,7 @@ html
             p.text8 认证报告在线验证网址：
             p.text9 #{studentInfo.checkWebsite}
             p.text10 报告说明：
-            p.text11.st 1、中国中等专业学校学生信息网(hp/wwwchsys.comen)是全国中等专业学校的学生公益服务平台
-            p.text12.st 2、证书内容由发证机关负责,中国中等专业学校学生信息网负责对外公示
+            p.text11.st 1、中国中等教育学生信息网(#{studentInfo.searchWebsite})是全国中等教育的学生公益服务平台
+            p.text12.st 2、证书内容由发证机关负责,中国中等教育学生信息网负责对外公示
             
 

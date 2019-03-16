@@ -48,6 +48,7 @@ $(function(){
         $(this).removeError();
     });
     $("#page_stuInfoEnter .submit").on('click', function(){
+        $("#contentWrap").loadingShow();
         var _id = $("#stuInfoEnterWrap").find("[name='_id']").val();
         var valid = $("#stuInfoEnterWrap").formValid();
         if(!valid)return;
