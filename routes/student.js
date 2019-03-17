@@ -209,12 +209,12 @@ router.post('/list/get', (req, res, next) => {
     });
 });
 // 学籍信息查询页
-router.get('/search/:bgcolor', (req, res, next) => {
+router.get('/search', (req, res, next) => {
     console.log('/student/search');
-    console.log(req.body);
+    console.log(req.query);
     res.render('student/student_search', {
         title: '学籍信息查询',
-        bgcolor: '#' + req.params.bgcolor
+        bgcolor: '#' + req.query.bgcolor
     });
 });
 
