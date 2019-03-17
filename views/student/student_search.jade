@@ -3,7 +3,7 @@ html
   head
     include ./../common/header_inner.jade
     link(rel='stylesheet', href='/stylesheets/login.css')
-  body(style="background-color: #f5f5f5;")
+  body(style="background-color: #{bgcolor || '#f5f5f5'};")
     .tableWrap
         .tableCellWrap
             div.loginBox(style="height: 290px")

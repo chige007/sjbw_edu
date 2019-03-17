@@ -21,7 +21,7 @@ div#page_stuInfoEnter(style="text-align: center")
             label 性别：
             div.inputWrap
                 label.radioLabel
-                    input(type="radio", name="sex", value="男", data-value="#{studentInfo.sex || '男'}") 
+                    input(type="radio", name="sex", value="男", data-value="#{studentInfo.sex}") 
                     span 男
                 label.radioLabel
                     input(type="radio", name="sex", value="女", data-value="#{studentInfo.sex}") 
@@ -98,10 +98,9 @@ div#page_stuInfoEnter(style="text-align: center")
         div.formGroup
             label 查询网址：
             div.inputWrap
-                input(type="text", name="check_website", placeholder="请填写", value="#{studentInfo.check_website || 'http://www.chsecon.com/'}")
+                input(type="text", name="check_website", placeholder="请填写", value="#{studentInfo.check_website || 'www.ahjzgc.org.cn'}")
         div.buttonList(style="text-align: center")
-            if !studentInfo._id
-                button.reset(type="reset") 重置
+            button.reset(type="reset") 重置
             button.submit(type="button") 确认提交
 iframe#iframe_studentSubmit(src="", frameborder="0", name="iframe_studentSubmit", height="0px", width="0px")
 script(src="/javascripts/student.js" type="text/javascript")

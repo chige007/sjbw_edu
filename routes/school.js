@@ -9,17 +9,30 @@ router.get('/list', (req, res, next) => {
 });
 
 router.post('/list/get', (req, res, next) => {
-    console.log('/school/list/get');
+    console.log('/student/list/get');
     console.log(req.body);
     var offset = parseInt(req.body.offset);
     var pageSize = parseInt(req.body.limit);
     var order = req.body.order;
     var sort = {};
+    var condition = {};
+    var $and = [];
+    for(var x in req.body){
+        if(x != 'offset' && x != 'limit' && x != 'order' && x != 'sort' && req.body[x]){
+            let param = {};
+            param[x] = new RegExp(req.body[x], 'i');
+            $and.push(param);
+        }
+    }
+    if($and.length){
+        condition['$and'] = $and;
+    }
     if(order == 'asc')
         sort[req.body.sort] = 1;
     else
         sort[req.body.sort] = -1;
-    var query = School.find({});
+    console.log(condition);
+    var query = School.find(condition);
     query.skip(offset).limit(pageSize).sort(sort).exec((err, rs) => {
         if(err){
             res.send(err);

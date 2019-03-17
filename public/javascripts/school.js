@@ -49,7 +49,7 @@ $(function(){
         $("#form_addSchool [name='code']").removeAttr('readonly');
     });
     $("#schoolList").initTable({
-        search: true,//是否有关键字查询
+        // search: true,//是否有关键字查询
         sort : "updateTime",
         order : "desc",
         url: "/school/list/get",

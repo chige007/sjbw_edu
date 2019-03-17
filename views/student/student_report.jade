@@ -4,17 +4,18 @@ html
         meta(charset="utf-8")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1")
-        title 打印学籍信息
-        //- link(rel='stylesheet', href='/stylesheets/student_print.css')
-    body(style='margin: 0px;')
+        title 认证报告
+    body
         style.
+            html,body{
+                margin: 0px;
+                padding: 0px;
+            }
             #student_print {
                 position: relative;
                 margin: 0 auto;
                 width: 820px;
                 height: 1160px;
-                background: url(/images/bg_student_print.jpg?t=1) no-repeat center center;
-                background-size: 100% 100%
             }
 
             #student_print p {
@@ -60,6 +61,12 @@ html
 
             #student_print .yt {
                 font-family: '圆体', Helvetica
+            }
+
+            #student_print .backgroundImg{
+                width: 100%;
+                height: 100%;
+                z-index: 0;
             }
 
             #student_print .text1 {
@@ -162,6 +169,7 @@ html
             }
 
         #student_print
+            img.backgroundImg(src="/images/bg_student_print.jpg?t=2", alt="")
             p.text1
                 b.ht 《中华人民共和国职业教育法》
                 span.st 自1996年9月1日起施行，其第二十五条规定: 接受职业学校教育的学生，经学校考核合格，按照国家有关规定，发给学历证书。接受职业培训的学生，经培训的职业学校或者职业培训机构考核合格，按照国家有关规定，发给培训证书。学历证书、培训证书按照国家有关规定，作为职业学校、职业培训机构的毕业生、结业生从业的凭证。
