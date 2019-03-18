@@ -8,7 +8,7 @@ $(function(){
         $("#iframe_student_report").contents().find("body").focus().print({
             globalStyles: false,
             mediaPrint: false,
-            // iframe: false,
+            iframe: false,
             debug: false,  //是否显示iframe查看效果
             importCSS: false,
             printContainer: true,
