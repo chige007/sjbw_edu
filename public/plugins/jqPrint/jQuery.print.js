@@ -37,7 +37,7 @@
                 }
                 frameWindow.close();
                 def.resolve();
-            }, 250);
+            }, 3000);
         } catch (err) {
             def.reject(err);
         }
@@ -194,7 +194,7 @@
                                 // Destroy the iframe if created here
                                 $iframe.remove();
                             }
-                        }, 100);
+                        }, 2000);
                     })
                     .fail(function (err) {
                         // Use the pop-up method if iframe fails for some reason
