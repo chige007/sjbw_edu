@@ -89,11 +89,13 @@ $(function(){
             field: '_id',
             title: '操作',
             align: 'center',
-            width: '130px',
+            width: '180px',
             sortable: false,
             formatter: function(value, row, index){
                 var buttons = $.getOperateBtn(['update','check','remove']);
                 buttons = '<i class="operateBtn report glyphicon glyphicon-list-alt" title="认证报告" data-toggle="tooltip"></i>' + buttons;
+                buttons = '<i class="operateBtn printQrcode glyphicon glyphicon-print" title="打印二维码" data-toggle="tooltip"></i>' + buttons;
+                buttons = '<i class="operateBtn getQrcode glyphicon glyphicon-qrcode" title="获取二维码" data-toggle="tooltip"></i>' + buttons;
                 return buttons;//设置操作按钮
             },
             events : {//设置操作按钮事件
@@ -123,6 +125,14 @@ $(function(){
                 'click .update': function (e, value, row, index){
                     e.stopPropagation();
                     $('#modal_student_update').modal('show').find('.modal-body').loadingShow().load('/student', {'_id': value});
+                },
+                'click .printQrcode': function (e, value, row, index){
+                    e.stopPropagation();
+                    // $('#modal_student_update').modal('show').find('.modal-body').loadingShow().load('/student', {'_id': value});
+                },
+                'click .getQrcode': function (e, value, row, index){
+                    e.stopPropagation();
+                    // $('#modal_student_update').modal('show').find('.modal-body').loadingShow().load('/student', {'_id': value});
                 },
                 'click .report' : function(e, value, row, index){
                     e.stopPropagation();

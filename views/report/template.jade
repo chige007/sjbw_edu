@@ -1,0 +1,102 @@
+link(rel='stylesheet', href='/stylesheets/template.css')
+#report_template
+    .template_wrap
+        .template
+            img.backgroundImg(src="/images/bg_report_template.jpg?t=2", alt="")
+            p.text1
+                b.ht 《中华人民共和国职业教育法》
+                span.st 自1996年9月1日起施行，其第二十五条规定：接受职业学校教育的学生，经学校考核合格，按照国家有关规定，发给学历证书。接受职业培训的学生，经培训的职业学校或者职业培训机构考核合格，按照国家有关规定，发给培训证书。学历证书、培训证书按照国家有关规定，作为职业学校、职业培训机构的毕业生、结业生从业的凭证。
+            p.text2.ht 中国中等职业教育认证报告
+            p.text3.st 报告编号：
+                span.space-3.fw-normal #{("0000000000000000" + studentInfo.report_code ).substr( -7 )}
+            p.text4.st 打印日期：
+                span.space-3.fw-normal #{studentInfo.printDate}
+            div.text5
+                p.ht 姓　　名：
+                    span.st.fw-normal #{studentInfo.name}
+                p.ht 性　　别：
+                    span.st.fw-normal #{studentInfo.sex}
+                p.ht 出生日期：
+                    span.st.fw-normal #{studentInfo.birthday}
+                p.ht 院校类别：
+                    span.st.fw-normal #{studentInfo.education_type}
+                p.ht 院校名称：
+                    span.st.fw-normal #{studentInfo.graduate_institutions_name}
+                p.ht 专业名称：
+                    span.st.fw-normal #{studentInfo.major}
+                p.ht 毕业日期：
+                    span.st.fw-normal #{studentInfo.graduation_date}
+                p.ht 毕 结 业：
+                    span.st.fw-normal #{studentInfo.edu_conclusion}
+                p.ht 证书编号：
+                    span.st.fw-normal #{studentInfo.certificate_num}
+                p.ht 以上学历情况属实,专此认证。
+                p.ht (以下无正文)
+            p.text6.yt 全国中等专业学校学生信息
+            p.text7.yt 咨询与就业服务中心
+            img.qrcode(src="/student/getQrcode/#{studentInfo._id}", onload="if(window.top.$)window.top.$('#modal_student_report .print,.download').removeAttr('disabled')")
+            p.text8 认证报告在线验证网址：
+            p.text9 #{studentInfo.checkWebsite}
+            p.text10 报告说明：
+            p.text11.st 1、中国中等教育学生信息网(#{studentInfo.searchWebsite})是全国中等教育的学生公益服务平台
+            p.text12.st 2、证书内容由发证机关负责,中国中等教育学生信息网负责对外公示
+            //- img.seal(src="/images/seal_260.png", alt="")
+    .config_wrap
+        form
+            p.configTitle 前言
+            .form-group
+                label 文字
+                textarea.form-control(name="preface_text", rows="5")
+            .form-group
+                label 加粗部分
+                textarea.form-control(name="preface_strongText", rows="3")
+            .form-group
+                label 字号
+                input.form-control(name="preface_fontSize", type="number")
+            .form-group
+                label 行距
+                input.form-control(name="preface_lineHight", type="number")
+            .form-group
+                label 字距
+                input.form-control(name="preface_letterSpace", type="number")
+            <hr>
+            p.configTitle 标题
+            .form-group
+                label 文字
+                input.form-control(name="title_text", type="text")
+            .form-group
+                label 字号
+                input.form-control(name="title_fontSize", type="number")
+            .form-group
+                label 字距
+                input.form-control(name="title_letterSpace", type="number")
+            p.configTitle 落款
+            .form-group
+                label 文字
+                input.form-control(name="inscription_text", type="text")
+            .form-group
+                label 字号
+                input.form-control(name="inscription_fontSize", type="number")
+            .form-group
+                label 行距
+                input.form-control(name="inscription_lineHight", type="number")
+            .form-group
+                label 字距
+                input.form-control(name="inscription_letterSpace", type="number")
+            p.configTitle 报告说明
+            .form-group
+                label 文字
+                textarea.form-control(name="instruction_text", rows="4")
+            .form-group
+                label 字号
+                input.form-control(name="instruction_fontSize", type="number")
+            .form-group
+                label 行距
+                input.form-control(name="instruction_lineHight", type="number")
+            .form-group
+                label 字距
+                input.form-control(name="instruction_letterSpace", type="number")
+    .buttonList
+        button.btn.btn-info(type="button") 预览
+        button.btn.btn-primary(type="button") 保存
+
