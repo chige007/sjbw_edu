@@ -57,7 +57,10 @@ table#studentList
                     | 下载PDF
                 button.btn.btn-primary.print(type='button', disabled='disabled')
                     span.glyphicon.glyphicon-print(style='vertical-align: -2px; font-size: 15px;')
-                    | 在线打印
+                    | 打印报告
+                button.btn.btn-primary.printQrcode(type='button', disabled='disabled')
+                    span.glyphicon.glyphicon-print(style='vertical-align: -2px; font-size: 15px;')
+                    | 打印二维码
                 button.btn.btn-default(type='button', data-dismiss='modal') 关闭
 form#form_student_print(action='/student/print', method='post', style='display: none', target='iframe_student_report')
     input(type='hidden', name='_id')

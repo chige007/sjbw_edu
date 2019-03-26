@@ -6,6 +6,7 @@ var multer  = require('multer');
 var qr = require('qr-image')
 const Sender = require('./../modules/sender');
 const Student = require('./../models/student');
+const Template = require('./../models/template');
 
 var upload = multer({ dest: path.join(__dirname, '../public/userUploaded/portraits')});
 
@@ -224,23 +225,36 @@ var getStudentInfo = function(condition, res, encode){
         condition._id = new Buffer(condition._id + '', 'base64').toString();
     console.log('func: getStudentInfo');
     console.log(condition);
-    Student.findOne(condition, (err, result) => {
+    Template.findOne({
+        _id: 'report_template'
+    }, (err, result) => {
         if(err){
-            res.send(err)
-        }else if(result){
-            // var _idMask = new Buffer(result._id + '').toString('base64');
-            var sendData = result
-            var d = new Date();
-            var date = d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();
-            sendData.printDate = date;
-            var searchWebsite = 'http://www.chsecon.com';
-            sendData.searchWebsite = searchWebsite;
-            sendData.checkWebsite = checkWebsite;
-            var checkWebsite = 'http://search.chsecon.com/student/report/' + result.report_code;
-            sendData.checkWebsite = checkWebsite;
-
-            res.render('student/student_report', {
-                studentInfo: sendData
+            throw err;
+        }else{
+            var templateConfig = {};
+            if(result){
+                templateConfig = result;
+            } 
+            Student.findOne(condition, (err, result) => {
+                if(err){
+                    res.send(err)
+                }else if(result){
+                    // var _idMask = new Buffer(result._id + '').toString('base64');
+                    var sendData = result
+                    var d = new Date();
+                    var date = d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();
+                    sendData.printDate = date;
+                    var searchWebsite = 'http://www.chsecon.com';
+                    sendData.searchWebsite = searchWebsite;
+                    sendData.checkWebsite = checkWebsite;
+                    var checkWebsite = 'http://search.chsecon.com/student/report/' + result.report_code;
+                    sendData.checkWebsite = checkWebsite;
+        
+                    res.render('student/student_report', {
+                        studentInfo: sendData,
+                        templateConfig: templateConfig
+                    });
+                }
             });
         }
     });
@@ -281,4 +295,5 @@ router.get('/getQrcode/:_id', (req, res, next) => {
         res.end('<h1>414 Request-URI Too Large</h1>');
     }
 });
+
 module.exports = router;

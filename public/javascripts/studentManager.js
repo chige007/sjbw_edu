@@ -25,6 +25,21 @@ $(function(){
             pdf.output("save", filename)
         })
     });
+
+    $('#modal_student_report .printQrcode').on('click', function(){
+        $("#iframe_student_report").contents().find("#student_print").addClass("onlyQrcode");
+        $("#iframe_student_report").contents().find("body").focus().print({
+            globalStyles: false,
+            mediaPrint: false,
+            iframe: false,
+            debug: false,  //是否显示iframe查看效果
+            importCSS: false,
+            printContainer: true,
+            operaSupport: false
+        });
+        $("#iframe_student_report").contents().find("#student_print").removeClass("onlyQrcode");
+    });
+
     $("#modal_student_report").on('hidden.bs.modal', function(){
         $(this).find('.print').attr('disabled', 'disabled');
         $(this).find('.download').attr('disabled', 'disabled');
@@ -89,12 +104,12 @@ $(function(){
             field: '_id',
             title: '操作',
             align: 'center',
-            width: '180px',
+            width: '150px',
             sortable: false,
             formatter: function(value, row, index){
                 var buttons = $.getOperateBtn(['update','check','remove']);
                 buttons = '<i class="operateBtn report glyphicon glyphicon-list-alt" title="认证报告" data-toggle="tooltip"></i>' + buttons;
-                buttons = '<i class="operateBtn printQrcode glyphicon glyphicon-print" title="打印二维码" data-toggle="tooltip"></i>' + buttons;
+                // buttons = '<i class="operateBtn printQrcode glyphicon glyphicon-print" title="打印二维码" data-toggle="tooltip"></i>' + buttons;
                 buttons = '<i class="operateBtn getQrcode glyphicon glyphicon-qrcode" title="获取二维码" data-toggle="tooltip"></i>' + buttons;
                 return buttons;//设置操作按钮
             },
@@ -126,13 +141,12 @@ $(function(){
                     e.stopPropagation();
                     $('#modal_student_update').modal('show').find('.modal-body').loadingShow().load('/student', {'_id': value});
                 },
-                'click .printQrcode': function (e, value, row, index){
-                    e.stopPropagation();
-                    // $('#modal_student_update').modal('show').find('.modal-body').loadingShow().load('/student', {'_id': value});
-                },
+                // 'click .printQrcode': function (e, value, row, index){
+                //     e.stopPropagation();
+                // },
                 'click .getQrcode': function (e, value, row, index){
                     e.stopPropagation();
-                    // $('#modal_student_update').modal('show').find('.modal-body').loadingShow().load('/student', {'_id': value});
+                    window.open('/student/getQrcode/' + value)
                 },
                 'click .report' : function(e, value, row, index){
                     e.stopPropagation();

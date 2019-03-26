@@ -11,6 +11,7 @@ html
                 margin: 0px;
                 padding: 0px;
             }
+
             #student_print {
                 position: relative;
                 margin: 0 auto;
@@ -85,78 +86,66 @@ html
                 z-index: 0;
             }
 
-            #student_print .text1 {
-                font-size: 15px;
-                top: 90px;
-                left: 96px;
-                right: 91px;
-                line-height: 25px;
-                letter-spacing: 0px;
+            #student_print .preface {
+                font-size: #{templateConfig.preface_fontSize || 15}px;
+                top: #{templateConfig.preface_topMargin || 90}px;
+                left: #{templateConfig.preface_leftMargin || 96}px;
+                right: #{templateConfig.preface_rightMargin || 91}px;
+                line-height: #{templateConfig.preface_lineHeight || 25}px;
+                letter-spacing: #{templateConfig.preface_letterSpace}px;
             }
 
-            #student_print .text2 {
+            #student_print .title {
                 color: #000;
                 font-weight: 400;
-                top: 240px;
+                top: #{templateConfig.title_topMargin || 240}px;
                 right: 0;
                 left: 0;
                 text-align: center;
-                font-size: 37px;
-                letter-spacing: 12px
+                font-size: #{templateConfig.title_fontSize || 37}px;
+                letter-spacing: #{templateConfig.title_letterSpace || 12}px
             }
 
-            #student_print .text3 {
-                top: 320px;
-                left: 475px;
-                letter-spacing: 5px;
-                font-size: 16px;
+            #student_print .codeDate {
+                top: #{templateConfig.codeDate_topMargin || 320}px;
+                right: #{templateConfig.codeDate_rightMargin || 180}px;
+                letter-spacing: #{templateConfig.codeDate_letterSpace || 5}px;
+                font-size: #{templateConfig.codeDate_fontSize || 16}px;
                 font-weight: 600;
             }
 
-            #student_print .text4 {
-                top: 350px;
-                left: 475px;
-                letter-spacing: 5px;
-                font-size: 16px;
-                font-weight: 600;
+            #student_print .mainInfo {
+                top: #{templateConfig.info_topMargin || 375}px;
+                left: #{templateConfig.info_leftMargin || 100}px;
+                letter-spacing: #{templateConfig.info_letterSpace || 4}px;
+                line-height: #{templateConfig.info_lineHeight || 39}px;
+                font-size: #{templateConfig.info_fontSize || 18}px;
+                font-weight: 500;
             }
 
-            #student_print .text5 {
-                top: 375px;
-                left: 100px;
-                letter-spacing: 4px;
-                line-height: 39px;
-                font-size: 18px;
-                font-weight: 600;
+            #student_print .inscription {
+                top: #{templateConfig.inscription_topMargin || 880}px;
+                right: #{templateConfig.inscription_rightMargin || 70}px;
+                font-size: #{templateConfig.inscription_fontSize || 23}px;
+                letter-spacing: #{templateConfig.inscription_letterSpace || 7}px;
+                font-weight: 100;
+                width: #{templateConfig.inscription_width || 370}px;
+                text-align: center;
+                line-height: #{templateConfig.inscription_lineHeight || 43}px;
             }
 
-            #student_print .text6 {
-                top: 865px;
-                right: 70px;
-                font-size: 23px;
-                letter-spacing: 7px;
-                font-weight: 100
-            }
-
-            #student_print .text7 {
-                top: 910px;
-                right: 115px;
-                font-size: 23px;
-                letter-spacing: 7px;
-                font-weight: 100
-            }
 
             #student_print .qrcode {
-                top: 845px;
-                left: 100px;
-                width: 120px;
-                height: 120px
+                top: #{templateConfig.qrcode_topMargin || 845}px;
+                left: #{templateConfig.qrcode_leftMargin || 100}px;
+                width: #{templateConfig.qrcode_size || 120}px;
+                height: #{templateConfig.qrcode_size || 120}px
             }
 
             #student_print .text8 {
                 font-size: 10px;
-                top: 932px;
-                left: 208px;
+                top: #{templateConfig.qrcode_topMargin + templateConfig.qrcode_size - 40}px;
+                left: #{templateConfig.qrcode_leftMargin + templateConfig.qrcode_size - 10}px;
                 font-weight: 300;
                 -webkit-transform: scale(0.9);
                 letter-spacing: 3px;
@@ -165,49 +154,53 @@ html
 
             #student_print .text9 {
                 font-size: 10px;
-                top: 952px;
-                left: 208px;
+                top: #{templateConfig.qrcode_topMargin + templateConfig.qrcode_size - 17}px;
+                left: #{templateConfig.qrcode_leftMargin + templateConfig.qrcode_size - 10}px;
                 font-weight: 300;
                 -webkit-transform: scale(0.9);
                 letter-spacing: 0px;
                 width: 300px;
             }
 
-            #student_print .text10 {
+            #student_print .instruction {
                 font-size: 17px;
-                top: 970px;
-                left: 100px
+                top: #{templateConfig.instruction_topMargin || 970}px;
+                left: #{templateConfig.instruction_leftMargin || 100}px
             }
 
-            #student_print .text11 {
-                font-size: 13px;
-                left: 100px;
-                top: 1005px
-            }
-
-            #student_print .text12 {
-                font-size: 13px;
-                left: 100px;
-                top: 1027px
+            #student_print .instruction span {
+                font-size: #{templateConfig.instruction_fontSize || 13}px;
+                margin-top: 8px;
+                display: inline-block;
+                line-height: #{templateConfig.instruction_lineHeight || 22}px;
             }
 
             #student_print .seal{
-                bottom: 185px;
-                right: 150px;
-                width: 190px;
+                top: #{templateConfig.seal_topMargin}px;
+                right: #{templateConfig.seal_rightMargin}px;
+                width: #{templateConfig.seal_size}px;
+                height: #{templateConfig.seal_size}px;
+            }
+
+            #student_print.onlyQrcode *{
+                display: none;
+            }
+            #student_print.onlyQrcode .qrcode{
+                display: block;
             }
 
         #student_print
-            img.backgroundImg(src="/images/bg_student_print.jpg?t=2", alt="")
-            p.text1
-                b.ht 《中华人民共和国职业教育法》
-                span.st 自1996年9月1日起施行，其第二十五条规定：接受职业学校教育的学生，经学校考核合格，按照国家有关规定，发给学历证书。接受职业培训的学生，经培训的职业学校或者职业培训机构考核合格，按照国家有关规定，发给培训证书。学历证书、培训证书按照国家有关规定，作为职业学校、职业培训机构的毕业生、结业生从业的凭证。
-            p.text2.ht 中国中等职业教育认证报告
-            p.text3.st 报告编号：
+            if templateConfig.background
+                img.backgroundImg(src="#{templateConfig.background}", alt="")
+            p.preface.st !{templateConfig.preface_text.replace(templateConfig.preface_strongText, ('<b class="ht">'+templateConfig.preface_strongText+'</b>'))}
+            p.title.ht #{templateConfig.title_text}
+            p.codeDate
+                span.st 报告编号：
                 span.space-3.fw-normal #{("0000000000000000" + studentInfo.report_code ).substr( -7 )}
-            p.text4.st 打印日期：
+                br
+                span.st 打印日期：
                 span.space-3.fw-normal #{studentInfo.printDate}
-            div.text5
+            div.mainInfo
                 p.ht 姓　　名：
                     span.st.fw-normal #{studentInfo.name}
                 p.ht 性　　别：
@@ -228,14 +221,15 @@ html
                     span.st.fw-normal #{studentInfo.certificate_num}
                 p.ht 以上学历情况属实,专此认证。
                 p.ht (以下无正文)
-            p.text6.yt 全国中等专业学校学生信息
-            p.text7.yt 咨询与就业服务中心
-            img.qrcode(src="/student/getQrcode/#{studentInfo._id}", onload="if(window.top.$)window.top.$('#modal_student_report .print,.download').removeAttr('disabled')")
+            p.inscription.yt #{templateConfig.inscription_text}
+            img.qrcode(src="/student/getQrcode/#{studentInfo._id}", onload="if(window.top.$)window.top.$('#modal_student_report .print,.download,.printQrcode').removeAttr('disabled')")
             p.text8 认证报告在线验证网址：
             p.text9 #{studentInfo.checkWebsite}
-            p.text10 报告说明：
-            p.text11.st 1、中国中等教育学生信息网(#{studentInfo.searchWebsite})是全国中等教育的学生公益服务平台
-            p.text12.st 2、证书内容由发证机关负责,中国中等教育学生信息网负责对外公示
-            //- img.seal(src="/images/seal_260.png", alt="")
+            p.instruction 
+                | 报告说明：
+                br
+                span !{templateConfig.instruction_text.replace('\n', '<br>')}
+            if templateConfig.seal
+                img.seal(src="#{templateConfig.seal}", alt="")
             
 
