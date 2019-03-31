@@ -109,10 +109,10 @@ $(function(){
             return $(this).find('.loadingWrap').remove();
         },
         setError: function(){
-            return $(this).closest('.form-group').addClass('has-error');
+            return $(this).addClass('error');
         },
         removeError: function(){
-            return $(this).closest('.form-group').removeClass('has-error');
+            return $(this).removeClass('error');
         },
         initToolTips: function(options){
             return $(this).tooltip(options);

@@ -1,0 +1,41 @@
+doctype html
+html
+    head
+        meta(charset="utf-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1")
+        title #{title}
+        link(rel='stylesheet', href='/stylesheets/student_check.css')
+    body
+        #wrap_table_student_check
+            table.table_student_check.accountant
+                tr
+                    td.title 有效身份证件号码：
+                    td #{accountantInfo.id_card}
+                    td.title 姓名：
+                    td #{accountantInfo.name}
+                    td(rowspan="4") 
+                        img.portrait(src="#{accountantInfo.portrait_url}", alt="")
+                tr
+                    td.title 现所在地行政区划：
+                    td #{accountantInfo.city} / #{accountantInfo.area}
+                    td.title 性别：
+                    td #{accountantInfo.sex}
+                tr
+                    td.title 专业技术资格级别：
+                    td #{accountantInfo.qualification_level}
+                    td.title 专业技术资格取得方式：
+                    td #{accountantInfo.qualification_getType}
+                tr
+                    td.title 专业技术资格取得时间：
+                    td #{accountantInfo.qualification_getDate}
+                    td.title 换证日期：
+                    td #{accountantInfo.renewal_date}
+                tr
+                    td.title 从业资格证发证日期：
+                    td #{accountantInfo.certification_date}
+                    td.title 专业技术资格证书号或批文号：
+                    td #{accountantInfo.qualification_number}
+                    td
+            if hasBack==1
+                a.toSearchPage(href="/accountant/search") <<查询入口页

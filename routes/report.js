@@ -107,8 +107,6 @@ router.post('/template/update',upload.fields([
     { name: 'seal', maxCount: 1 }
   ]), (req, res, next) => {
     console.log("report/template/update");
-    // console.log(req.body);
-    // console.log(req.files);
     var templateName = req.body._id;
     var condition = {
         _id: templateName

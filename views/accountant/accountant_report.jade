@@ -1,0 +1,235 @@
+doctype html
+html
+    head
+        meta(charset="utf-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1")
+        title 认证报告
+    body
+        style.
+            html,body{
+                margin: 0px;
+                padding: 0px;
+            }
+
+            #student_print {
+                position: relative;
+                margin: 0 auto;
+                width: 820px;
+                height: 1140px;
+            }
+
+            #student_print p {
+                margin-top: 0;
+                margin-bottom: 0
+            }
+
+            #student_print>* {
+                position: absolute
+            }
+
+            #student_print .space-5 {
+                letter-spacing: 5px
+            }
+
+            #student_print .space-4 {
+                letter-spacing: 4px
+            }
+
+            #student_print .space-3 {
+                letter-spacing: 3px
+            }
+
+            #student_print .space-2 {
+                letter-spacing: 2px
+            }
+
+            #student_print .space-1 {
+                letter-spacing: 1px
+            }
+
+            #student_print .ht {
+                font-family: '黑体'
+            }
+
+            #student_print .st {
+                font-family: '宋体'
+            }
+
+            #student_print .wryh {
+                font-family: 'Microsoft YaHei'
+            }
+
+            #student_print .yt {
+                font-family: '圆体', Helvetica
+            }
+
+            #student_print .fw-normal {
+                font-weight: normal;
+            }
+
+            #student_print .fw-100 {
+                font-weight: 100;
+            }
+
+            #student_print .fw-300 {
+                font-weight: 300;
+            }
+
+            #student_print .fw-600 {
+                font-weight: 600;
+            }
+
+            #student_print .backgroundImg{
+                width: 100%;
+                height: 100%;
+                z-index: 0;
+            }
+
+            #student_print .preface {
+                font-size: #{templateConfig.preface_fontSize || 15}px;
+                top: #{templateConfig.preface_topMargin || 90}px;
+                left: #{templateConfig.preface_leftMargin || 96}px;
+                right: #{templateConfig.preface_rightMargin || 91}px;
+                line-height: #{templateConfig.preface_lineHeight || 25}px;
+                letter-spacing: #{templateConfig.preface_letterSpace}px;
+            }
+
+            #student_print .title {
+                color: #000;
+                font-weight: 400;
+                top: #{templateConfig.title_topMargin || 240}px;
+                right: 0;
+                left: 0;
+                text-align: center;
+                font-size: #{templateConfig.title_fontSize || 37}px;
+                letter-spacing: #{templateConfig.title_letterSpace || 12}px
+            }
+
+            #student_print .codeDate {
+                top: #{templateConfig.codeDate_topMargin || 320}px;
+                right: #{templateConfig.codeDate_rightMargin || 180}px;
+                letter-spacing: #{templateConfig.codeDate_letterSpace || 5}px;
+                font-size: #{templateConfig.codeDate_fontSize || 16}px;
+                font-weight: 600;
+            }
+
+            #student_print .mainInfo {
+                top: #{templateConfig.info_topMargin || 375}px;
+                left: #{templateConfig.info_leftMargin || 100}px;
+                letter-spacing: #{templateConfig.info_letterSpace || 4}px;
+                line-height: #{templateConfig.info_lineHeight || 39}px;
+                font-size: #{templateConfig.info_fontSize || 18}px;
+                font-weight: 500;
+            }
+
+            #student_print .inscription {
+                top: #{templateConfig.inscription_topMargin || 880}px;
+                right: #{templateConfig.inscription_rightMargin || 70}px;
+                font-size: #{templateConfig.inscription_fontSize || 23}px;
+                letter-spacing: #{templateConfig.inscription_letterSpace || 7}px;
+                font-weight: 100;
+                width: #{templateConfig.inscription_width || 370}px;
+                text-align: center;
+                line-height: #{templateConfig.inscription_lineHeight || 43}px;
+            }
+
+
+            #student_print .qrcode {
+                top: #{templateConfig.qrcode_topMargin || 845}px;
+                left: #{templateConfig.qrcode_leftMargin || 100}px;
+                width: #{templateConfig.qrcode_size || 120}px;
+                height: #{templateConfig.qrcode_size || 120}px
+            }
+
+            #student_print .text8 {
+                font-size: 10px;
+                top: #{templateConfig.qrcode_topMargin + templateConfig.qrcode_size - 40}px;
+                left: #{templateConfig.qrcode_leftMargin + templateConfig.qrcode_size - 10}px;
+                font-weight: 300;
+                -webkit-transform: scale(0.9);
+                letter-spacing: 3px;
+                width: 300px;
+            }
+
+            #student_print .text9 {
+                font-size: 10px;
+                top: #{templateConfig.qrcode_topMargin + templateConfig.qrcode_size - 17}px;
+                left: #{templateConfig.qrcode_leftMargin + templateConfig.qrcode_size - 10}px;
+                font-weight: 300;
+                -webkit-transform: scale(0.9);
+                letter-spacing: 0px;
+                width: 300px;
+            }
+
+            #student_print .instruction {
+                font-size: 17px;
+                top: #{templateConfig.instruction_topMargin || 970}px;
+                left: #{templateConfig.instruction_leftMargin || 100}px
+            }
+
+            #student_print .instruction span {
+                font-size: #{templateConfig.instruction_fontSize || 13}px;
+                margin-top: 8px;
+                display: inline-block;
+                line-height: #{templateConfig.instruction_lineHeight || 22}px;
+            }
+
+            #student_print .seal{
+                top: #{templateConfig.seal_topMargin}px;
+                right: #{templateConfig.seal_rightMargin}px;
+                width: #{templateConfig.seal_size}px;
+                height: #{templateConfig.seal_size}px;
+            }
+
+            #student_print.onlyQrcode *{
+                display: none;
+            }
+            #student_print.onlyQrcode .qrcode{
+                display: block;
+            }
+
+        #student_print
+            if templateConfig.background
+                img.backgroundImg(src="#{templateConfig.background}", alt="")
+            p.preface.st !{templateConfig.preface_text.replace(templateConfig.preface_strongText, ('<b class="ht">'+templateConfig.preface_strongText+'</b>'))}
+            p.title.ht #{templateConfig.title_text}
+            p.codeDate
+                span.st 报告编号：
+                span.space-3.fw-normal #{("0000000000000000" + studentInfo.report_code ).substr( -7 )}
+                br
+                span.st 打印日期：
+                span.space-3.fw-normal #{studentInfo.printDate}
+            div.mainInfo
+                p.ht 姓　　名：
+                    span.st.fw-normal #{studentInfo.name}
+                p.ht 性　　别：
+                    span.st.fw-normal #{studentInfo.sex}
+                p.ht 出生日期：
+                    span.st.fw-normal #{studentInfo.birthday}
+                p.ht 院校类别：
+                    span.st.fw-normal #{studentInfo.education_type}
+                p.ht 院校名称：
+                    span.st.fw-normal #{studentInfo.graduate_institutions_name}
+                p.ht 专业名称：
+                    span.st.fw-normal #{studentInfo.major}
+                p.ht 毕业日期：
+                    span.st.fw-normal #{studentInfo.graduation_date}
+                p.ht 毕 结 业：
+                    span.st.fw-normal #{studentInfo.edu_conclusion}
+                p.ht 证书编号：
+                    span.st.fw-normal #{studentInfo.certificate_num}
+                p.ht 以上学历情况属实,专此认证。
+                p.ht (以下无正文)
+            p.inscription.yt #{templateConfig.inscription_text}
+            img.qrcode(src="/student/getQrcode/#{studentInfo._id}", onload="if(window.top.$)window.top.$('#modal_student_report .print,.download,.printQrcode').removeAttr('disabled')")
+            p.text8 认证报告在线验证网址：
+            p.text9 #{studentInfo.checkWebsite}
+            p.instruction 
+                | 报告说明：
+                br
+                span !{templateConfig.instruction_text.replace('\n', '<br>')}
+            if templateConfig.seal
+                img.seal(src="#{templateConfig.seal}", alt="")
+            
+
