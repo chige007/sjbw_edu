@@ -9,7 +9,7 @@
         color: #999;
         margin: 10px 0px;
     }
-    .table_student_check{
+    table{
         width: 100%;
         border-collapse: collapse;
         td{
@@ -32,10 +32,36 @@
                 width: 164px;
             }
         }
-        &.accountant{
+    }
+    &.accountant{
+        table{
             td{
                 text-align: left;
+                padding: 10px;
+                &.title{
+                    background-color: #fff;
+                }
             }
+        }
+    }
+    .bigTitle{
+        font-size: 24px;
+        font-weight: 900;
+        padding: 20px;
+        text-align: center;
+    }
+    .dataBlock{
+        display: inline-block;
+        width: 18%;
+        text-align: center;
+        padding: 10px;
+        p{
+            font-size: 16px;
+            font-weight: 600;
+        }
+        span{
+            font-size: 14px;
+            font-weight: normal;
         }
     }
     .toSearchPage{

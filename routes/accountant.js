@@ -34,7 +34,7 @@ router.post('/add', (req, res, next) => {
             res.send(err)
         }else{
             res.render('accountant/accountant_add', {
-                title: '学籍信息查询',
+                title: '信息查询',
                 accountantInfo: result,
                 selectOptions: selectOptions
             });
@@ -126,7 +126,7 @@ router.post('/update', upload.single('portrait'), (req, res, next) => {
                 var renameFile = function(portrait, _id){
                     var tempPath = portrait.path;
                     var ext = '.' + portrait.originalname.split('.')[1];
-                    var newFullFileName = 'portrait_' + _id + ext;
+                    var newFullFileName = 'portrait_acc_' + _id + ext;
                     var newFilePath = './public/userUploaded/portraits/' + newFullFileName;
                     fs.rename(tempPath, newFilePath, (err,data) => {
                         if (err) throw err;
@@ -230,10 +230,10 @@ router.post('/list/get', (req, res, next) => {
 });
 // 学籍信息查询页
 router.get('/search', (req, res, next) => {
-    console.log('/accountant/search');
+    console.log('/search');
     console.log(req.query);
     res.render('accountant/accountant_search', {
-        title: '学籍信息查询',
+        title: '信息查询',
         bgcolor: '#' + req.query.bgcolor
     });
 });

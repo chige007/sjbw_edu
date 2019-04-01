@@ -7,8 +7,9 @@ html
         title #{title}
         link(rel='stylesheet', href='/stylesheets/student_check.css')
     body
-        #wrap_table_student_check
-            table.table_student_check.accountant
+        #wrap_table_student_check.accountant
+            .bigTitle 会计从业人员详细信息
+            table
                 tr
                     td.title 有效身份证件号码：
                     td #{accountantInfo.id_card}
@@ -37,5 +38,22 @@ html
                     td.title 专业技术资格证书号或批文号：
                     td #{accountantInfo.qualification_number}
                     td
+            
+            .dataBlock
+                p 继续教育年度
+                span #{accountantInfo.continuing_edu_year}
+            .dataBlock
+                p 课程内容
+                span #{accountantInfo.course_content}
+            .dataBlock
+                p 培训学时
+                span #{accountantInfo.training_hours}
+            .dataBlock
+                p 培训单位
+                span #{accountantInfo.training_unit}
+            .dataBlock
+                p 培训日期
+                span #{accountantInfo.training_date}
+
             if hasBack==1
                 a.toSearchPage(href="/accountant/search") <<查询入口页

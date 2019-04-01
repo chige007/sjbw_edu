@@ -57,7 +57,7 @@ $(function(){
             field: '_id',
             title: '操作',
             align: 'center',
-            width: '150px',
+            width: '100px',
             sortable: false,
             formatter: function(value, row, index){
                 var buttons = $.getOperateBtn(['update','check','remove']);

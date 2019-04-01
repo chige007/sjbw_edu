@@ -26,11 +26,11 @@ div#page_accInfoEnter(style="text-align: center")
             div.inputWrap
                 .row
                     .col-xs-6
-                        select(name="city", placeholder="选择市")
+                        select(name="city", placeholder="选择市", data-value="#{accountantInfo.city}")
                             each city in selectOptions.yunnan
                                 option(value="#{city.name}", data-area="#{JSON.stringify(city.area)}") #{city.name}
                     .col-xs-6
-                        select(name="area", placeholder="选择区")
+                        select(name="area", placeholder="选择区", data-value="#{accountantInfo.area}")
         div.formGroup
             label 性别：
             div.inputWrap
