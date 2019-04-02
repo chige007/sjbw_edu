@@ -1,22 +1,8 @@
 var search = function(){
-    var name = $.trim($("#name").val());
-    var id_card = $.trim($("#id_card").val());
-    if(!name){
-        $.tipsShow({
-            code: 'error',
-            msg: '请填写姓名'
-        });
-        $("#name").setError();
-        return;
-    }
-    if(!id_card){
-        $.tipsShow({
-            code: 'error',
-            msg: '请填写身份证号'
-        });
-        $("#id_card").setError();
-        return;
-    }
+    var valid = $("#loginForm").formValid({
+        errorTips: '缺省搜索条件'
+    });
+    if(!valid)return;
     $("#loginBtn").text("查询中...");
     $("#loginForm").submit();
 };

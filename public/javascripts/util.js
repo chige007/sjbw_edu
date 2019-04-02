@@ -158,14 +158,19 @@ $(function(){
             });
             return $(this).bootstrapTable(defaultOpts);
         },
-        formValid: function(){
+        formValid: function(options){
+            options = options || {};
+            var defaultOpts = {
+                errorTips: '请完善表单'
+            }
+            $.extend(defaultOpts, options)
             var flag = true;
             $(this).find('input,select,textarea').each(function(e){
                 if(!this.value && !$(this).attr('novalid') && !$(this).prop('disabled')){
                     $(this).setError();
                     $.tipsShow({
                         code: 1,
-                        msg: '请完善表单'
+                        msg: defaultOpts.errorTips
                     })
                     flag = false;
                 }

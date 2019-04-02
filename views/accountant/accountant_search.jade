@@ -6,7 +6,7 @@ html
   body(style="background-color: #{bgcolor}")
     .tableWrap
         .tableCellWrap
-            div.loginBox(style="height: 290px")
+            div.loginBox.acc_searchbox(style="height: 290px")
                 p.title 持证人员查询
                 form#loginForm.form-horizontal(action="/accountant/get", method="POST")
                     input(type="hidden", name="hasBack", value="1")
