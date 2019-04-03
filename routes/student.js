@@ -73,8 +73,10 @@ router.post('/add', upload.single('portrait'), (req, res, next) => {
 router.post('/get', (req, res, next) => {
     console.log('/student/get');
     console.log(req.body);
+    console.log(req.query);
     var condition = req.body;
     var hasBack = req.body.hasBack;
+    var bgcolor = req.query.bgcolor;
     delete condition['hasBack'];
     Student.findOne(condition, (err, result) => {
         if(err){
@@ -88,7 +90,7 @@ router.post('/get', (req, res, next) => {
                     hasBack: hasBack
                 });
             }else{
-                res.render('student/student_search_none', {title: '学籍信息查询'});
+                res.render('student/student_search_none', {bgcolor: bgcolor});
             }
         }
     });
@@ -220,9 +222,11 @@ router.post('/list/get', (req, res, next) => {
 router.get('/search', (req, res, next) => {
     console.log('/student/search');
     console.log(req.query);
+    var bgcolor = req.query.bgcolor;
+    if(bgcolor.indexOf('#') == -1)bgcolor = '#'+bgcolor;
     res.render('student/student_search', {
         title: '学籍信息查询',
-        bgcolor: '#' + req.query.bgcolor
+        bgcolor: bgcolor
     });
 });
 

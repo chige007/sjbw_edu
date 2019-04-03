@@ -85,8 +85,10 @@ router.post('/save', upload.single('portrait'), (req, res, next) => {
 router.post('/get', (req, res, next) => {
     console.log('/accountant/get');
     console.log(req.body);
+    console.log(req.query);
     var condition = req.body;
     var hasBack = req.body.hasBack;
+    var bgcolor = req.query.bgcolor;
     delete condition['hasBack'];
     Accountant.findOne(condition, (err, result) => {
         if(err){
@@ -100,7 +102,9 @@ router.post('/get', (req, res, next) => {
                     hasBack: hasBack
                 });
             }else{
-                res.render('accountant/accountant_search_none');
+                res.render('accountant/accountant_search_none', {
+                    bgcolor: bgcolor
+                });
             }
         }
     });
@@ -232,9 +236,11 @@ router.post('/list/get', (req, res, next) => {
 router.get('/search', (req, res, next) => {
     console.log('/search');
     console.log(req.query);
+    var bgcolor = req.query.bgcolor;
+    if(bgcolor.indexOf('#') == -1)bgcolor = '#'+bgcolor;
     res.render('accountant/accountant_search', {
         title: '信息查询',
-        bgcolor: '#' + req.query.bgcolor
+        bgcolor: bgcolor
     });
 });
 
