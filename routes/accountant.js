@@ -99,7 +99,8 @@ router.post('/get', (req, res, next) => {
                 res.render('accountant/accountant_check', {
                     title: '信息查询',
                     accountantInfo: result,
-                    hasBack: hasBack
+                    hasBack: hasBack,
+                    bgcolor: bgcolor
                 });
             }else{
                 res.render('accountant/accountant_search_none', {

@@ -87,7 +87,8 @@ router.post('/get', (req, res, next) => {
                 res.render('student/student_check', {
                     title: '学籍信息查询',
                     studentInfo: result,
-                    hasBack: hasBack
+                    hasBack: hasBack,
+                    bgcolor: bgcolor
                 });
             }else{
                 res.render('student/student_search_none', {bgcolor: bgcolor});
