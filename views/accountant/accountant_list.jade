@@ -1,5 +1,8 @@
 #toolbar_accountantList
     .btn-group(role='group')
+        button.btn.btn-default(type='button', onclick="window.location.href='/acc?tab=/accountant/add'") 
+            span.glyphicon.glyphicon-plus
+            | 新增
         button.btn.btn-default(type='button', onclick="$('#accountantList').bootstrapTable('refresh')")
             span.glyphicon.glyphicon-repeat
             | 刷新
