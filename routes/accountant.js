@@ -238,7 +238,7 @@ router.get('/search', (req, res, next) => {
     console.log('/search');
     console.log(req.query);
     var bgcolor = req.query.bgcolor;
-    if(bgcolor.indexOf('#') == -1)bgcolor = '#'+bgcolor;
+    if(bgcolor && bgcolor.indexOf('#') == -1)bgcolor = '#'+bgcolor;
     res.render('accountant/accountant_search', {
         title: '信息查询',
         bgcolor: bgcolor

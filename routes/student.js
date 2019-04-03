@@ -224,7 +224,7 @@ router.get('/search', (req, res, next) => {
     console.log('/student/search');
     console.log(req.query);
     var bgcolor = req.query.bgcolor;
-    if(bgcolor.indexOf('#') == -1)bgcolor = '#'+bgcolor;
+    if(bgcolor && bgcolor.indexOf('#') == -1)bgcolor = '#'+bgcolor;
     res.render('student/student_search', {
         title: '学籍信息查询',
         bgcolor: bgcolor
