@@ -1,0 +1,96 @@
+div#page_proInfoEnter(style="text-align: center")
+    form#proInfoEnterWrap.form_proInfo.clear(action="#{professionInfo._id?'/profession/update':'/profession/save'}", method="post", enctype="multipart/form-data", target="iframe_professionSubmit", style="display: inline-block; max-width: 820px; padding-top: 40px;")
+        if professionInfo._id
+            input(type="hidden", name="_id", value="#{professionInfo._id}")
+        div.formGroup(style="width: 370px; height: 197px")
+            div.portraitWrap
+                img.portrait(src="#{professionInfo.portrait_url || '/images/portrait.png'}", alt="头像")
+                if !professionInfo._id
+                    input(type="file", name="portrait", placeholder="请选择文件",  accept="image/x-png,image/gif,image/jpeg,image/bmp,image/jpeg,image/png")
+                else
+                    input(type="file", name="portrait", placeholder="请选择文件",  accept="image/x-png,image/gif,image/jpeg,image/bmp,image/jpeg,image/png", disabled="disabled")
+                if !professionInfo._id
+                    button.fileButton(type="button") 上传头像
+                else
+                    button.changeFileButton(type="button") 修改头像
+        div.formGroup
+            label 姓名：
+            div.inputWrap
+                input(type="text", name="name", placeholder="请填写", autofocus="autofocus", value="#{professionInfo.name || ''}")
+        div.formGroup
+            label 性别：
+            div.inputWrap
+                label.radioLabel
+                    input(type="radio", name="sex", value="男", data-value="#{professionInfo.sex || '男'}") 
+                    span 男
+                label.radioLabel
+                    input(type="radio", name="sex", value="女", data-value="#{professionInfo.sex}") 
+                    span 女
+        div.formGroup
+            label 民族：
+            div.inputWrap
+                input(type="text", name="nation", placeholder="请填写", value="#{professionInfo.nation || '汉'}")
+        div.formGroup
+            label 籍贯：
+            div.inputWrap
+                .row
+                    .col-xs-6
+                        select(name="province", placeholder="选择省", data-value="#{professionInfo.province}")
+                            each province in selectOptions.china
+                                option(value="#{province.name}", data-city="#{JSON.stringify(province.city)}") #{province.name}
+                    .col-xs-6
+                        select(name="city", placeholder="选择市", data-value="#{professionInfo.city}")
+        div.formGroup
+            label 出生日期：
+            div.inputWrap
+                input(type="date", name="birthday", novalid, placeholder="请选择", value="#{professionInfo.birthday || ''}")
+        div.formGroup
+            label 专业名称：
+            div.inputWrap
+                input(type="text", name="major", placeholder="请填写", value="#{professionInfo.major || ''}")
+        div.formGroup
+            label 证书编号：
+            div.inputWrap
+                input(type="text", name="certificate_num", placeholder="请填写", value="#{professionInfo.certificate_num || ''}")
+        div.formGroup
+            label 资格级别：
+            div.inputWrap
+                select(name="qualification_level", placeholder="请选择", data-value="#{professionInfo.qualification_level}")
+                    option(value="高级") 高级
+                    option(value="中级") 中级
+                    option(value="初级") 初级
+        div.formGroup
+            label 发证时间：
+            div.inputWrap
+                input(type="date", name="certification_date", novalid, placeholder="请填写", value="#{professionInfo.certification_date || ''}")
+        div.formGroup
+            label 证件号码：
+            div.inputWrap
+                input(type="text", name="id_card", placeholder="请填写", value="#{professionInfo.id_card || ''}")
+        div.formGroup
+            label 单位名称：
+            div.inputWrap
+                input(type="text", name="company_name", placeholder="请填写", value="#{professionInfo.company_name || ''}")
+        div.formGroup
+            label 理论知识考试成绩：
+            div.inputWrap
+                input(type="text", name="theory_score", placeholder="请填写", value="#{professionInfo.theory_score || ''}")
+        div.formGroup
+            label 实践技能考试成绩：
+            div.inputWrap
+                input(type="text", name="practice_score", placeholder="请填写", value="#{professionInfo.practice_score || ''}")
+        div.formGroup
+            label 综合评审成绩：
+            div.inputWrap
+                input(type="text", name="comprehensive_score", placeholder="请填写", value="#{professionInfo.comprehensive_score || ''}")
+        div.formGroup
+            label 评定成绩：
+            div.inputWrap
+                input(type="text", name="evaluate_score", placeholder="请填写", value="#{professionInfo.evaluate_score || ''}")
+
+        div.buttonList(style="text-align: center")
+            if !professionInfo._id
+                button.reset(type="reset") 重置
+            button.submit(type="button") 确认提交
+iframe#iframe_professionSubmit(src="", frameborder="0", name="iframe_professionSubmit", height="0px", width="0px")
+script(src="/javascripts/profession.js" type="text/javascript")

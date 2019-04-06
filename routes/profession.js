@@ -3,7 +3,7 @@ var router = express.Router();
 var path = require('path');
 var multer  = require('multer');
 const Sender = require('./../modules/sender');
-const Accountant = require('./../models/accountant');
+const Profession = require('./../models/profession');
 const China = require('./../modules/china');
 const Curd = require('./../modules/curd');
 
@@ -11,40 +11,35 @@ var upload = multer({ dest: path.join(__dirname, '../public/userUploaded/portrai
 
 var selectOptions = {
     continuing_edu_year: [],
-    yunnan: China.find((e) => {
-        return e['name'] == '云南省';
-    })['city']
-}
-for(var y = new Date().getFullYear(); y + 20 > new Date().getFullYear(); y--){
-    selectOptions.continuing_edu_year.push(y+'');
+    china: China
 }
 
 // 信息录入页
 router.get('/add', (req, res, next) => {
-    res.render('accountant/add', {
+    res.render('profession/add', {
         title: '信息录入',
-        accountantInfo: {},
+        professionInfo: {},
         selectOptions: selectOptions
     });
 });
 router.post('/add', (req, res, next) => {
-    Curd.findOne(Accountant, req.body, (doc)=> {
-        res.render('accountant/add', {
+    Curd.findOne(Profession, req.body, (doc)=> {
+        res.render('profession/add', {
             title: '信息查询',
-            accountantInfo: doc,
+            professionInfo: doc,
             selectOptions: selectOptions
         });
     });
 });
 // 信息保存
 router.post('/save', upload.single('portrait'), (req, res, next) => {
-    console.log('/accountant/add');
-    var successScript = '<script>window.top.$("#contentWrap").load("/add/success?addUrl=/acc?tab=/accountant/add&listUrl=/acc?tab=/accountant/list");</script>';
-    Curd.save(Accountant, req.body, (doc)=> {
+    console.log('/profession/add');
+    var successScript = '<script>window.top.$("#contentWrap").load("/add/success?addUrl=/pro?tab=/profession/add&listUrl=/pro?tab=/profession/list");</script>';
+    Curd.save(Profession, req.body, (doc)=> {
         var portrait = req.file;
         if(portrait){
-            Curd.renameFile(portrait, './public/userUploaded/portraits/', 'portrait_acc_' + doc._id, (filePath, fileName)=> {
-                Curd.update(Accountant, {
+            Curd.renameFile(portrait, './public/userUploaded/portraits/', 'portrait_pro_' + doc._id, (filePath, fileName)=> {
+                Curd.update(Profession, {
                     _id: doc._id
                 }, {
                     'portrait_url' : '/userUploaded/portraits/' + fileName
@@ -59,13 +54,13 @@ router.post('/save', upload.single('portrait'), (req, res, next) => {
 });
 // 获取单个信息
 router.post('/get', (req, res, next) => {
-    console.log('/accountant/get');
-    Curd.findOne(Accountant, req.body, (doc) => {
+    console.log('/profession/get');
+    Curd.findOne(Profession, req.body, (doc) => {
         if(doc){
             doc._idMask = new Buffer(doc._id + '').toString('base64');
-            res.render('accountant/check', {
+            res.render('profession/check', {
                 title: '信息查询',
-                accountantInfo: doc,
+                professionInfo: doc,
                 hasBack: req.query.hasBack,
                 bgcolor: req.query.bgcolor
             });
@@ -73,7 +68,7 @@ router.post('/get', (req, res, next) => {
             res.render('common/search_none', {
                 bgcolor: req.query.bgcolor,
                 tips: '没有找到相关信息！',
-                backUrl: '/accountant/search'
+                backUrl: '/profession/search'
             });
         }
     });
@@ -81,20 +76,20 @@ router.post('/get', (req, res, next) => {
 
 // 更新单个信息
 router.post('/update', upload.single('portrait'), (req, res, next) => {
-    console.log('/accountant/update');
+    console.log('/profession/update');
     var newData = {};
     for(var x in req.body){
         if(x != '_id' && x != 'portrait_url')
             newData[x] = req.body[x];
     }
     if(req.file){
-        Curd.findOne(Accountant, {
+        Curd.findOne(Profession, {
             _id: req.body._id
         }, (doc)=> {
                 var oldFilePath = path.join(__dirname, '../public' + doc.portrait_url);
                 Curd.removeFile(oldFilePath);
-                Curd.renameFile(req.file, './public/userUploaded/portraits/', 'portrait_acc_' + doc._id, (filePath, fileName)=> {
-                    Curd.update(Accountant, {
+                Curd.renameFile(req.file, './public/userUploaded/portraits/', 'portrait_pro_' + doc._id, (filePath, fileName)=> {
+                    Curd.update(Profession, {
                         _id: doc._id
                     }, {
                         'portrait_url' : '/userUploaded/portraits/' + fileName
@@ -102,16 +97,16 @@ router.post('/update', upload.single('portrait'), (req, res, next) => {
                 });
         });
     }
-    Curd.update(Accountant, {
+    Curd.update(Profession, {
         _id: req.body._id
     }, newData, (doc)=> {
-        res.send('<script>window.top.$.tipsShow({code: 0, msg: "修改成功"});window.top.$("#modal_accountant_update").modal("hide");window.top.$("#accountantList").bootstrapTable("refresh");</script>');
+        res.send('<script>window.top.$.tipsShow({code: 0, msg: "修改成功"});window.top.$("#modal_profession_update").modal("hide");window.top.$("#professionList").bootstrapTable("refresh");</script>');
     });
 });
 // 删除单个信息
 router.post('/delete', (req, res, next) => {
-    console.log('/accountant/delete');
-    Curd.remove(Accountant, {
+    console.log('/profession/delete');
+    Curd.remove(Profession, {
         _id: req.body._id
     }, (doc)=> {
         var portrait_path = path.join(__dirname, '../public' + req.body.portrait_url);
@@ -126,13 +121,13 @@ router.post('/delete', (req, res, next) => {
 
 // 管理页
 router.get('/list', (req, res, next) => {
-    console.log('/accountant/list');
-    res.render('accountant/list', {title: '管理'});
+    console.log('/profession/list');
+    res.render('profession/list', {title: '管理'});
 });
 // 列表
 router.post('/list/get', (req, res, next) => {
-    console.log('/accountant/list/get');
-    Curd.getList(Accountant, req.body, {
+    console.log('/profession/list/get');
+    Curd.getList(Profession, req.body, {
         offset: parseInt(req.body.offset),
         pageSize: parseInt(req.body.limit),
         sort: req.body.sort,
@@ -150,7 +145,7 @@ router.get('/search', (req, res, next) => {
     console.log(req.query);
     var bgcolor = req.query.bgcolor;
     if(bgcolor && bgcolor.indexOf('#') == -1)bgcolor = '#'+bgcolor;
-    res.render('accountant/search', {
+    res.render('profession/search', {
         title: '信息查询',
         bgcolor: bgcolor
     });

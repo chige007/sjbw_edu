@@ -1,0 +1,39 @@
+#toolbar_professionList
+    .btn-group(role='group')
+        button.btn.btn-default(type='button', onclick="window.location.href='/pro?tab=/profession/add'") 
+            span.glyphicon.glyphicon-plus
+            | 新增
+        button.btn.btn-default(type='button', onclick="$('#professionList').bootstrapTable('refresh')")
+            span.glyphicon.glyphicon-repeat
+            | 刷新
+    form.searchBar.form-inline
+        .form-group
+            label 姓名
+            input.form-control(type='text', placeholder='请填写', name='name')
+        .form-group
+            label 证件号码
+            input.form-control(type='text', placeholder='请填写', name='id_card')
+        button.searchBtn.btn.btn-primary(type='button') 查询
+
+table#professionList
+#modal_profession_check.modal.bs-example-modal-lg.fade(tabindex='-1', role='dialog')
+    .modal-dialog.modal-lg(role='document')
+        .modal-content
+            .modal-header
+                h4.modal-title 信息详情
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span.glyphicon.glyphicon-remove(aria-hidden='true')
+            .modal-body
+            .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') 关闭
+
+#modal_profession_update.modal.bs-example-modal-lg.fade(tabindex='-1', role='dialog')
+    .modal-dialog.modal-lg(role='document')
+        .modal-content
+            .modal-header
+                h4.modal-title 信息详情
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span.glyphicon.glyphicon-remove(aria-hidden='true')
+            .modal-body
+
+script(src='/javascripts/professionManager.js' type='text/javascript')

@@ -12,27 +12,19 @@ html
                     span 您好！#{username}
                     a.logout(href="/login/logout") [安全退出]
                 .topMenus
-                    a.items.active 学籍信息
+                    a(href="/").items 学籍信息
                     a(href="/acc").items 会计信息
-                    a(href="/pro").items 职业技术人才
+                    a.items.active 职业技术人才
             div#menuBar
                 p.title 菜单
                 .list-group
-                    a.list-group-item(data-url='/student' href="javascript:void(0)")
+                    a.list-group-item(data-url='/profession/add' href="javascript:void(0)")
                         span.glyphicon.glyphicon-pencil
-                        | 学籍信息录入
+                        | 信息录入
                         span.glyphicon.glyphicon-chevron-right
-                    a.list-group-item(data-url='/student/list' href="javascript:void(0)")
+                    a.list-group-item(data-url='/profession/list' href="javascript:void(0)")
                         span.glyphicon.glyphicon-th-list
-                        | 学籍信息管理
-                        span.glyphicon.glyphicon-chevron-right
-                    a.list-group-item(data-url='/school/list' href="javascript:void(0)")
-                        span.glyphicon.glyphicon-home
-                        | 学校管理
-                        span.glyphicon.glyphicon-chevron-right
-                    a.list-group-item(data-url='/report/template?_id=report_template' href="javascript:void(0)")
-                        span.glyphicon.glyphicon-print
-                        | 打印模板管理
+                        | 信息管理
                         span.glyphicon.glyphicon-chevron-right
             div#contentWrap    
     

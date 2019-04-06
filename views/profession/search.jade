@@ -1,0 +1,22 @@
+doctype html
+html
+  head
+    include ./../common/header_inner.jade
+    link(rel='stylesheet', href='/stylesheets/login.css')
+  body(style="background-color: #{bgcolor}")
+    .tableWrap
+        .tableCellWrap
+            div.loginBox.acc_searchbox(style="height: 290px")
+                p.title 持证人员查询
+                form#loginForm.form-horizontal(action="/accountant/get?hasBack=1&bgcolor=#{bgcolor && bgcolor.replace('#','')}", method="POST")
+                    .form-group
+                        label.col-sm-3.control-label(for='id_card') 证件号码：
+                        .col-sm-9 
+                            input#id_card.form-control(type='text', placeholder='请输入证件号码', name="id_card")
+                    .form-group
+                        label.col-sm-3.control-label(for='name') 姓名：
+                        .col-sm-9 
+                            input#name.form-control(type='text', placeholder='请输入姓名', name="name")
+                    button#loginBtn.btn.btn-primary.btn-block.btn-lg(type='button', style="margin-top: 30px;") 查　询
+    include ./../common/body_inner.jade
+    script(src="/javascripts/studentSearch.js" type="text/javascript")

@@ -1,0 +1,59 @@
+doctype html
+html
+    head
+        meta(charset="utf-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1")
+        title #{title}
+        link(rel='stylesheet', href='/stylesheets/student_check.css')
+    body
+        #wrap_table_student_check.profession
+            .bigTitle 会计从业人员详细信息
+            table
+                tr
+                    td.title 姓名：
+                    td #{professionInfo.name}
+                    td.title 性别：
+                    td #{professionInfo.sex}
+                    td(rowspan="8") 
+                        img.portrait(src="#{professionInfo.portrait_url}", alt="")
+                tr
+                    td.title 出生日期
+                    td #{professionInfo.birthday}
+                    td.title 身份证号：
+                    td #{professionInfo.id_card}
+                tr
+                    td.title 专业技术资格级别：
+                    td #{professionInfo.qualification_level}
+                    td.title 专业技术资格取得方式：
+                    td #{professionInfo.qualification_getType}
+                tr
+                    td.title 专业技术资格取得时间：
+                    td #{professionInfo.qualification_getDate}
+                    td.title 换证日期：
+                    td #{professionInfo.renewal_date}
+                tr
+                    td.title 从业资格证发证日期：
+                    td #{professionInfo.certification_date}
+                    td.title 专业技术资格证书号或批文号：
+                    td #{professionInfo.qualification_number}
+                    td
+            
+            .dataBlock
+                p 继续教育年度
+                span #{professionInfo.continuing_edu_year}
+            .dataBlock
+                p 课程内容
+                span #{professionInfo.course_content}
+            .dataBlock
+                p 培训学时
+                span #{professionInfo.training_hours}
+            .dataBlock
+                p 培训单位
+                span #{professionInfo.training_unit}
+            .dataBlock
+                p 培训日期
+                span #{professionInfo.training_date}
+
+            if hasBack==1
+                a.toSearchPage(href="/profession/search?bgcolor=#{bgcolor}") <<查询入口页

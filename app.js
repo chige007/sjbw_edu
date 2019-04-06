@@ -12,6 +12,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var studentRouter = require('./routes/student');
 var accountantRouter = require('./routes/accountant');
+var professionRouter = require('./routes/profession');
 var schoolRouter = require('./routes/school');
 var reportRouter = require('./routes/report');
 
@@ -45,6 +46,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/student', studentRouter);
 app.use('/accountant', accountantRouter);
+app.use('/profession', professionRouter);
 app.use('/school', schoolRouter);
 app.use('/report', reportRouter);
 

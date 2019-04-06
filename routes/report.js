@@ -22,7 +22,7 @@ router.get('/template/:_id', (req, res, next) => {
     console.log("report/template/:_id");
     Curd.findOne(Template, req.params, (doc)=> {
         doc = doc || {};
-        res.render('student/student_report', {
+        res.render('student/report', {
             studentInfo: {
                 name: 'XXX',
                 sex: 'X',

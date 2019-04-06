@@ -13,7 +13,7 @@ var upload = multer({ dest: path.join(__dirname, '../public/userUploaded/portrai
 // 学籍信息录入页
 router.get('/', (req, res, next) => {
     console.log('get:/student');
-    res.render('student/student_add', {
+    res.render('student/add', {
         title: '学籍信息录入',
         studentInfo: {}
     });
@@ -21,16 +21,11 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
     console.log('post:/student');
     Curd.findOne(Student, req.body, (doc) => {
-        res.render('student/student_add', {
+        res.render('student/add', {
             title: '学籍信息查询',
             studentInfo: doc
         });
     });
-});
-// 学籍信息录入成功页
-router.get('/add/success', (req, res, next) => {
-    console.log('/student/add/success');
-    res.render('student/student_add_success', {title: '系统提示'});
 });
 // 学籍信息保存
 router.post('/add', upload.single('portrait'), (req, res, next) => {
@@ -59,7 +54,7 @@ router.post('/get', (req, res, next) => {
     Curd.findOne(Student, req.body, (doc) => {
         if(doc){
             doc._idMask = new Buffer(doc._id + '').toString('base64');
-            res.render('student/student_check', {
+            res.render('student/check', {
                 title: '学籍信息查询',
                 studentInfo: doc,
                 hasBack: req.query.hasBack,
@@ -123,7 +118,7 @@ router.post('/delete', (req, res, next) => {
 // 学籍管理页
 router.get('/list', (req, res, next) => {
     console.log('/student/list');
-    res.render('student/student_list', {title: '学籍管理'});
+    res.render('student/list', {title: '学籍管理'});
 });
 // 学籍列表
 router.post('/list/get', (req, res, next) => {
@@ -145,7 +140,7 @@ router.get('/search', (req, res, next) => {
     console.log('/student/search');
     var bgcolor = req.query.bgcolor;
     if(bgcolor && bgcolor.indexOf('#') == -1)bgcolor = '#'+bgcolor;
-    res.render('student/student_search', {
+    res.render('student/search', {
         title: '学籍信息查询',
         bgcolor: bgcolor
     });
@@ -168,7 +163,7 @@ var getStudentInfo = function(condition, res, encode){
             doc2.searchWebsite = searchWebsite;
             var checkWebsite = 'http://search.chsecon.com/student/report/' + doc2.report_code;
             doc2.checkWebsite = checkWebsite;
-            res.render('student/student_report', {
+            res.render('student/report', {
                 studentInfo: doc2,
                 templateConfig: doc
             });

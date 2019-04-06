@@ -25,6 +25,18 @@ router.get('/acc', function(req, res, next) {
         res.redirect("/login");
     }
 });
+/* 首页 - 职业技能人才 */
+router.get('/pro', function(req, res, next) {
+    console.log(req.session.username + '进入首页');
+    if(req.session.username){
+        res.render('index_profession', {
+            title: '首页',
+            username: req.session.username
+        });
+    }else{
+        res.redirect("/login");
+    }
+});
 /* 添加成功 */
 router.get('/add/success', function(req, res, next) {
     console.log('/add/success');
