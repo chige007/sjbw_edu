@@ -85,7 +85,7 @@ $(function(){
                 },
                 'click .check' : function(e, value, row, index){
                     e.stopPropagation();
-                    $('#modal_accountant_check').modal('show').find('.modal-body').loadingShow().load('/accountant/get', {'_id': value, 'hasBack': '0'});
+                    $('#modal_accountant_check').modal('show').find('.modal-body').loadingShow().load('/accountant/get?hasBack=0', {'_id': value});
                 },
                 'click .update': function (e, value, row, index){
                     e.stopPropagation();

@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var fs = require('fs');
 var path = require('path');
 var multer  = require('multer');
 var qr = require('qr-image')
 const Sender = require('./../modules/sender');
+const Curd = require('./../modules/curd');
 const Student = require('./../models/student');
 const Template = require('./../models/template');
 
@@ -12,87 +12,65 @@ var upload = multer({ dest: path.join(__dirname, '../public/userUploaded/portrai
 
 // 学籍信息录入页
 router.get('/', (req, res, next) => {
+    console.log('get:/student');
     res.render('student/student_add', {
         title: '学籍信息录入',
         studentInfo: {}
     });
 });
 router.post('/', (req, res, next) => {
-    Student.findOne(req.body, (err, result) => {
-        if(err){
-            res.send(err)
-        }else{
-            res.render('student/student_add', {
-                title: '学籍信息查询',
-                studentInfo: result
-            });
-        }
+    console.log('post:/student');
+    Curd.findOne(Student, req.body, (doc) => {
+        res.render('student/student_add', {
+            title: '学籍信息查询',
+            studentInfo: doc
+        });
     });
 });
 // 学籍信息录入成功页
 router.get('/add/success', (req, res, next) => {
     console.log('/student/add/success');
-    console.log(req.body);
     res.render('student/student_add_success', {title: '系统提示'});
 });
 // 学籍信息保存
 router.post('/add', upload.single('portrait'), (req, res, next) => {
     console.log('/student/add');
-    console.log(req.body);
-    var data = req.body;
-    var studentData = new Student(data);
-    studentData.save((err, result) => {
-        if(err) {
-            res.send(err)
-        } else {
-            console.log('新增学籍成功');
-            var portrait = req.file;
-            if(portrait){
-                var tempPath = portrait.path;
-                var ext = '.' + portrait.originalname.split('.')[1];
-                var newFullFileName = 'portrait_' + result._id + ext;
-                var newFilePath = './public/userUploaded/portraits/' + newFullFileName;
-                fs.rename(tempPath, newFilePath, (err,data) => {
-                    if (err) throw err;
-                    console.log('头像改名成功');
-                    Student.updateOne({'_id': result._id}, {
-                        'portrait_url' : '/userUploaded/portraits/' + newFullFileName
-                    }, (err, result) => {
-                        if (err) throw err;
-                        console.log('修改头像路径成功');
-                        res.send('<script>window.top.$("#contentWrap").load("/student/add/success");</script>');
-                    })
+    var successScript = '<script>window.top.$("#contentWrap").load("/add/success?addUrl=/?tab=/student&listUrl=/?tab=/student/list");</script>';
+    Curd.save(Student, req.body, (doc)=> {
+        var portrait = req.file;
+        if(portrait){
+            Curd.renameFile(portrait, './public/userUploaded/portraits/', 'portrait_' + doc._id, (filePath, fileName)=> {
+                Curd.update(Student, {
+                    _id: doc._id
+                }, {
+                    'portrait_url' : '/userUploaded/portraits/' + fileName
+                }, (doc2)=> {
+                    res.send(successScript);
                 });
-            }else{
-                res.send('<script>window.top.$("#contentWrap").load("/student/add/success");</script>');
-            }
+            })
+        }else{
+            res.send(successScript);
         }
     });
 });
 // 获取单个学籍信息
 router.post('/get', (req, res, next) => {
     console.log('/student/get');
-    console.log(req.body);
-    console.log(req.query);
-    var condition = req.body;
-    var hasBack = req.body.hasBack;
-    var bgcolor = req.query.bgcolor;
-    delete condition['hasBack'];
-    Student.findOne(condition, (err, result) => {
-        if(err){
-            res.send(err)
+    Curd.findOne(Student, req.body, (doc) => {
+        if(doc){
+            doc._idMask = new Buffer(doc._id + '').toString('base64');
+            res.render('student/student_check', {
+                title: '学籍信息查询',
+                studentInfo: doc,
+                hasBack: req.query.hasBack,
+                bgcolor: req.query.bgcolor
+            });
         }else{
-            if(result){
-                result._idMask = new Buffer(result._id + '').toString('base64');
-                res.render('student/student_check', {
-                    title: '学籍信息查询',
-                    studentInfo: result,
-                    hasBack: hasBack,
-                    bgcolor: bgcolor
-                });
-            }else{
-                res.render('student/student_search_none', {bgcolor: bgcolor});
-            }
+            res.render('common/search_none', {
+                bgcolor: req.query.bgcolor,
+                tips: '没有该学生的学籍信息！',
+                backUrl: '/student/search'
+            });
         }
     });
 });
@@ -100,129 +78,71 @@ router.post('/get', (req, res, next) => {
 // 更新单个学籍信息
 router.post('/update', upload.single('portrait'), (req, res, next) => {
     console.log('/student/update');
-    console.log(req.body);
-    var condition = {
-        _id: req.body._id
-    }
     var newData = {};
     for(var x in req.body){
         if(x != '_id' && x != 'portrait_url')
             newData[x] = req.body[x];
     }
     if(req.file){
-        Student.findOne(condition, (err, result) => {
-            if(err){
-                res.send(err)
-            }else{
-                var renameFile = function(portrait, _id){
-                    var tempPath = portrait.path;
-                    var ext = '.' + portrait.originalname.split('.')[1];
-                    var newFullFileName = 'portrait_' + _id + ext;
-                    var newFilePath = './public/userUploaded/portraits/' + newFullFileName;
-                    fs.rename(tempPath, newFilePath, (err,data) => {
-                        if (err) throw err;
-                        console.log('头像改名成功');
-                        Student.updateOne({'_id': _id}, {'portrait_url' : '/userUploaded/portraits/' + newFullFileName}, (err, result) => {
-                            if (err) throw err;
-                            console.log('修改头像路径成功');
-                        })
+        Curd.findOne(Student, {
+            _id: req.body._id
+        }, (doc)=> {
+                var oldFilePath = path.join(__dirname, '../public' + doc.portrait_url);
+                Curd.removeFile(oldFilePath);
+                Curd.renameFile(req.file, './public/userUploaded/portraits/', 'portrait_' + doc._id, (filePath, fileName)=> {
+                    Curd.update(Student, {
+                        _id: doc._id
+                    }, {
+                        'portrait_url' : '/userUploaded/portraits/' + fileName
                     });
-                }
-                var oldFilePath = path.join(__dirname, '../public' + result.portrait_url);
-                if(fs.existsSync(oldFilePath)){
-                    fs.unlink(oldFilePath, (err) => {
-                        if(err){
-                            res.send(err);
-                        }else{
-                            renameFile(req.file, req.body._id);
-                        }
-                    });
-                }else{
-                    renameFile(req.file, req.body._id);
-                }
-            }
+                });
         });
     }
-    Student.update(condition, {$set: newData}, (err, result) => {
-        if(err){
-            res.send(err)
-        }else{
-            res.send('<script>window.top.$.tipsShow({code: 0, msg: "修改成功"});window.top.$("#modal_student_update").modal("hide");window.top.$("#studentList").bootstrapTable("refresh");</script>');
-        }
+    Curd.update(Student, {
+        _id: req.body._id
+    }, newData, (doc)=> {
+        res.send('<script>window.top.$.tipsShow({code: 0, msg: "修改成功"});window.top.$("#modal_student_update").modal("hide");window.top.$("#studentList").bootstrapTable("refresh");</script>');
     });
 });
 // 删除单个学籍信息
 router.post('/delete', (req, res, next) => {
     console.log('/student/delete');
-    console.log(req.body);
-    Student.remove(req.body, (err, result) => {
-        if(err){
-            res.send(err)
-        }else{
-            var full_portrait_path = path.join(__dirname, '../public' + req.body.portrait_url);
-            fs.unlink(full_portrait_path, (err) => {
-                if(err){
-                    res.send(err)
-                }else{
-                    var sender = new Sender({
-                        msg: '删除成功'
-                    }).getData();
-                    res.send(sender);
-                }
-            });
-        }
-    });
+    Curd.remove(Student, {
+        _id: req.body._id
+    }, (doc)=> {
+        var portrait_path = path.join(__dirname, '../public' + req.body.portrait_url);
+        Curd.removeFile(portrait_path, (doc)=> {
+            var sender = new Sender({
+                msg: '删除成功'
+            }).getData();
+            res.send(sender);
+        });
+    })
 });
 
 // 学籍管理页
 router.get('/list', (req, res, next) => {
     console.log('/student/list');
-    console.log(req.body);
     res.render('student/student_list', {title: '学籍管理'});
 });
 // 学籍列表
 router.post('/list/get', (req, res, next) => {
     console.log('/student/list/get');
-    console.log(req.body);
-    var offset = parseInt(req.body.offset);
-    var pageSize = parseInt(req.body.limit);
-    var order = req.body.order;
-    var sort = {};
-    var condition = {};
-    var $and = [];
-    for(var x in req.body){
-        if(x != 'offset' && x != 'limit' && x != 'order' && x != 'sort' && req.body[x]){
-            let param = {};
-            param[x] = new RegExp(req.body[x], 'i');
-            $and.push(param);
-        }
-    }
-    if($and.length){
-        condition['$and'] = $and;
-    }
-    if(order == 'asc')
-        sort[req.body.sort] = 1;
-    else
-        sort[req.body.sort] = -1;
-    console.log(condition);
-    var query = Student.find(condition);
-    query.skip(offset).limit(pageSize).sort(sort).exec((err, rs) => {
-        if(err){
-            res.send(err);
-        }else{
-            Student.find((err,result) => {
-                res.send({
-                    total: result.length,
-                    rows: rs
-                });
-            });
-        }
+    Curd.getList(Student, req.body, {
+        offset: parseInt(req.body.offset),
+        pageSize: parseInt(req.body.limit),
+        sort: req.body.sort,
+        order: req.body.order
+    }, (doc, count) => {
+        res.send({
+            total: count,
+            rows: doc
+        });
     });
 });
 // 学籍信息查询页
 router.get('/search', (req, res, next) => {
     console.log('/student/search');
-    console.log(req.query);
     var bgcolor = req.query.bgcolor;
     if(bgcolor && bgcolor.indexOf('#') == -1)bgcolor = '#'+bgcolor;
     res.render('student/student_search', {
@@ -231,67 +151,47 @@ router.get('/search', (req, res, next) => {
     });
 });
 
-
 var getStudentInfo = function(condition, res, encode){
+    console.log(condition);
     if(encode)
         condition._id = new Buffer(condition._id + '', 'base64').toString();
     console.log('func: getStudentInfo');
-    console.log(condition);
-    Template.findOne({
+    Curd.findOne(Template, {
         _id: 'report_template'
-    }, (err, result) => {
-        if(err){
-            throw err;
-        }else{
-            var templateConfig = {};
-            if(result){
-                templateConfig = result;
-            } 
-            Student.findOne(condition, (err, result) => {
-                if(err){
-                    res.send(err)
-                }else if(result){
-                    // var _idMask = new Buffer(result._id + '').toString('base64');
-                    var sendData = result
-                    var d = new Date();
-                    var date = d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();
-                    sendData.printDate = date;
-                    var searchWebsite = 'http://www.chsecon.com';
-                    sendData.searchWebsite = searchWebsite;
-                    sendData.checkWebsite = checkWebsite;
-                    var checkWebsite = 'http://search.chsecon.com/student/report/' + result.report_code;
-                    sendData.checkWebsite = checkWebsite;
-        
-                    res.render('student/student_report', {
-                        studentInfo: sendData,
-                        templateConfig: templateConfig
-                    });
-                }
+    }, (doc)=> {
+        doc = doc || {};
+        Curd.findOne(Student, condition, (doc2)=> {
+            var d = new Date();
+            var date = d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();
+            doc2.printDate = date;
+            var searchWebsite = 'http://www.chsecon.com';
+            doc2.searchWebsite = searchWebsite;
+            var checkWebsite = 'http://search.chsecon.com/student/report/' + doc2.report_code;
+            doc2.checkWebsite = checkWebsite;
+            res.render('student/student_report', {
+                studentInfo: doc2,
+                templateConfig: doc
             });
-        }
+        }); 
     });
 }
 router.post('/print', (req, res, next) => {
     console.log('/student/print');
-    console.log(req.body);
     getStudentInfo(req.body, res, false);
 });
 
 router.get('/co/:_id', (req, res, next) => {
     console.log('/student/co');
-    console.log(req.params);
     getStudentInfo(req.params, res, true);
 });
 
 router.get('/report/:report_code', (req, res, next) => {
     console.log('/student/report');
-    console.log(req.params);
     getStudentInfo(req.params, res);
 });
 
 router.get('/getQrcode/:_id', (req, res, next) => {
     console.log('/student/getQrcode');
-    console.log(req.params);
     var _idMask = new Buffer(req.params._id + '').toString('base64');
     var text = 'http://search.chsecon.com/student/co/' + _idMask;
     try {

@@ -5,7 +5,8 @@ link(rel='stylesheet', href='/stylesheets/template.css')
     .config_wrap
         form#form_report_config(action="#{templateConfig._id?'/report/template/update':'/report/template/save' }", method="post", enctype="multipart/form-data", target="iframe_reportConfig")
             p.configTitle 前言
-            input(type="hidden", name="_id", value="#{templateConfig._id}")
+            if templateConfig._id
+                input(type="hidden", name="_id", value="#{templateConfig._id}")
             .form-group
                 label 文字：
                 textarea.form-control(name="preface_text", rows="5") #{templateConfig.preface_text}

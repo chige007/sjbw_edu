@@ -81,16 +81,21 @@ $(function(){
             events : {//设置操作按钮事件
                 'click .remove': function (e, value, row, index){
                     e.stopPropagation();
-                    $.myAjax({
-                        url: '/school/delete',
-                        data: {
-                            _id: value
-                        },
-                        success: function(d){
-                            $.tipsShow(d);
-                            $("#schoolList").bootstrapTable('refresh');
+                    $.confirmShow({
+                        text: '是否确认删除该信息？',
+                        confirm: function(){
+                            $.myAjax({
+                                url: '/school/delete',
+                                data: {
+                                    _id: value
+                                },
+                                success: function(d){
+                                    $.tipsShow(d);
+                                    $("#schoolList").bootstrapTable('refresh');
+                                }
+                            });
                         }
-                    });
+                    })
                 },
                 'click .update': function (e, value, row, index){
                     e.stopPropagation();

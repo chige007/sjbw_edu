@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-const China = require('./../modules/china');
 
 /* 首页 */
 router.get('/', function(req, res, next) {
@@ -25,6 +24,15 @@ router.get('/acc', function(req, res, next) {
     }else{
         res.redirect("/login");
     }
+});
+/* 添加成功 */
+router.get('/add/success', function(req, res, next) {
+    console.log('/add/success');
+    console.log(req.query);
+    res.render('common/add_success', {
+        listUrl: req.query.listUrl,
+        addUrl: req.query.addUrl
+    });
 });
 
 module.exports = router;

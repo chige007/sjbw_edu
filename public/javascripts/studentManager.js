@@ -135,7 +135,7 @@ $(function(){
                 },
                 'click .check' : function(e, value, row, index){
                     e.stopPropagation();
-                    $('#modal_student_check').modal('show').find('.modal-body').loadingShow().load('/student/get', {'_id': value, 'hasBack': '0'});
+                    $('#modal_student_check').modal('show').find('.modal-body').loadingShow().load('/student/get?hasBack=0', {'_id': value});
                 },
                 'click .update': function (e, value, row, index){
                     e.stopPropagation();
