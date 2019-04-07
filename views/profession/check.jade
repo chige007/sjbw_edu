@@ -8,7 +8,7 @@ html
         link(rel='stylesheet', href='/stylesheets/student_check.css')
     body
         #wrap_table_student_check.profession(style="padding: 15px 30px;")
-            .bigTitle(style="color: #006699;font-size: 26px;font-weight: normal;") 查询结果
+            .bigTitle(style="color: #006699;font-size: 26px;font-weight: normal;") #{sysConfig.pro_searchTitle || '查询结果'}
             table
                 tr
                     td.title 姓名：

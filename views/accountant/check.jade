@@ -6,9 +6,11 @@ html
         meta(name="viewport", content="width=device-width, initial-scale=1")
         title #{title}
         link(rel='stylesheet', href='/stylesheets/student_check.css')
-    body
+    body(style="overflow: hidden;position: relative;")
+        each x in waterMaskCss
+            span.watermark(style="top: #{x[0]}px; left: #{x[1]}px")  #{sysConfig.acc_waterMask || ''}
         #wrap_table_student_check.accountant
-            .bigTitle 会计从业人员详细信息
+            .bigTitle #{sysConfig.acc_searchTitle || '查询结果'}
             table
                 tr
                     td.title 有效身份证件号码：

@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+const Curd = require('./../modules/curd');
+const System = require('./../models/system');
 
 /* 首页 */
 router.get('/', function(req, res, next) {
@@ -32,6 +34,24 @@ router.get('/pro', function(req, res, next) {
         res.render('index_profession', {
             title: '首页',
             username: req.session.username
+        });
+    }else{
+        res.redirect("/login");
+    }
+});
+/* 首页 - 系统设置 */
+router.get('/sys', function(req, res, next) {
+    console.log(req.session.username + '进入首页');
+    if(req.session.username){
+        Curd.findOne(System, {
+            _id: 'systemConfig'
+        }, (doc)=> {
+            doc = doc || {};
+            res.render('system', {
+                title: '系统设置',
+                username: req.session.username,
+                systemConfig: doc
+            });
         });
     }else{
         res.redirect("/login");

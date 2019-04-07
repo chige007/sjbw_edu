@@ -6,6 +6,7 @@ const Sender = require('./../modules/sender');
 const Accountant = require('./../models/accountant');
 const China = require('./../modules/china');
 const Curd = require('./../modules/curd');
+const systemConfig = require('./../modules/system');
 
 var upload = multer({ dest: path.join(__dirname, '../public/userUploaded/portraits')});
 
@@ -62,12 +63,29 @@ router.post('/get', (req, res, next) => {
     console.log('/accountant/get');
     Curd.findOne(Accountant, req.body, (doc) => {
         if(doc){
+            var waterMaskCss = [];
+            var waterMaskCss_start_top = 90;
+            var waterMaskCss_start_left = 10;
+            for(var t = 0 ; t < 6 ; t++){
+                for(var l = 0 ; l < 6 ; l++){
+                    waterMaskCss.push([waterMaskCss_start_top, waterMaskCss_start_left]);
+                    waterMaskCss_start_left += 400;
+                }
+                waterMaskCss_start_top += 220;
+                waterMaskCss_start_left = 10;
+            }
+            console.log(waterMaskCss);
             doc._idMask = new Buffer(doc._id + '').toString('base64');
-            res.render('accountant/check', {
-                title: '信息查询',
-                accountantInfo: doc,
-                hasBack: req.query.hasBack,
-                bgcolor: req.query.bgcolor
+
+            systemConfig.get((sysConfig)=>{
+                res.render('accountant/check', {
+                    title: '信息查询',
+                    accountantInfo: doc,
+                    hasBack: req.query.hasBack,
+                    bgcolor: req.query.bgcolor,
+                    waterMaskCss: waterMaskCss,
+                    sysConfig
+                });
             });
         }else{
             res.render('common/search_none', {

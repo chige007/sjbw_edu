@@ -74,20 +74,23 @@ $(function(){
             field: 'sex',
             title: '性别'
         },{
+            field: 'id_card',
+            title: '身份证号'
+        },{
             field: 'birthday',
             title: '出生日期'
         },{
             field: 'graduate_institutions_name',
             title: '毕业院校'
         },{
-            field: 'education_type',
+            field: 'major',
             title: '专业'
-        },{
-            field: 'edu_level',
-            title: '学历'
-        },{
-            field: 'edu_type',
-            title: '学习形式'
+        // },{
+        //     field: 'edu_level',
+        //     title: '学历'
+        // },{
+        //     field: 'edu_type',
+        //     title: '学习形式'
         },{
             field: 'certificate_num',
             title: '证书编号'

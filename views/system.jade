@@ -1,0 +1,58 @@
+doctype html
+html
+    head
+        include ./common/header_inner.jade
+        link(rel='stylesheet', href='/stylesheets/index.css')
+        style. 
+            .title{
+                display: block;
+                margin-bottom: 20px;
+                color: #337ab7;
+            }
+    body
+        div#app
+            div#header
+                .logoWrap
+                    img.logo(src="/images/sjbw_logo.png", alt="")
+                .userInfo
+                    span 您好！#{username}
+                    a.logout(href="/login/logout") [安全退出]
+                .topMenus
+                    a(href="/").items 学籍信息
+                    a(href="/acc").items 会计信息
+                    a(href="/pro").items 职业技术人才
+                    a.items.active 系统设置
+            form#form_system(style="width: 340px; padding: 30px 20px;")
+                if !systemConfig._id
+                    input(type="hidden", name="_id", value="systemConfig")
+                h4.title 学籍信息 
+                .form-group
+                    label.f-blue 查询标题：
+                    input.form-control(type='text', name="stu_searchTitle", value="#{systemConfig.stu_searchTitle || ''}")
+                hr
+                h4.title 会计信息
+                .form-group
+                    label 查询标题：
+                    input.form-control(type='text', name="acc_searchTitle", value="#{systemConfig.acc_searchTitle || ''}")
+                .form-group
+                    label 查询水印文字：
+                    input.form-control(type='text', name="acc_waterMask", value="#{systemConfig.acc_waterMask || ''}")
+                h4.title 职业技术人才
+                .form-group
+                    label 查询标题：
+                    input.form-control(type='text', name="pro_searchTitle", value="#{systemConfig.pro_searchTitle || ''}")
+                button.btn.btn-primary.submit(type='button') 保存
+    include ./common/body_inner.jade
+    script(src="/javascripts/index.js" type="text/javascript")
+    script.
+        $(function(){
+            $("#form_system .submit").on('click', function(){
+                $.myAjax({
+                    url: "#{!systemConfig._id?'/system/save':'/system/update'}",
+                    data: $("#form_system").serialize(),
+                    success: function(data){
+                        $.tipsShow(data);
+                    }
+                })
+            });
+        });

@@ -15,6 +15,7 @@ var accountantRouter = require('./routes/accountant');
 var professionRouter = require('./routes/profession');
 var schoolRouter = require('./routes/school');
 var reportRouter = require('./routes/report');
+var systemRouter = require('./routes/system');
 
 var app = express();
 
@@ -49,6 +50,7 @@ app.use('/accountant', accountantRouter);
 app.use('/profession', professionRouter);
 app.use('/school', schoolRouter);
 app.use('/report', reportRouter);
+app.use('/system', systemRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

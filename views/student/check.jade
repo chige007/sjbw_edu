@@ -12,7 +12,7 @@ html
             input(type="hidden", name="_idMask", value="#{studentInfo._idMask}")
             table.table_student_check
                 tr 
-                    td.bigTitle(colspan="5") 毕业信息查询结果
+                    td.bigTitle(colspan="5") #{sysConfig.stu_searchTitle}
                 tr
                     td.title 姓名
                     td(colspan="3") #{studentInfo.name}

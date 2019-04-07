@@ -7,6 +7,7 @@ const Sender = require('./../modules/sender');
 const Curd = require('./../modules/curd');
 const Student = require('./../models/student');
 const Template = require('./../models/template');
+const systemConfig = require('./../modules/system');
 
 var upload = multer({ dest: path.join(__dirname, '../public/userUploaded/portraits')});
 
@@ -54,11 +55,14 @@ router.post('/get', (req, res, next) => {
     Curd.findOne(Student, req.body, (doc) => {
         if(doc){
             doc._idMask = new Buffer(doc._id + '').toString('base64');
-            res.render('student/check', {
-                title: '学籍信息查询',
-                studentInfo: doc,
-                hasBack: req.query.hasBack,
-                bgcolor: req.query.bgcolor
+            systemConfig.get((sysConfig)=>{
+                res.render('student/check', {
+                    title: '学籍信息查询',
+                    studentInfo: doc,
+                    hasBack: req.query.hasBack,
+                    bgcolor: req.query.bgcolor,
+                    sysConfig
+                });
             });
         }else{
             res.render('common/search_none', {

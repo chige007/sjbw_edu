@@ -6,6 +6,7 @@ const Sender = require('./../modules/sender');
 const Profession = require('./../models/profession');
 const China = require('./../modules/china');
 const Curd = require('./../modules/curd');
+const systemConfig = require('./../modules/system');
 
 var upload = multer({ dest: path.join(__dirname, '../public/userUploaded/portraits')});
 
@@ -63,11 +64,14 @@ router.post('/get', (req, res, next) => {
     Curd.findOne(Profession, condition, (doc) => {
         if(doc){
             doc._idMask = new Buffer(doc._id + '').toString('base64');
-            res.render('profession/check', {
-                title: '信息查询',
-                professionInfo: doc,
-                hasBack: req.query.hasBack,
-                bgcolor: req.query.bgcolor
+            systemConfig.get((sysConfig)=>{
+                res.render('profession/check', {
+                    title: '信息查询',
+                    professionInfo: doc,
+                    hasBack: req.query.hasBack,
+                    bgcolor: req.query.bgcolor,
+                    sysConfig
+                });
             });
         }else{
             res.render('common/search_none', {
