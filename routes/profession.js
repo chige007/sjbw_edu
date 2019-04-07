@@ -55,7 +55,12 @@ router.post('/save', upload.single('portrait'), (req, res, next) => {
 // 获取单个信息
 router.post('/get', (req, res, next) => {
     console.log('/profession/get');
-    Curd.findOne(Profession, req.body, (doc) => {
+    var condition = {};
+    for(x in req.body){
+        if(req.body[x])
+        condition[x] = req.body[x]
+    }
+    Curd.findOne(Profession, condition, (doc) => {
         if(doc){
             doc._idMask = new Buffer(doc._id + '').toString('base64');
             res.render('profession/check', {
