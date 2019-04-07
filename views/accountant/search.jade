@@ -7,7 +7,7 @@ html
     .tableWrap
         .tableCellWrap
             div.loginBox.acc_searchbox(style="height: 290px")
-                p.title 持证人员查询
+                p.title #{sysConfig.acc_searchBoxTitle || '查询入口'}
                 form#loginForm.form-horizontal(action="/accountant/get?hasBack=1&bgcolor=#{bgcolor && bgcolor.replace('#','')}", method="POST")
                     .form-group
                         label.col-sm-3.control-label(for='id_card') 证件号码：

@@ -9,14 +9,14 @@ $(function(){
                     if(options.loadWrap && !options.noLoading){
                         $(options.loadWrap).loadingShow();
                     }else if(!options.noLoading){
-                        $('body').loadingShow();
+                        $('body').loadingShow('full');
                     }
                 },
                 success: function(d){
                     if(options.loadWrap){
-                        $(options.loadWrap).loadingShow();
+                        $(options.loadWrap).loadingHide();
                     }else{
-                        $('body').loadingShow();
+                        $('body').loadingHide();
                     }
                 }
             };

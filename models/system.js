@@ -2,9 +2,12 @@ var mongoose = require('./../db');
 
 var Schema = new mongoose.Schema({
     _id: {type: String},
+    stu_searchBoxTitle: {type: String},
     stu_searchTitle: {type: String},
+    acc_searchBoxTitle: {type: String},
     acc_searchTitle: {type: String},
     acc_waterMask: {type: String},
+    pro_searchBoxTitle: {type: String},
     pro_searchTitle: {type: String},
     createTime: {
         type: Date,

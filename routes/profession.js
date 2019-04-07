@@ -154,9 +154,12 @@ router.get('/search', (req, res, next) => {
     console.log(req.query);
     var bgcolor = req.query.bgcolor;
     if(bgcolor && bgcolor.indexOf('#') == -1)bgcolor = '#'+bgcolor;
-    res.render('profession/search', {
-        title: '信息查询',
-        bgcolor: bgcolor
+    systemConfig.get((sysConfig)=>{
+        res.render('profession/search', {
+            title: '信息查询',
+            bgcolor: bgcolor,
+            sysConfig
+        });
     });
 });
 

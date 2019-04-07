@@ -27,19 +27,29 @@ html
                     input(type="hidden", name="_id", value="systemConfig")
                 h4.title 学籍信息 
                 .form-group
-                    label.f-blue 查询标题：
+                    label.f-blue 查询入口结果标题：
+                    input.form-control(type='text', name="stu_searchBoxTitle", value="#{systemConfig.stu_searchBoxTitle || ''}")
+                .form-group
+                    label.f-blue 查询结果标题：
                     input.form-control(type='text', name="stu_searchTitle", value="#{systemConfig.stu_searchTitle || ''}")
                 hr
                 h4.title 会计信息
                 .form-group
-                    label 查询标题：
+                    label 查询入口标题：
+                    input.form-control(type='text', name="acc_searchBoxTitle", value="#{systemConfig.acc_searchBoxTitle || ''}")
+                .form-group
+                    label 查询结果标题：
                     input.form-control(type='text', name="acc_searchTitle", value="#{systemConfig.acc_searchTitle || ''}")
                 .form-group
                     label 查询水印文字：
                     input.form-control(type='text', name="acc_waterMask", value="#{systemConfig.acc_waterMask || ''}")
+                hr
                 h4.title 职业技术人才
                 .form-group
-                    label 查询标题：
+                    label 查询入口标题：
+                    input.form-control(type='text', name="pro_searchBoxTitle", value="#{systemConfig.pro_searchBoxTitle || ''}")
+                .form-group
+                    label 查询结果标题：
                     input.form-control(type='text', name="pro_searchTitle", value="#{systemConfig.pro_searchTitle || ''}")
                 button.btn.btn-primary.submit(type='button') 保存
     include ./common/body_inner.jade
@@ -52,6 +62,7 @@ html
                     data: $("#form_system").serialize(),
                     success: function(data){
                         $.tipsShow(data);
+                        $('body').loadingHide();
                     }
                 })
             });

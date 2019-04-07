@@ -7,7 +7,7 @@ html
     .tableWrap
         .tableCellWrap
             div.loginBox.pro_searchbox
-                p.title 中国职业人才岗位能力测评指导中心证书查询系统
+                p.title #{sysConfig.pro_searchBoxTitle || '查询入口'}
                 form#loginForm.form-horizontal(action="/profession/get?hasBack=1", method="POST")
                     .form-group
                         label.col-sm-3.control-label 姓名：
