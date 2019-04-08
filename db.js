@@ -2,7 +2,7 @@
 var mongoose = require("mongoose");
  
 // 连接数据库
-mongoose.connect("mongodb://127.0.0.1:27017/sjbw_edu");
+mongoose.connect("mongodb://127.0.0.1:27017/sjbw_edu", { useNewUrlParser: true });
  
 // 连接失败
 mongoose.connection.on("error", function(err){
