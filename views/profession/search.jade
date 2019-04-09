@@ -29,8 +29,19 @@ html
 script. 
     $(function(){
         var search = function(){
-            $("#loginBtn").text("查询中...");
-            $("#loginForm").submit();
+            var submitFlag = 0;
+            $("#loginForm .form-control").each(function(){
+                if($(this).val())submitFlag+=1;
+            });
+            if(submitFlag >= 2){
+                $("#loginBtn").text("查询中...");
+                $("#loginForm").submit();
+            }else{
+                $.tipsShow({
+                    msg: '输入姓名、身份证号或证书编号其中任两项',
+                    code: 1
+                })
+            }
         };
         $(document.body).on('keyup', function(e){
             if(e.keyCode == 13)
