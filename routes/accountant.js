@@ -63,18 +63,17 @@ router.post('/get', (req, res, next) => {
     console.log('/accountant/get');
     Curd.findOne(Accountant, req.body, (doc) => {
         if(doc){
-            var waterMaskCss = [];
-            var waterMaskCss_start_top = 90;
-            var waterMaskCss_start_left = 10;
-            for(var t = 0 ; t < 6 ; t++){
-                for(var l = 0 ; l < 6 ; l++){
-                    waterMaskCss.push([waterMaskCss_start_top, waterMaskCss_start_left]);
-                    waterMaskCss_start_left += 400;
-                }
-                waterMaskCss_start_top += 220;
-                waterMaskCss_start_left = 10;
-            }
-            console.log(waterMaskCss);
+            // var waterMaskCss = [];
+            // var waterMaskCss_start_top = 90;
+            // var waterMaskCss_start_left = 10;
+            // for(var t = 0 ; t < 6 ; t++){
+            //     for(var l = 0 ; l < 6 ; l++){
+            //         waterMaskCss.push([waterMaskCss_start_top, waterMaskCss_start_left]);
+            //         waterMaskCss_start_left += 400;
+            //     }
+            //     waterMaskCss_start_top += 220;
+            //     waterMaskCss_start_left = 10;
+            // }
             doc._idMask = new Buffer(doc._id + '').toString('base64');
 
             systemConfig.get((sysConfig)=>{
@@ -83,7 +82,7 @@ router.post('/get', (req, res, next) => {
                     accountantInfo: doc,
                     hasBack: req.query.hasBack,
                     bgcolor: req.query.bgcolor,
-                    waterMaskCss: waterMaskCss,
+                    // waterMaskCss: waterMaskCss,
                     sysConfig
                 });
             });
