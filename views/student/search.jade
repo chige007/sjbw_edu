@@ -9,6 +9,8 @@ html
             div.loginBox(style="height: 290px")
                 p.title #{sysConfig.stu_searchBoxTitle || '查询入口'}
                 form#loginForm.form-horizontal(action="/student/get?hasBack=1&bgcolor=#{bgcolor && bgcolor.replace('#','')}", method="POST")
+                    if school_code
+                        input(type="hidden", value="#{school_code }", name="graduate_institutions")
                     .form-group
                         label.col-sm-3.control-label(for='name') 姓　名：
                         .col-sm-9 

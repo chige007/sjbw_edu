@@ -88,9 +88,8 @@ router.post('/get', (req, res, next) => {
             });
         }else{
             res.render('common/search_none', {
-                bgcolor: req.query.bgcolor,
                 tips: '没有找到相关信息！',
-                backUrl: '/accountant/search'
+                backUrl: '/accountant/search?bgcolor='+req.query.bgcolor
             });
         }
     });

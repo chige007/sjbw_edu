@@ -52,6 +52,7 @@ router.post('/add', upload.single('portrait'), (req, res, next) => {
 // 获取单个学籍信息
 router.post('/get', (req, res, next) => {
     console.log('/student/get');
+    console.log(req.body);
     Curd.findOne(Student, req.body, (doc) => {
         if(doc){
             doc._idMask = new Buffer(doc._id + '').toString('base64');
@@ -61,6 +62,7 @@ router.post('/get', (req, res, next) => {
                     studentInfo: doc,
                     hasBack: req.query.hasBack,
                     bgcolor: req.query.bgcolor,
+                    school_code: req.body.graduate_institutions,
                     sysConfig
                 });
             });
@@ -68,7 +70,7 @@ router.post('/get', (req, res, next) => {
             res.render('common/search_none', {
                 bgcolor: req.query.bgcolor,
                 tips: '没有该学生的学籍信息！',
-                backUrl: '/student/search'
+                backUrl: '/student/search?bgcolor='+req.query.bgcolor+'&school_code='+req.body.graduate_institutions
             });
         }
     });
@@ -142,11 +144,13 @@ router.post('/list/get', (req, res, next) => {
 // 学籍信息查询页
 router.get('/search', (req, res, next) => {
     console.log('/student/search');
+    console.log(req.query);
     var bgcolor = req.query.bgcolor;
     if(bgcolor && bgcolor.indexOf('#') == -1)bgcolor = '#'+bgcolor;
     systemConfig.get((sysConfig)=>{
         res.render('student/search', {
             title: '学籍信息查询',
+            school_code: req.query.school_code,
             bgcolor: bgcolor,
             sysConfig
         });
