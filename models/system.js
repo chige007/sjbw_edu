@@ -9,6 +9,7 @@ var Schema = new mongoose.Schema({
     acc_waterMask: {type: String},
     pro_searchBoxTitle: {type: String},
     pro_searchTitle: {type: String},
+    pro_waterMask: {type: String},
     createTime: {
         type: Date,
         default: Date.now

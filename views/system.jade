@@ -22,36 +22,40 @@ html
                     a(href="/acc").items 会计信息
                     a(href="/pro").items 职业技术人才
                     a.items.active 系统设置
-            form#form_system(style="width: 340px; padding: 30px 20px;")
-                if !systemConfig._id
-                    input(type="hidden", name="_id", value="systemConfig")
-                h4.title 学籍信息 
-                .form-group
-                    label.f-blue 查询入口结果标题：
-                    input.form-control(type='text', name="stu_searchBoxTitle", value="#{systemConfig.stu_searchBoxTitle || ''}")
-                .form-group
-                    label.f-blue 查询结果标题：
-                    input.form-control(type='text', name="stu_searchTitle", value="#{systemConfig.stu_searchTitle || ''}")
-                hr
-                h4.title 会计信息
-                .form-group
-                    label 查询入口标题：
-                    input.form-control(type='text', name="acc_searchBoxTitle", value="#{systemConfig.acc_searchBoxTitle || ''}")
-                .form-group
-                    label 查询结果标题：
-                    input.form-control(type='text', name="acc_searchTitle", value="#{systemConfig.acc_searchTitle || ''}")
-                .form-group
-                    label 查询水印文字：
-                    input.form-control(type='text', name="acc_waterMask", value="#{systemConfig.acc_waterMask || ''}")
-                hr
-                h4.title 职业技术人才
-                .form-group
-                    label 查询入口标题：
-                    input.form-control(type='text', name="pro_searchBoxTitle", value="#{systemConfig.pro_searchBoxTitle || ''}")
-                .form-group
-                    label 查询结果标题：
-                    input.form-control(type='text', name="pro_searchTitle", value="#{systemConfig.pro_searchTitle || ''}")
-                button.btn.btn-primary.submit(type='button') 保存
+            div(style="height: 100%;overflow:auto;")
+                form#form_system(style="width: 340px; padding: 30px 20px;")
+                    if !systemConfig._id
+                        input(type="hidden", name="_id", value="systemConfig")
+                    h4.title 学籍信息 
+                    .form-group
+                        label.f-blue 查询入口结果标题：
+                        input.form-control(type='text', name="stu_searchBoxTitle", value="#{systemConfig.stu_searchBoxTitle || ''}")
+                    .form-group
+                        label.f-blue 查询结果标题：
+                        input.form-control(type='text', name="stu_searchTitle", value="#{systemConfig.stu_searchTitle || ''}")
+                    hr
+                    h4.title 会计信息
+                    .form-group
+                        label 查询入口标题：
+                        input.form-control(type='text', name="acc_searchBoxTitle", value="#{systemConfig.acc_searchBoxTitle || ''}")
+                    .form-group
+                        label 查询结果标题：
+                        input.form-control(type='text', name="acc_searchTitle", value="#{systemConfig.acc_searchTitle || ''}")
+                    .form-group
+                        label 查询水印文字：
+                        input.form-control(type='text', name="acc_waterMask", value="#{systemConfig.acc_waterMask || ''}")
+                    hr
+                    h4.title 职业技术人才
+                    .form-group
+                        label 查询入口标题：
+                        input.form-control(type='text', name="pro_searchBoxTitle", value="#{systemConfig.pro_searchBoxTitle || ''}")
+                    .form-group
+                        label 查询结果标题：
+                        input.form-control(type='text', name="pro_searchTitle", value="#{systemConfig.pro_searchTitle || ''}")
+                    .form-group
+                        label 查询水印文字：
+                        input.form-control(type='text', name="pro_waterMask", value="#{systemConfig.pro_waterMask || ''}")
+                    button.btn.btn-primary.submit(type='button') 保存
     include ./common/body_inner.jade
     script(src="/javascripts/index.js" type="text/javascript")
     script.
