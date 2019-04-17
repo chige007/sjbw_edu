@@ -77,7 +77,7 @@ router.post('/get', (req, res, next) => {
             systemConfig.get((sysConfig)=>{
                 const attributes = {fill: '#ddd', transform: 'rotate(-26)'};
                 const options = {x: -85, y: 160, fontSize: 31, anchor: 'top', attributes: attributes};
-                const svg = myTextToSVG.getSVG(sysConfig.acc_waterMask, options);
+                const svg = myTextToSVG.getSVG(sysConfig.pro_waterMask, options);
                 const waterMaskImg = svgToDataURL(svg)
 
                 res.render('profession/check', {
