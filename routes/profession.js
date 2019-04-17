@@ -12,10 +12,10 @@ const systemConfig = require('./../modules/system');
 
 const myTextToSVG = textToSvg.loadSync('modules/font/HYDaHeiJ.ttf');
 myTextToSVG.getWidth = function(){
-    return 400;
+    return 560;
 }
 myTextToSVG.getHeight = function(){
-    return 210;
+    return 280;
 }
 
 var upload = multer({ dest: path.join(__dirname, '../public/userUploaded/portraits')});
@@ -76,7 +76,7 @@ router.post('/get', (req, res, next) => {
             doc._idMask = new Buffer(doc._id + '').toString('base64');
             systemConfig.get((sysConfig)=>{
                 const attributes = {fill: '#ddd', transform: 'rotate(-26)'};
-                const options = {x: -85, y: 160, fontSize: 31, anchor: 'top', attributes: attributes};
+                const options = {x: -100, y: 230, fontSize: 31, anchor: 'top', attributes: attributes};
                 const svg = myTextToSVG.getSVG(sysConfig.pro_waterMask, options);
                 const waterMaskImg = svgToDataURL(svg)
 
