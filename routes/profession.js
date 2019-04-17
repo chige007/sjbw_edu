@@ -2,11 +2,21 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var multer  = require('multer');
+var textToSvg = require('text-to-svg')
+const svgToDataURL = require('svg-to-dataurl')
 const Sender = require('./../modules/sender');
 const Profession = require('./../models/profession');
 const China = require('./../modules/china');
 const Curd = require('./../modules/curd');
 const systemConfig = require('./../modules/system');
+
+const myTextToSVG = textToSvg.loadSync('modules/font/HYDaHeiJ.ttf');
+myTextToSVG.getWidth = function(){
+    return 400;
+}
+myTextToSVG.getHeight = function(){
+    return 210;
+}
 
 var upload = multer({ dest: path.join(__dirname, '../public/userUploaded/portraits')});
 
@@ -65,12 +75,18 @@ router.post('/get', (req, res, next) => {
         if(doc){
             doc._idMask = new Buffer(doc._id + '').toString('base64');
             systemConfig.get((sysConfig)=>{
+                const attributes = {fill: '#ddd', transform: 'rotate(-26)'};
+                const options = {x: -85, y: 160, fontSize: 31, anchor: 'top', attributes: attributes};
+                const svg = myTextToSVG.getSVG(sysConfig.acc_waterMask, options);
+                const waterMaskImg = svgToDataURL(svg)
+
                 res.render('profession/check', {
                     title: '信息查询',
                     professionInfo: doc,
                     hasBack: req.query.hasBack,
                     bgcolor: req.query.bgcolor,
-                    sysConfig
+                    sysConfig,
+                    waterMaskImg
                 });
             });
         }else{
