@@ -63,14 +63,18 @@ router.post('/get', (req, res, next) => {
                     hasBack: req.query.hasBack,
                     bgcolor: req.query.bgcolor,
                     school_code: req.body.graduate_institutions,
+                    website_belong: req.body.website_belong,
                     sysConfig
                 });
             });
         }else{
+            var query_bgcolor = req.query.bgcolor ? 'bgcolor='+req.query.bgcolor : ''
+            var query_graduate_institutions = req.body.graduate_institutions ? 'school_code='+req.body.graduate_institutions : ''
+            var query_website_belong = req.body.website_belong ? 'website_belong='+ req.body.website_belong : ''
             res.render('common/search_none', {
                 bgcolor: req.query.bgcolor,
                 tips: '没有该学生的学籍信息！',
-                backUrl: '/student/search?bgcolor='+req.query.bgcolor+'&school_code='+req.body.graduate_institutions
+                backUrl: '/student/search?'+ query_bgcolor + '&' + query_graduate_institutions + '&' + query_website_belong
             });
         }
     });
@@ -151,6 +155,7 @@ router.get('/search', (req, res, next) => {
         res.render('student/search', {
             title: '学籍信息查询',
             school_code: req.query.school_code,
+            website_belong: req.query.website_belong,
             bgcolor: bgcolor,
             sysConfig
         });

@@ -6,6 +6,8 @@ var Schema = new mongoose.Schema({
     report_code: {type: Number, default: 0},
     // 学校编号
     school_code: {type: String},
+    // 所属网站
+    website_belong: {type: String},
     // 姓名
     name: {type: String},
     // 性别

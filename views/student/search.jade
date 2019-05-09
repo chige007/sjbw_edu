@@ -11,6 +11,8 @@ html
                 form#loginForm.form-horizontal(action="/student/get?hasBack=1&bgcolor=#{bgcolor && bgcolor.replace('#','')}", method="POST")
                     if school_code
                         input(type="hidden", value="#{school_code }", name="graduate_institutions")
+                    if website_belong
+                        input(type="hidden", value="#{website_belong }", name="website_belong")
                     .form-group
                         label.col-sm-3.control-label(for='name') 姓　名：
                         .col-sm-9 

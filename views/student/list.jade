@@ -6,19 +6,25 @@
         //- button.btn.btn-default(type='button') 
         //-     span.glyphicon.glyphicon-remove
         //-     | 批量删除
-        button.btn.btn-default(type='button', onclick="$('#studentList').bootstrapTable('refresh')")
+        button.btn.btn-default(type='button', onclick="$('#studentList').bootstrapTable('refresh');$('#toolbar_studentList .searchBar')[0].reset()")
             span.glyphicon.glyphicon-repeat
             | 刷新
     form.searchBar.form-inline
         .form-group
-            label(for='exampleInputName2') 姓名
-            input#exampleInputName2.form-control(type='text', placeholder='请填写', name='name')
+            label 所属网站
+            select.form-control(name="website_belong", value="")
+                option(value="", selected="selected") 全部
+                option(value="zhongguo") 中国中等教育学生信息网
+                option(value="hainan") 海南中等教育学生信息网
         .form-group
-            label(for='exampleInputEmail2') 证书编号
-            input#exampleInputEmail2.form-control(type='text', placeholder='请填写', name='certificate_num')
+            label 姓名
+            input.form-control(type='text', placeholder='请填写', name='name')
         .form-group
-            label(for='exampleInputEmail2') 毕业时间
-            input#exampleInputEmail2.form-control(type='date', placeholder='请选择', name='graduation_date')
+            label 证书编号
+            input.form-control(type='text', placeholder='请填写', name='certificate_num')
+        //- .form-group
+        //-     label(for='exampleInputEmail2') 毕业时间
+        //-     input#exampleInputEmail2.form-control(type='date', placeholder='请选择', name='graduation_date')
         button.searchBtn.btn.btn-primary(type='button') 查询
 
 table#studentList
