@@ -149,8 +149,9 @@ $(function(){
                     var form = $(this).closest('form').eq(0);
                     var params = {};
                     $(form).find('[name]').each(function(i, e){
-                        params[$(this).attr('name')] = $(this).val();
+                        params[$(this).attr('name')] = $.trim($(this).val());
                     });
+                    $(table).bootstrapTable('selectPage', 1);
                     $(table).bootstrapTable('refresh', {
                         query: params
                     });

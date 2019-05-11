@@ -101,7 +101,7 @@ const curd = {
                     error(err);
                 }
             }else{
-                curd.count(model, {}, (count) => {
+                curd.count(model, condition, (count) => {
                     (typeof success == 'function') && success(doc, count);
                 });
             }

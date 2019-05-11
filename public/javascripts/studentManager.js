@@ -1,9 +1,11 @@
 $(function(){
+    // 报告
     $('#modal_student_check .report').on('click', function(){
         $("#modal_student_report").modal('show');
         if($("#form_student_print"))
             $("#form_student_print").submit();
     });
+    // 打印
     $('#modal_student_report .print').on('click', function(){
         $("#iframe_student_report").contents().find("body").focus().print({
             globalStyles: false,
@@ -15,6 +17,7 @@ $(function(){
             operaSupport: false
         });
     });
+    // 下载
     $('#modal_student_report .download').on('click', function(){
         $("#iframe_student_report").contents().scrollTop(0);
         var pdf = new jsPDF('p', 'mm', 'a4'); 
@@ -25,7 +28,7 @@ $(function(){
             pdf.output("save", filename)
         })
     });
-
+    // 二维码
     $('#modal_student_report .printQrcode').on('click', function(){
         $("#iframe_student_report").contents().find("#student_print").addClass("onlyQrcode");
         $("#iframe_student_report").contents().find("body").focus().print({
@@ -39,19 +42,21 @@ $(function(){
         });
         $("#iframe_student_report").contents().find("#student_print").removeClass("onlyQrcode");
     });
-
+    // 关闭报告
     $("#modal_student_report").on('hidden.bs.modal', function(){
         $(this).find('.print').attr('disabled', 'disabled');
         $(this).find('.download').attr('disabled', 'disabled');
         $(this).find('.modal-header .modal-title').text('认证报告');
     });
+    // 查看信息
     $("#modal_student_check").on('hidden.bs.modal', function(){
         $(this).find('.modal-body').empty();
     });
+    // 更新信息
     $("#modal_student_update").on('hidden.bs.modal', function(){
         $(this).find('.modal-body').empty();
     });
-
+    // 初始化表格
     $('#studentList').initTable({
         // search: true,//是否有关键字查询
         sort : 'updateTime',
