@@ -14,7 +14,7 @@ var certificate = fs.readFileSync('./ssl_key/file.crt', 'utf8');
 var credentials = {key: privateKey, cert: certificate};
 var server = http.createServer(app);
 var server_https = https.createServer(credentials, app);
-var PORT = 80;
+var PORT = 3000;
 var SSLPORT = 443;
 
 /**
